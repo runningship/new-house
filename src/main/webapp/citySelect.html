@@ -1,0 +1,38 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/city/jquery.cityselect.js"></script>
+<script type="text/javascript" src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+<script type="text/javascript">
+var myprovince = remote_ip_info['province'];
+var mycity = remote_ip_info['city']
+var mydistrict = remote_ip_info['district'];
+$(function(){
+	$("#city_1").citySelect({
+		prov:myprovince, 
+    	city:mycity
+	});
+	
+});
+</script>
+</head>
+
+<body>
+
+<div id="main">
+  <h2 class="top_title"><a href="http://www.helloweba.com/view-blog-190.html">根据IP定位用户所在城市信息</a></h2>
+  
+  <div class="demo">
+  	<h3>调用新浪IP库接口</h3>
+    <p>您所在的城市是：<script>document.write(myprovince+' '+mycity);</script></p>
+  	<div id="city_1">
+  		<select class="prov"></select> 
+    	<select class="city"></select>
+    </div>
+  </div>
+</div>
+</body>
+</html>

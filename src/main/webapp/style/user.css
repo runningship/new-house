@@ -1,0 +1,75 @@
+
+h1,h2,h3,h4,h5{ font-weight:normal;}
+
+.user{ margin-left:-1px;border: 1px solid #dcdcdc; width:100%; display:inline-block; margin-top:20px;}
+
+
+
+.userLeft{ width:180px; float:left;background-color: #ebebeb; min-height:500px;}
+
+.userLeft h2{ display:block; font-size:18px; text-align:center; line-height:50px;background-color: #f3f3f3;}
+
+.txImg{ display:inline-block; width:100px; height:90px; padding:20px 0 20px 0; text-align:center;}
+
+.txImg img{ width:100px; height:90px;}
+
+.userLeft div{ width:100%; display:inline-block; text-align:center; border-bottom:1px solid #e0e0e0; border-top:1px solid #f9f9f9;}
+
+.userLeft div a{ display:inline-block; width:100%; height:35px; line-height:35px; color:#333333; font-weight:bold;}
+
+.userLeft div a:hover, .userLeft div a.sel{ background-color:#ff6000; color:#ffffff;}
+
+
+.userRight{ width:800px; float:left;background-color: #ffffff; margin:10px; font-family:"宋体";}
+
+.userRight .tit{ line-height:35px; color:#555555; display:inline-block;}
+
+.userRight .tit a{ color:#555555;}
+
+.userRight .tit span{ color:#ff6000;}
+
+.userRight .con{ width:100%; display:inline-block;}
+
+.userRight .con .txImg{ height:auto; margin:20px 0 0 130px; float:left;}
+
+.userRight .con .txImg a{ line-height:30px; color:#666666;}
+
+.userRight .con .txImg a:hover{ color:#ff6000;}
+
+.user_inforight{ float:left; margin:35px 0 0 20px; line-height:25px; color:#555555;}
+
+
+.user_moreinfo{ width:100%;  border-top:1px dashed #e0e0e0; float:left; padding-top:30px;}
+
+
+.user_moreinfo .table {
+    color: #595959;
+    margin-left: 120px;
+    margin-top: 50px;
+}
+.user_moreinfo .table td {
+    padding: 8px 0;
+}
+
+.user_moreinfo .table img {
+    vertical-align: middle;
+}
+
+.user_moreinfo .table a {
+    color: #ff6600;
+}
+
+.user_moreinfo h2 {
+    background-color: #b3b3b3;
+    color: white;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 14px;
+    padding: 6px 8px;
+}
+
+
+.fkTable td{ border:1px solid #ffffff; padding:0 5px;}
+
+.fkTable td.t{ color:#666666;}

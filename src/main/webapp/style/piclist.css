@@ -1,0 +1,108 @@
+
+.section-inner {
+    color: #515151;
+    width: 100%;
+}
+
+.breadcrumbs-wrap {
+    padding: 10px 2px;
+}
+
+
+.breadcrumbs-wrap .breadcrumb a {
+    color: #8b8b8b;
+}
+
+.breadcrumbs-wrap .breadcrumb a:hover {
+    color: #ef4923;
+}
+
+.breadcrumbs-wrap .breadcrumb span {
+    color: #515151;
+}
+
+.house-title {
+	display:inline-block;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    color: #434343;
+    font-family: microsoft yahei,simsun;
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.house-title .house-name{
+    float: left;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+
+.house-title .house-name a {
+    color: #434343;
+}
+
+.house-title .house-name small{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+.house-title .house-name small em{
+    color: #ef4923;
+    font: 700 24px "Microsoft Yahei";
+    margin: 0 6px;
+}
+
+.house-photo-list .content {
+    padding: 30px 0 0;
+}
+
+.house-photo-list .tabs {
+    padding-bottom: 30px;
+}
+
+.tabs .tabs-item {
+    color: #515151;
+    font-family: microsoft yahei,simsun;
+    font-size: 14px;
+}
+
+.tabs .current {
+    color: #ef4923 !important;
+    font-weight: 700;
+}
+
+.tabs .sep {
+    color: #c1c1c1;
+    font-size: 14px;
+    margin: 0 10px;
+}
+
+.photo-list-wrap {
+    overflow: hidden;
+    width: 100%;
+}
+
+.photo-list-wrap ul{ margin-left:-10px;}
+
+
+.photo-list .list-item {
+    cursor: pointer;
+    float: left;
+    margin: 0 0 15px 10px;
+}
+
+.photo-list img {
+    height: 142px;
+    width: 243px;
+}
+
+
+.photo-list .title {
+    color: #515151;
+    font-size: 14px;
+    line-height: 44px;
+    text-align: center;
+}
