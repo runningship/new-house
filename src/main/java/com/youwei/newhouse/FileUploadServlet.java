@@ -23,12 +23,15 @@ import org.bc.sdak.utils.LogUtil;
 
 import com.youwei.newhouse.cache.ConfigCache;
 import com.youwei.newhouse.entity.HouseImage;
+import com.youwei.newhouse.util.ImageHelper;
 
 public class FileUploadServlet extends HttpServlet {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static final int MAX_SIZE = 1024000*5;
-//	static final String BaseFileDir = "F:\\temp\\upload";
-	static final String BaseFileDir = ConfigCache.get("upload_path", "");
+	public static final String BaseFileDir = ConfigCache.get("house_image_path", "");
 	String rootPath, successMessage;
 
 	public void init(ServletConfig config) throws ServletException {
@@ -72,25 +75,24 @@ public class FileUploadServlet extends HttpServlet {
 				if(item.getSize()<=0){
 					throw new RuntimeException("no file selected.");
 				}else{
+					
+					if(item.getSize()>=MAX_SIZE){
+						throw new RuntimeException("file size exceed 5M");
+					}
 					if("main".equals(type)){
 						//主图片只有一张
 						SimpDaoTool.getGlobalCommonDaoService().execute("delete from HouseImage where estateUUID=? and type='main'" , estateId);
 					}
-					if("touxiang".equals(type)){
-						//头像只有一张
-						SimpDaoTool.getGlobalCommonDaoService().execute("delete from HouseImage where estateUUID=? and type='touxiang'" , estateId);
-					}
-					if(item.getSize()>=MAX_SIZE){
-						throw new RuntimeException("file size exceed 5M");
-					}else{
-						
-						String imgDir = BaseFileDir+File.separator +request.getServletContext().getContextPath();
-						image.path=request.getServletContext().getContextPath()+  File.separator + estateId + File.separator + item.getName();
-						image.path = image.path.replace("#", "d");
-						FileUtils.copyInputStreamToFile(item.getInputStream(), new File(imgDir
-								+  File.separator + estateId + File.separator + item.getName().replace("#", "d")));
-						LogUtil.info("uploading file "+ item.getName()+" to "+imgDir);
-					}
+					String imgDir = BaseFileDir+File.separator +estateId;
+					image.path=item.getName();
+					image.path = image.path.replace("#", "d");
+					String originalPath = imgDir + File.separator + image.path;
+					String savePath = originalPath+".x.jpg";
+					String thumbPath = originalPath+".t.jpg";
+					FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath));
+					ImageHelper.resize(savePath, 0, 0, savePath , 0.75f);
+					ImageHelper.resize(savePath, 270, 270, thumbPath , 1.0f);
+					LogUtil.info("uploading file "+ item.getName()+" to "+imgDir);
 				}
 				image.estateUUID = estateId;
 				image.type = type;

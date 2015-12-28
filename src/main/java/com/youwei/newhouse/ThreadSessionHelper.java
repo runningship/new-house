@@ -55,7 +55,7 @@ public class ThreadSessionHelper {
    
     public static String getCity(){
     	HttpSession session = ThreadSession.getHttpSession();
-    	String city = (String)session.getAttribute(FjbConstant.Session_Attr_City);
+    	String city = (String)session.getAttribute(Constants.Session_Attr_City);
     	if(StringUtils.isEmpty(city)){
     		
     	}

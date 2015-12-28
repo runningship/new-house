@@ -1,9 +1,12 @@
 package com.youwei.newhouse.admin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
@@ -15,6 +18,8 @@ import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
 import org.bc.web.WebMethod;
 
+import com.youwei.newhouse.Constants;
+import com.youwei.newhouse.FileUploadServlet;
 import com.youwei.newhouse.ThreadSessionHelper;
 import com.youwei.newhouse.entity.Config;
 import com.youwei.newhouse.entity.Estate;
@@ -81,53 +86,32 @@ public class EstateService {
 	@WebMethod
 	public ModelAndView update(Estate estate){
 		ModelAndView mv = new ModelAndView();
-		checkEstate(estate);
 		Estate po = dao.get(Estate.class, estate.id);
 		po.quyu = estate.quyu;
 		po.name = estate.name;
 		po.tel = estate.tel;
 		po.junjia = estate.junjia;
-		po.tejia = estate.tejia;
 		po.opentime = estate.opentime;
 		po.lxing = estate.lxing;
 		po.wylx = estate.wylx;
-		po.jjtc = estate.jjtc;
 		po.zxiu = estate.zxiu;
-		po.jzmj = estate.jzmj;
-		po.rongji = estate.rongji;
-		po.ghmj = estate.ghmj;
 		po.lvhua = estate.lvhua;
-		po.chewei = estate.chewei;
-		po.hushu = estate.hushu;
 		po.wyfee = estate.wyfee;
 		po.tese = estate.tese;
 		po.developer = estate.developer;
-		po.wyComp = estate.wyComp;
 		po.addr = estate.addr;
-		po.yufu = estate.yufu;
-		po.shidi = estate.shidi;
-		po.tehui = estate.tehui;
 		po.tuijian = estate.tuijian;
-		po.jingdu = estate.jingdu;
-		po.weidu = estate.weidu;
-		po.youhuiEndtime = estate.youhuiEndtime;
 		po.city = estate.city;
 		po.province = estate.province;
 		po.gongtan = estate.gongtan;
-		po.chanquan = estate.chanquan;
-		po.shouloubu = estate.shouloubu;
-		po.xukezheng = estate.xukezheng;
 		po.guishu = estate.guishu;
-		po.daili = estate.daili;
-		po.gongjijin = estate.gongjijin;
-		po.fukuang = estate.fukuang;
 		po.jiaofangDate = estate.jiaofangDate;
 		po.mainHuxing = estate.mainHuxing;
-		po.jieshao = estate.jieshao;
-		po.manager = estate.manager;
 		po.orderx = estate.orderx;
-		po.youhuiPlan = estate.youhuiPlan;
 		po.yongjin = estate.yongjin;
+		po.shenghuo = estate.shenghuo;
+		po.xuqu = estate.xuqu;
+		po.jiaotong = estate.jiaotong;
 		dao.saveOrUpdate(po);
 		return mv;
 	}
@@ -138,8 +122,6 @@ public class EstateService {
 		Estate po = dao.get(Estate.class, id);
 		if(po!=null){
 			dao.delete(po);
-			//删除房源
-			dao.execute("delete from House where estateId=?", id);
 			//删除图片
 			dao.execute("delete from HouseImage where estateUUID=?", po.uuid);
 		}
@@ -149,20 +131,8 @@ public class EstateService {
 	@WebMethod
 	public ModelAndView doSave(Estate estate){
 		ModelAndView mv = new ModelAndView();
-		checkEstate(estate);
 		dao.saveOrUpdate(estate);
 		return mv;
-	}
-	
-	private void checkEstate(Estate estate){
-		if(estate.tehui==1){
-			if(estate.youhuiEndtime==null){
-				throw new GException(PlatformExceptionType.BusinessException,"请先设置优惠结束时间");
-			}
-			if(estate.tejia==null){
-				throw new GException(PlatformExceptionType.BusinessException,"请先设置特惠价格");
-			}
-		}
 	}
 	
 	@WebMethod
@@ -191,6 +161,26 @@ public class EstateService {
 	}
 	
 	@WebMethod
+	public ModelAndView listSalesData(Page<Map> page , String quyu){
+		ModelAndView mv = new ModelAndView();
+		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu ,est.tejia as tejia , est.junjia as junjia , est.yongjin as yongjin,"
+				+ " est.opentime as opendate, est.addr as addr , img.path as img from Estate est,"
+				+ "HouseImage img where est.uuid=img.estateUUID and img.type='main'");
+		List<String> params = new ArrayList<String>();
+		params.add(ThreadSessionHelper.getCity());
+		if(StringUtils.isNotEmpty(quyu)){
+			hql.append(" and est.quyu=? ");
+			params.add(quyu);
+		}
+		page.setPageSize(10);
+		page.order="desc";
+		page.orderBy = "est.orderx";
+		page = dao.findPage(page, hql.toString(), true,new Object[]{});
+		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
+		return mv;
+	}
+	
+	@WebMethod
 	public ModelAndView listImage(String estateUUID , String imgType , String huxingUUID){
 		ModelAndView mv = new ModelAndView();
 		List<Object> params = new ArrayList<Object>();
@@ -213,6 +203,12 @@ public class EstateService {
 		HouseImage po = dao.get(HouseImage.class, id);
 		if(po!=null){
 			dao.delete(po);
+			//删除图片
+			String orignal = FileUploadServlet.BaseFileDir+File.separator+po.estateUUID+File.separator+po.path;
+			String compressPath = orignal+".x.jpg";
+			String thumbPath = orignal+".t.jpg";
+			FileUtils.deleteQuietly(new File(compressPath));
+			FileUtils.deleteQuietly(new File(thumbPath));
 		}
 		return mv;
 	}

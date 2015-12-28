@@ -29,7 +29,7 @@ public class StartUpListener implements ServletContextListener{
 	}
 
 	private void initModule() {
-		ModuleManager.add("com.youwei.fjb");
+		ModuleManager.add("com.youwei.newhouse");
 	}
 
 	public static synchronized void initDataSource(){
@@ -56,7 +56,6 @@ public class StartUpListener implements ServletContextListener{
 		settings.put(AvailableSettings.PROXOOL_EXISTING_POOL, "false");
 		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "mySqlProxool");
 		
-//		settings.put("annotated.packages", HouseRent.class.getPackage().getName());
 		settings.put("annotated.packages", "com.youwei.newhouse");
 		SessionFactoryBuilder.applySettings(settings);
 //		SimpDaoTool.getGlobalCommonDaoService().getUnique(User.class, 0);

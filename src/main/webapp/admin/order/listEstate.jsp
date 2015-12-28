@@ -139,9 +139,7 @@ function deleteAll(){
                 <td>$[status]</td>
                 <td>
                     <a href="#" onclick="addTab('edit_yy','查看预约','order/edit.jsp?id=$[id]')">查看</a>
-                    <c:if test="${me.role eq '销售总监' }">
                     <a href="#" onclick="deleteOrder($[id])">删除</a>
-                    </c:if>
                 </td>
             </tr>
     </tbody>

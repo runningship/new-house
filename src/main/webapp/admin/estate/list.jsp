@@ -71,7 +71,7 @@ function doSearch(){
     <tr>
         <th style="width:30px">编号</th>
         <th style="width:30px">序号</th>
-    	<th style="width:30px">城市</th>
+    	<th style="width:60px">城市</th>
         <th style="width:60px;">区域</th>
         <th>名称</th>
         <th style="width:110px;">建筑类型</th>
@@ -96,13 +96,12 @@ function doSearch(){
                 <td>$[hushu]</td>
                 <td >$[junjia]</td>
                 <td >$[opentime]</td>
-                <td><a onclick="addTab('house_list','房源信息','house/list.jsp?estateId=$[id]')" href="#">房源</a>
+                <td>
                     <a onclick="addTab('huxing_list','户型','huxing/list.jsp?estateId=$[id]')" href="#">户型</a>
-                    <c:if test="${me.role ne '销售总监' }"><a href="view.jsp?id=$[id]">查看</a></c:if>
-                    <c:if test="${me.role eq '销售总监' }">
+                    <c:if test="${me.role ne '销售总监' }"></c:if>
+                    <a href="view.jsp?id=$[id]">查看</a>
                     <a href="edit.jsp?id=$[id]">编辑</a>
                     <a href="#" onclick="delPost($[id])">删除</a>
-                    </c:if>
                 </td>
             </tr>
     </tbody>

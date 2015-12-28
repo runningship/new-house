@@ -16,7 +16,6 @@ import org.bc.web.WebMethod;
 import com.youwei.newhouse.admin.EstateQuery;
 import com.youwei.newhouse.entity.Article;
 import com.youwei.newhouse.entity.Estate;
-import com.youwei.newhouse.entity.House;
 import com.youwei.newhouse.entity.HouseImage;
 import com.youwei.newhouse.entity.HouseOrder;
 import com.youwei.newhouse.entity.OrderGenJin;
@@ -95,18 +94,6 @@ public class PageService {
 		return mv;
 	}
 	
-	@WebMethod
-	public ModelAndView yykf(Integer estateId , Integer hid){
-		ModelAndView mv = new ModelAndView();
-//		User seller = (User)ThreadSession.getHttpSession().getAttribute("user");
-		House house = dao.get(House.class, hid);
-		if(house!=null){
-			mv.jspData.put("house" , house);
-		}
-		Estate estate = dao.get(Estate.class, estateId);
-		mv.jspData.put("estate" , estate);
-		return  mv;
-	}
 	
 	@WebMethod
 	public ModelAndView setCity(String province , String city){
@@ -115,8 +102,8 @@ public class PageService {
 			return mv;
 		}
 		
-		ThreadSession.getHttpSession().setAttribute(FjbConstant.Session_Attr_City, city);
-		ThreadSession.getHttpSession().setAttribute(FjbConstant.Session_Attr_Province, province);
+		ThreadSession.getHttpSession().setAttribute(Constants.Session_Attr_City, city);
+		ThreadSession.getHttpSession().setAttribute(Constants.Session_Attr_Province, province);
 		return  mv;
 	}
 	
@@ -190,21 +177,18 @@ public class PageService {
 		//户型图
 		List<HouseImage> images = dao.listByParams(HouseImage.class, "from HouseImage where estateUUID=?", po.uuid);
 		for(HouseImage img : images){
-			if(FjbConstant.HuXing.equals(img.type)){
+			if(Constants.HuXing.equals(img.type)){
 				mv.jspData.put("huxing_img", img.path);
-			}else if(FjbConstant.XiaoGuo.equals(img.type)){
+			}else if(Constants.XiaoGuo.equals(img.type)){
 				mv.jspData.put("xiaoguo_img", img.path);
-			}else if(FjbConstant.ShiJing.equals(img.type)){
+			}else if(Constants.ShiJing.equals(img.type)){
 				mv.jspData.put("shijing_img", img.path);
-			}else if(FjbConstant.GuiHua.equals(img.type)){
+			}else if(Constants.GuiHua.equals(img.type)){
 				mv.jspData.put("guihua_img", img.path);
-			}else if(FjbConstant.Main.equals(img.type)){
+			}else if(Constants.Main.equals(img.type)){
 				mv.jspData.put("main_img", img.path);
 			}
 		}
-		//在线剩余套数
-		long leftCount = dao.countHql("select count(*) from House where estateId=? and hasSold=0", estateId);
-		mv.jspData.put("leftCount", leftCount);
 		Page<Map> page = new Page<Map>();
 		page.setPageSize(1);
 		page = dao.findPage(page, "select totalPrice as totalPrice from House where estateId=? order by totalPrice desc", true, new Object[]{estateId});
@@ -218,20 +202,6 @@ public class PageService {
 	public ModelAndView buyer(Page<Map> page , String type){
 		ModelAndView mv = new ModelAndView();
 		mv.jspData.put("type", type);
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView xxfk(Page<Map> page , Integer orderId){
-		ModelAndView mv = new ModelAndView();
-		List<OrderGenJin> genjiList = dao.listByParams(OrderGenJin.class, "from OrderGenJin where orderId=? order by addtime desc", orderId);
-		mv.jspData.put("genjiList", genjiList);
-		HouseOrder order = dao.get(HouseOrder.class, orderId);
-		mv.jspData.put("order" , order);
-		Estate estate = dao.get(Estate.class, order.estateId);
-		House house = dao.get(House.class, order.hid);
-		mv.jspData.put("estate", estate);
-		mv.jspData.put("house", house);
 		return mv;
 	}
 	

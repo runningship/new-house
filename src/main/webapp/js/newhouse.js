@@ -22,7 +22,7 @@ function getImgList(estateUUID , imgType , huxingUUID , noDel){
         		if(!noDel){
         			img = '<span id="del_btn_'+data.images[i].id+'" style="position: absolute;margin-left: 108px;color:red;cursor:pointer" onclick="delImg('+data.images[i].id+')">╳</span>';
         		}
-        		img += '<img id="image_'+data.images[i].id+'" style="width:120px;height:80px;" src="'+window.top.upload_path+data.images[i].path+'" />';
+        		img += '<img id="image_'+data.images[i].id+'" style="width:120px;height:80px;" src="'+window.top.upload_path+'/'+estateUUID+'/'+data.images[i].path+'.t.jpg" />';
             	$('#'+data.imgType+'_img_container').append(img);
         	}
         }
@@ -72,8 +72,8 @@ function initUploadHouseImage(id , imgType , estateUUID , huxingUUID){
 
 function initPortrait(id , sellerId){
   $('#'+id).uploadify({
-      'swf'      : '/fjb/js/uploadify/uploadify.swf',
-      'uploader' : '/fjb/file/upload?imgType=touxiang&estateId='+sellerId,
+      'swf'      : '/new-house/js/uploadify/uploadify.swf',
+      'uploader' : '/new-house/file/upload?imgType=touxiang&estateId='+sellerId,
       'buttonText': '更改头像',
       'removeTimeout': 0.1,
       'fileSizeLimit' : '5MB',

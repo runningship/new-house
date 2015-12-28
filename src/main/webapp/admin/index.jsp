@@ -1,9 +1,10 @@
+<%@page import="com.youwei.newhouse.cache.ConfigCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
  <head>
-  <title>房金宝后台管理系统</title>
+  <title>中介宝新房通后台管理系统</title>
   <link type="image/x-icon" rel="icon" href="../images/fjb.png">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
@@ -20,11 +21,7 @@
  <body>
 <%
  	Boolean isDebug = request.getSession().getServletContext().getServerInfo().startsWith("jetty");
- 	if(isDebug){
- 		request.setAttribute("upload_path" , "../../upload/");
- 	}else{
- 		request.setAttribute("upload_path" , "/upload/");
- 	}
+	request.setAttribute("upload_path" , "http://"+ConfigCache.get("domainName", "localhost")+ "/zjb_newhouse_images");
 %>
  <script type="text/javascript">
  var upload_path='${upload_path}';
@@ -68,32 +65,9 @@
                                  }
                              ]
                          },
-                         // {
-                         //     text: '房源管理',
-                         //     items: [
-                         //         {
-                         //             id: '4',
-                         //             text: '房源信息',
-                         //             href: 'house/list.jsp'
-                         //         },{
-                         //             id: '2',
-                         //             text: '添加房源',
-                         //             href: 'house/list.jsp'
-                         //         }
-                         //     ]
-                         // },
                          {
                              text: '用户管理',
-                             items: [
-                                 {
-                                     id: 'seller_list',
-                                     text: '经纪人',
-                                     href: 'user/sellerList.jsp'
-                                 },{
-                                     id: 'sellermen_list',
-                                     text: '销房员',
-                                     href: 'user/sellermenList.jsp'
-                                 },{
+                             items: [{
                                      id: 'admin_list',
                                      text: '系统用户',
                                      href: 'user/adminList.jsp'
@@ -107,10 +81,6 @@
                              text: '预约管理',
                              items: [
                                  {
-                                     id: 'order_house_list',
-                                     text: '房源预约',
-                                     href: 'order/listHouse.jsp'
-                                 },{
                                      id: 'order_estate_list',
                                      text: '楼盘预约',
                                      href: 'order/listEstate.jsp'
@@ -133,37 +103,11 @@
                                       text: '城市',
                                       href: 'city/edit.jsp'
                                   }
-//                                ,{
-//                                      id: 'quyu_cfg',
-//                                      text: '区域',
-//                                      href: 'config/quyuList.jsp'
-//                                  }
                                  ,{
                                      id: 'huxing_cfg',
                                      text: '户型',
                                      href: 'huxing/list.jsp'
                                  }
-                             ]
-                         },{
-                             text: '服务',
-                             items: [
-                                 {
-                                     id: 'about_jinbao',
-                                     text: '关于房金宝',
-                                     href: 'article/edit.jsp?pageName=about'
-                                 },{
-                                     id: 'contaction_ways',
-                                     text: '联系我们',
-                                     href: 'article/edit.jsp?pageName=contactUs'
-                                 },{
-                                      id: 'service_tab',
-                                      text: '服务申明',
-                                      href: 'article/edit.jsp?pageName=shenming'
-                                  },{
-                                      id: 'service_rule',
-                                      text: '活动规则',
-                                      href: 'article/edit.jsp?pageName=rule'
-                                  }
                              ]
                          }
                      ]

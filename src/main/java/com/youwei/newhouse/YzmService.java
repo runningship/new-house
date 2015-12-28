@@ -44,7 +44,7 @@ public class YzmService {
 			e.printStackTrace();
 		} 
 		
-        session.setAttribute(FjbConstant.Session_Attr_YZM, image.getStrRand());
+        session.setAttribute(Constants.Session_Attr_YZM, image.getStrRand());
         mv.outputByService = true;
 		return mv;
 	}

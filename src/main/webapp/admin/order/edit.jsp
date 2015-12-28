@@ -1,6 +1,41 @@
+<%@page import="com.youwei.newhouse.entity.OrderGenJin"%>
+<%@page import="com.youwei.newhouse.Constants"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.youwei.newhouse.entity.Estate"%>
+<%@page import="com.youwei.newhouse.entity.User"%>
+<%@page import="org.bc.sdak.TransactionalServiceHelper"%>
+<%@page import="org.bc.sdak.CommonDaoService"%>
+<%@page import="com.youwei.newhouse.entity.HouseOrder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
+Integer id = Integer.valueOf(request.getParameter("id"));
+HouseOrder po = dao.get(HouseOrder.class, id);
+if(po.sellerId!=null){
+	User seller = dao.get(User.class, po.sellerId);
+	if(seller!=null){
+		request.setAttribute("sellerTel", seller.tel);	
+	}
+}
+Estate estate = dao.get(Estate.class, po.estateId);
+request.setAttribute("order", po);
+request.setAttribute("estate", estate);
+List<String> statusList = new ArrayList<String>();
+statusList.add(Constants.HouseOrderAccepted);
+statusList.add(Constants.HouseOrderDaiKan);
+statusList.add(Constants.HouseOrderNotAccept);
+statusList.add(Constants.HouseOrderDeal);
+statusList.add(Constants.HouseOrderCancel);
+request.setAttribute("statusList",statusList);
+
+List<OrderGenJin> genjiList = dao.listByParams(OrderGenJin.class, "from OrderGenJin where orderId=?", id);
+request.setAttribute("genjiList", genjiList);
+List<User> sellerList = dao.listByParams(User.class, "from User where type=? ", "seller");
+request.setAttribute("sellerList", sellerList);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,29 +67,10 @@
         <td class="tableleft">楼盘</td>
         <td>${estate.name}</td>
     </tr>
-    <c:if test="${house!=null}">
-    <tr>
-        <td class="tableleft">楼栋</td>
-        <td><span>${house.dhao}</span></td>
-    </tr>
-    <tr>
-        <td class="tableleft">单元</td>
-        <td><span>${house.unit}</span></td>
-    </tr>
-    <tr>
-        <td class="tableleft">房间号</td>
-        <td><span>${house.fhao}</span></td>
-    </tr>
-    </c:if>
     <tr>
         <td class="tableleft">经纪人姓名</td>
         <td>
-        	<select  class="sortSelect" name="sellerId">
-                <c:forEach items="${sellerList}" var="seller">
-                  <option tel="${seller.tel }" <c:if test="${order.sellerId eq seller.id }">selected="selected"</c:if> value="${seller.id}">${seller.account}</option>
-                </c:forEach>
-            </select>
-<%--         	<span>${order.sellerName}</span> --%>
+        	<span>${order.sellerName}</span>
         </td>
     </tr>
      <tr>
@@ -75,7 +91,7 @@
     </tr>
     <tr>
         <td class="tableleft">备注</td>
-        <td>${order.sellerMark}</td>
+        <td><input type="text"  name="sellerMark" value="${ order.sellerMark}"/></td>
     </tr>
     <!-- <tr>
         <td class="tableleft">主图片</td>

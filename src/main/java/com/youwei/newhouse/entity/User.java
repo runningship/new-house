@@ -32,7 +32,7 @@ public class User {
 	
 	public Date lasttime;
 	
-	//seller(经纪人),admin(房金宝用户),sellermen(销房员)
+	//admin(开发商用户)
 	public String type;
 	
 	public String role;

@@ -42,6 +42,10 @@
     		<param-name>encoding</param-name>
     		<param-value>utf-8</param-value>
     	</init-param>
+    	<init-param>
+    		<param-name>userOfflineHandler</param-name>
+    		<param-value>com.youwei.newhouse.NewHouseUserOfflineHandler</param-value>
+    	</init-param>
     </filter>
     <filter-mapping>
     	<filter-name>grandFilter</filter-name>

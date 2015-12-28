@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
 import org.bc.sdak.Page;
@@ -18,10 +17,7 @@ import org.bc.web.PlatformExceptionType;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.entity.Estate;
-import com.youwei.newhouse.entity.House;
-import com.youwei.newhouse.entity.HouseImage;
 import com.youwei.newhouse.entity.HuXing;
-import com.youwei.newhouse.util.ConfigHelper;
 import com.youwei.newhouse.util.DataHelper;
 
 @Module(name="/admin/huxing")

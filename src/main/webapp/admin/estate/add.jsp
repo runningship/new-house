@@ -64,104 +64,47 @@ function changeQuYu(city){
     <tr>
         <td class="tableleft">楼盘名称</td>
         <td><input type="text" name="name" not-null="true"/></td>
-        <td class="tableleft">售楼部地址</td>
-        <td><input type="text" name="shouloubu" not-null="true"/></td>
+        <td class="tableleft">参考均价</td>
+        <td><input type="text" name="junjia"/>元/平方</td>
         <td class="tableleft">联系电话</td>
         <td><input type="text" name="tel" not-null="true" style="width:90%;"/></td>
     </tr>
     <tr>
-        <td class="tableleft">开发商</td>
-        <td><input type="text" name="developer"/></td>
-        <td class="tableleft">项目地址</td>
-        <td><input type="text" name="addr" not-null="true"/></td>
-        <td class="tableleft">公摊</td>
-        <td><input type="text" name="gongtan" style="width:90%;"/>%</td>
-    </tr>
-    <tr><td class="tableleft">代理商</td>
-        <td><input type="text" name="daili"/></td>
-        <td class="tableleft">销售许可证</td>
-        <td><input type="text" name="xukezheng"/></td>
-        <td class="tableleft">容积率</td>
-        <td><input type="text" name="rongji" style="width:90%;"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">物业公司</td>
-        <td><input type="text" name="wyComp"/></td>
         <td class="tableleft">物业费</td>
         <td><input type="text" name="wyfee"/></td>
         <td class="tableleft">绿化率</td>
         <td><input type="text" name="lvhua" style="width:90%;"/>%</td>
+        <td class="tableleft">产权归属</td>
+        <td><input type="text" name="guishu"/></td>
     </tr>
     <tr id="tr_conts" >
+    	<td class="tableleft">开发商</td>
+        <td><input type="text" name="developer"/></td>
         <td class="tableleft">开盘时间</td>
         <td><input type="text" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
         <td class="tableleft">交房日期</td>
         <td><input type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
-        <td class="tableleft">付款方式</td>
-        <td><input type="text" name="fukuang"/></td>
     </tr>
     <tr>
-        <td class="tableleft">产权归属</td>
-        <td><input type="text" name="guishu"/></td>
-        <td class="tableleft">产权土地年限</td>
-        <td><input type="text" name="chanquan"/></td>
-        <td class="tableleft">公积金贷款</td>
-        <td><input type="text" name="gongjijin" placeholder="例如：市直公积金或省直公积金"/></td>
     </tr>
     <tr>
-        <td class="tableleft">建筑面积</td>
-        <td><input type="text" name="jzmj"/></td>
-        <td class="tableleft">规划面积</td>
-        <td><input type="text" name="ghmj"/></td>
-        <td class="tableleft">装修</td>
-        <td><select  class="sortSelect" name="zxiu">
-                <option value="" >所有</option>
-                <c:forEach items="${zxius}" var="zxiu">
-                  <option value="${zxiu.value}">${zxiu.value}</option>
-                </c:forEach>
-            </select></td>
+    	<td class="tableleft">佣金</td>
+        <td ><input type="text" name="yongjin"/></td>
+        <td class="tableleft">主力户型</td>
+        <td><input type="text" name="mainHuxing"/></td>
+        <td class="tableleft">排序</td>
+        <td><input type="text" name="orderx"/></td>
     </tr>
     <tr>
-        <td class="tableleft">规划户数</td>
-        <td><input type="text" name="hushu"/></td>
-        <td class="tableleft">车位数</td>
-        <td><input type="text" name="chewei"/></td>
-        <td class="tableleft">楼盘特色</td>
-        <td><textarea name="tese" style="width:90%;height:100%"></textarea></td>
-    </tr>
-    <tr>
-        <td class="tableleft">参考均价</td>
-        <td><input type="text" name="junjia"/>元/平方</td>
-        <td class="tableleft">特惠价</td>
-        <td><input type="text" name="tejia"/></td>
-        <td class="tableleft">优惠截止时间</td>
-        <td><input type="text" class="form-control input-sm input-left" name="youhuiEndtime" id="youhuiEndtime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
-    </tr>
-    <tr>
+        <td class="tableleft">项目地址</td>
+        <td><input type="text" name="addr" not-null="true"/></td>
+        <td class="tableleft">公摊</td>
+        <td><input type="text" name="gongtan" style="width:90%;"/>%</td>
         <td class="tableleft">推荐</td>
         <td><select name="tuijian">
             <option value="0">否</option>
             <option value="1">是</option>
         </select></td>
-        <td class="tableleft">特惠</td>
-        <td><select name="tehui">
-            <option value="0">否</option>
-            <option value="1">是</option>
-        </select></td>
-        <td class="tableleft">即将推出</td>
-        <td colspan="5"><input type="text" name="jjtc" style="width:90%;" /></td>
-    </tr>
-    <tr>
-        <td class="tableleft">经纬度</td>
-        <td><input type="text" name="jingdu" placeholder="经度" style="width:45%"/>  /  <input type="text" name="weidu" placeholder="纬度" style="width:45%"/></td>
-<!--         <td class="tableleft">优惠方案</td> -->
-<!--         <td><input type="text" name="yufu" style="width:45%"/>抵<input type="text" name="shidi" style="width:45%"/></td> -->
-
-		<td class="tableleft">优惠方案</td>
-		<td><input type="text" name="youhuiPlan" /></td>
-		
-        <td class="tableleft">主力户型</td>
-        <td><input type="text" name="mainHuxing"/></td>
     </tr>
     <tr>
         <td class="tableleft">区域</td>
@@ -172,20 +115,11 @@ function changeQuYu(city){
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
-        <td class="tableleft">项目经理</td>
-        <td><input type="text" name="manager"/></td>
-        <td class="tableleft">排序</td>
-        <td><input type="text" name="orderx"/></td>
+        <td class="tableleft">楼盘特色</td>
+        <td colspan="3"><textarea name="tese" style="width:90%;height:100%"></textarea></td>
     </tr>
-    <c:if test="${me.role eq '销售总监' }">
     <tr>
-        <td class="tableleft">佣金</td>
-        <td ><input type="text" name="yongjin"/></td>
-    </tr>
-    </c:if>
-    <tr>
-        <td class="tableleft">项目介绍</td>
-        <td colspan="5"><textarea name="jieshao" style="width:90%;height:100%" ></textarea></td>
+        
     </tr>
     <tr>
         <td class="tableleft">建筑类型</td>

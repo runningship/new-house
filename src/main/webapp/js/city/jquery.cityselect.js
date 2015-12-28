@@ -18,7 +18,7 @@ required:必选项
 
 		// 默认值
 		settings=$.extend({
-			url:"/fjb/js/city/city.min.js",
+			url:"/new-house/js/city/city.min.js",
 			prov:null,
 			city:null,
 			dist:null,

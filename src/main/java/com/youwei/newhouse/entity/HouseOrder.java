@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-//订单，预约某个具体房源
+//楼盘预约
 @Entity
 public class HouseOrder {
 	
@@ -17,14 +17,16 @@ public class HouseOrder {
 	
 	public Integer estateId;
 	
-	public Integer hid;
-	
-	//经纪人
-	public Integer sellerId;
-	
 	public String sellerName;
 	
+	//经纪人电话
+	public String sellerTel;
+	
+	//当前流程到哪一步了
 	public String status;
+	
+	//是否已带看
+	public Integer daikan;
 	
 	public Date addtime;
 	
@@ -35,8 +37,6 @@ public class HouseOrder {
 	
 	public String buyerTel;
 	
-	public int protect;
-	
 	//成交后设置
-	public float yongjin;
+	public Integer yongjin;
 }

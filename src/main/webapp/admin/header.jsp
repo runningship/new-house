@@ -11,6 +11,6 @@
 <script type="text/javascript" src="${projectName }/js/buildHtml.js"></script>
 <script type="text/javascript" src="${projectName}/js/pagination.js"></script>
 <script type="text/javascript" src="${projectName}/js/uploadify/jquery.uploadify.js"></script>
-<script type="text/javascript" src="${projectName}/js/fjb.js"></script>
+<script type="text/javascript" src="${projectName}/js/newhouse.js"></script>
 <script type="text/javascript" src="${projectName}/js/DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${projectName}/js/validate.js"></script>

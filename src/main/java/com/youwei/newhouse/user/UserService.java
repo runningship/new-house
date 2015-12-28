@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-
 import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
@@ -21,7 +19,6 @@ import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.ThreadSessionHelper;
-import com.youwei.newhouse.entity.House;
 import com.youwei.newhouse.entity.User;
 import com.youwei.newhouse.util.DataHelper;
 import com.youwei.newhouse.util.SecurityHelper;
@@ -282,49 +279,6 @@ public class UserService {
 		return mv;
 	}
 	
-	@WebMethod
-	public ModelAndView listData(Page<House> page , String type , String city , String quyu , Integer adminId , String compName , String deptName){
-		ModelAndView mv = new ModelAndView();
-		StringBuilder hql = new StringBuilder("from User where 1=1 ");
-		List<Object> params = new ArrayList<Object>();
-		if(StringUtils.isNotEmpty(type)){
-			params.add(type);
-			hql.append(" and type=?");
-		}
-		if(StringUtils.isNotEmpty(city)){
-			hql.append(" and city = ?");
-			params.add(city);
-		}
-		if(StringUtils.isNotEmpty(quyu)){
-			hql.append(" and quyu = ?");
-			params.add(quyu);
-		}
-		if(StringUtils.isNotEmpty(compName)){
-			hql.append(" and compName like ?");
-			params.add("%"+compName+"%");
-		}
-		if(StringUtils.isNotEmpty(deptName)){
-			hql.append(" and deptName like ?");
-			params.add("%"+deptName+"%");
-		}
-		if(adminId!=null){
-			hql.append(" and adminId = ?");
-			params.add(adminId);
-		}
-		User me = ThreadSessionHelper.getUser();
-		if("seller".equals(type)){
-			if(Role.市场专员.toString().equals(me.role)){
-				hql.append(" and adminId = ?");
-				params.add(me.id);
-			}
-		}
-		
-		page.order="desc";
-		page.orderBy="id";
-		page = dao.findPage(page, hql.toString(), params.toArray());
-		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
-		return mv;
-	}
 	
 	@WebMethod
 	public ModelAndView toggleShenHe(Integer id){
