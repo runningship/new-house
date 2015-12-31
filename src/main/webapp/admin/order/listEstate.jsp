@@ -97,7 +97,7 @@ function deleteAll(){
     客户姓名<input type="text" name="buyerName" style="width:100px;margin-right:10px;"/>
     客户电话<input type="text" name="buyerTel" style="width:120px;margin-right:10px;height:18px;"/>
     楼盘名称<input type="text" name="estateName" style="width:100px;margin-right:10px;height:18px;"/>
-    经纪人姓名<input type="text" name="sellerName" style="width:100px;margin-right:10px;height:18px;"/>
+    经纪人电话<input type="text" name="sellerTel" style="width:100px;margin-right:10px;height:18px;"/>
                <div id="city_reg" style="display:inline-block;display: inline;">
 <!--                        <span style="font-size:14px; width:50px;pading-right:20px;">区域 </span> -->
                     <select class="prov"  id="province_reg"  name="province"></select> 
@@ -120,6 +120,7 @@ function deleteAll(){
         <th>客户</th>
         <th style="width:120px;">客户电话</th>
         <th>经纪人</th>
+        <th>经纪人电话</th>
         <th>预约时间</th>
         <th>状态</th>
         <th>操作</th>
@@ -135,6 +136,7 @@ function deleteAll(){
                 <td>$[buyerName]</td>
                 <td>$[buyerTel]</td>
                 <td>$[sellerName]</td>
+                <td>$[sellerTel]</td>
                 <td>$[addtime]</td>
                 <td>$[status]</td>
                 <td>

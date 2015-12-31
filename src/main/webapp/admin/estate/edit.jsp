@@ -13,16 +13,15 @@
 $(function(){
 	setTimeout(function(){
 		initUploadHouseImage('shijing_upload' , 'shijing' , '${estate.uuid}');
-		initUploadHouseImage('guihua_upload' , 'guihua' , '${estate.uuid}');
+		initUploadHouseImage('huxing_upload' , 'huxing' , '${estate.uuid}');
 		initUploadHouseImage('xiaoguo_upload' , 'xiaoguo' , '${estate.uuid}');
 		initUploadHouseImage('main_upload' , 'main' ,'${estate.uuid}');
 	},100);
 	getImgList('${estate.uuid}' ,'main');
 	getImgList('${estate.uuid}' ,'xiaoguo');
-	getImgList('${estate.uuid}' ,'guihua');
+	getImgList('${estate.uuid}' ,'huxing');
 	getImgList('${estate.uuid}' ,'shijing');
 	
-	$('#tehui').val(${estate.tehui});
 	$('#tuijian').val(${estate.tuijian});
 	
 	var myprovince = remote_ip_info['province'];
@@ -56,6 +55,7 @@ function save(){
 <body>
 <style type="text/css">
 #city_1 select{height:25px;width:120px;margin-top: 5px;margin-bottom: 5px;}
+input{width:90%;}
 </style>
 <form name="form1" method="post" class="definewidth m20">
 	<input type="hidden" name="id"  value="${estate.id}"/>
@@ -63,47 +63,49 @@ function save(){
 	
     <tr>
         <td class="tableleft">楼盘名称</td>
-        <td><input type="text" name="name" value="${estate.name }" not-null="true"/></td>
+        <td style="width:26%"><input type="text" name="name" value="${estate.name }" not-null="true"/></td>
+        <td class="tableleft">参考均价</td>
+        <td style="width:26%"><input type="text" name="junjia" value="${estate.junjia }"/>元/平方</td>
         <td class="tableleft">联系电话</td>
-        <td><input type="text" name="tel" value="${estate.tel }" style="width:90%;" not-null="true"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">开发商</td>
-        <td><input type="text" name="developer" value="${estate.developer }"/></td>
-        <td class="tableleft">项目地址</td>
-        <td><input type="text" name="addr" value="${estate.addr }" not-null="true"/></td>
-        <td class="tableleft">公摊</td>
-        <td><input type="text" name="gongtan" value="${estate.gongtan }" style="width:90%;"/>%</td>
-    </tr>
-    <tr>
-        <td class="tableleft">容积率</td>
-        <td><input type="text" name="rongji" value="${estate.rongji }" style="width:90%;"/></td>
+        <td style="width:26%"><input type="text" name="tel" value="${estate.tel }"  not-null="true"/></td>
     </tr>
     <tr>
         <td class="tableleft">物业费</td>
         <td><input type="text" name="wyfee" value="${estate.wyfee }"/></td>
         <td class="tableleft">绿化率</td>
-        <td><input type="text" name="lvhua" value="${estate.lvhua }" style="width:90%;"/>%</td>
-    </tr>
-    <tr id="tr_conts" >
-        <td class="tableleft">开盘时间</td>
-        <td><input type="text" value="<fmt:formatDate value="${estate.opentime}" pattern="yyyy-MM-dd"/>" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
-        <td class="tableleft">交房日期</td>
-        <td><input value="<fmt:formatDate value="${estate.jiaofangDate}" pattern="yyyy-MM-dd"/>"  type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
-    </tr>
-    <tr>
+        <td><input type="text" name="lvhua" value="${estate.lvhua }"  />%</td>
         <td class="tableleft">产权归属</td>
         <td><input type="text" name="guishu" value="${estate.guishu }"/></td>
     </tr>
     <tr>
-        <td class="tableleft">楼盘特色</td>
-        <td><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
+        <td class="tableleft">开发商</td>
+        <td><input type="text" name="developer" value="${estate.developer }"/></td>
+         <td class="tableleft">开盘时间</td>
+        <td><input type="text" value="<fmt:formatDate value="${estate.opentime}" pattern="yyyy-MM-dd"/>" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
+        <td class="tableleft">交房日期</td>
+        <td><input value="<fmt:formatDate value="${estate.jiaofangDate}" pattern="yyyy-MM-dd"/>"  type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
+    </tr>
+     <tr>
+        <td class="tableleft">生活配套</td>
+        <td><textarea name="shenghuo"   style="width:90%;height:100%">${estate.shenghuo }</textarea></td>
+        <td class="tableleft">学区配套</td>
+        <td><textarea name="xuequ" style="width:90%;height:100%">${estate.xuequ }</textarea></td>
+        <td class="tableleft">交通配套</td>
+        <td><textarea name="jiaotong" style="width:90%;height:100%">${estate.jiaotong }</textarea></td>
     </tr>
     <tr>
-        <td class="tableleft">参考均价</td>
-        <td><input type="text" name="junjia" value="${estate.junjia }"/>元/平方</td>
+    	<td class="tableleft">佣金</td>
+        <td ><input type="text" name="yongjin" value="${estate.yongjin}"/></td>
+        <td class="tableleft">主力户型</td>
+        <td><input type="text" name="mainHuxing" value="${estate.mainHuxing }"/></td>
+        <td class="tableleft">排序</td>
+        <td><input type="text" name="orderx" value="${estate.orderx }" /></td>
     </tr>
-    <tr>
+    <tr id="tr_conts" >
+       <td class="tableleft">项目地址</td>
+        <td><input type="text" name="addr" value="${estate.addr }" not-null="true"/></td>
+        <td class="tableleft">公摊</td>
+        <td><input type="text" name="gongtan" value="${estate.gongtan }"  />%</td>
         <td class="tableleft">推荐</td>
         <td><select name="tuijian" id="tuijian">
             <option value="0">否</option>
@@ -111,11 +113,7 @@ function save(){
         </select></td>
     </tr>
     <tr>
-        <td class="tableleft">主力户型</td>
-        <td><input type="text" name="mainHuxing" value="${estate.mainHuxing }"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">区域</td>
+    	<td class="tableleft">区域</td>
         <td>
             <div id="city_1" style="display:inline-block;">
                 <select class="prov"  id="province"  name="province"></select> 
@@ -123,12 +121,9 @@ function save(){
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
-        <td class="tableleft">排序</td>
-        <td><input type="text" name="orderx" value="${estate.orderx }" /></td>
-    </tr>
-    <tr>
-        <td class="tableleft">佣金</td>
-        <td ><input type="text" name="yongjin" value="${estate.yongjin}"/></td>
+        <td class="tableleft">楼盘特色</td>
+        <td colspan="3"><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
+        
     </tr>
     <tr>
         <td class="tableleft">建筑类型</td>
@@ -154,9 +149,9 @@ function save(){
         </td>
     </tr>
     <tr>
-        <td class="tableleft">规划图</td>
-        <td colspan="5"><input id="guihua_upload"  style="display:none;margin-top:5px;">
-        	<div id="guihua_img_container">
+        <td class="tableleft">户型图</td>
+        <td colspan="5"><input id="huxing_upload"  style="display:none;margin-top:5px;">
+        	<div id="huxing_img_container">
         	</div>
         </td>
     </tr>

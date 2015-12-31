@@ -37,6 +37,5 @@ public class HouseOrder {
 	
 	public String buyerTel;
 	
-	//成交后设置
-	public Integer yongjin;
+	public String buyerGender;
 }

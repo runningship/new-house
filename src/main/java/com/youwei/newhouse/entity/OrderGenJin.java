@@ -18,5 +18,10 @@ public class OrderGenJin {
 	
 	public String conts;
 	
+	//跟进人
+	public String uname;
+	
+	public String status;
+	
 	public Date addtime;
 }

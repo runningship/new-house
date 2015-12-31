@@ -14,21 +14,17 @@
 CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 Integer id = Integer.valueOf(request.getParameter("id"));
 HouseOrder po = dao.get(HouseOrder.class, id);
-if(po.sellerId!=null){
-	User seller = dao.get(User.class, po.sellerId);
-	if(seller!=null){
-		request.setAttribute("sellerTel", seller.tel);	
-	}
-}
 Estate estate = dao.get(Estate.class, po.estateId);
 request.setAttribute("order", po);
 request.setAttribute("estate", estate);
 List<String> statusList = new ArrayList<String>();
-statusList.add(Constants.HouseOrderAccepted);
-statusList.add(Constants.HouseOrderDaiKan);
-statusList.add(Constants.HouseOrderNotAccept);
+statusList.add(Constants.HouseOrderConfirming);
+statusList.add(Constants.HouseOrderValid);
+statusList.add(Constants.HouseOrderInValid);
+statusList.add(Constants.HouseOrderBiz);
+statusList.add(Constants.HouseOrderRenChou);
 statusList.add(Constants.HouseOrderDeal);
-statusList.add(Constants.HouseOrderCancel);
+statusList.add(Constants.HouseOrderJieYong);
 request.setAttribute("statusList",statusList);
 
 List<OrderGenJin> genjiList = dao.listByParams(OrderGenJin.class, "from OrderGenJin where orderId=?", id);
@@ -53,6 +49,7 @@ request.setAttribute("sellerList", sellerList);
 		        data:a,
 		        mysuccess: function(data){
 		            alert('修改成功');
+		            window.location.reload();
 		        }
 		    });
 		}
@@ -75,7 +72,7 @@ request.setAttribute("sellerList", sellerList);
     </tr>
      <tr>
         <td class="tableleft">经纪人电话</td>
-        <td><span>${sellerTel}</span>
+        <td><span>${order.sellerTel}</span>
         </td>
     </tr>
     <tr>
@@ -112,12 +109,6 @@ request.setAttribute("sellerList", sellerList);
         </td>
     </tr>
     <tr>
-	    <td class="tableleft">佣金</td>
-	    <td>
-	    	<input name="yongjin" value="${order.yongjin }"/>元
-	    </td>
-    </tr>
-    <tr>
         <td class="tableleft"></td>
         <td>
             <button class="btn btn-primary" type="button" onclick="save();return false;">保存</button>
@@ -128,7 +119,7 @@ request.setAttribute("sellerList", sellerList);
         <td>
 	        <div  style=" width:100%; margin:10px 0; overflow-y:auto; color:#666666; font-family:'宋体';">
 			<c:forEach items="${genjiList}" var="genjin">
-			    <p style=" margin-bottom:5px;">${genjin.conts}</p><span style="color:#ccc"><fmt:formatDate value="${genjin.addtime}" pattern="yyyy-MM-dd HH-mm"/></span>
+			    <p style=" margin-bottom:5px;">${genjin.uname} 将状态修改为 ${genjin.status }</p><span style="color:#ccc"><fmt:formatDate value="${genjin.addtime}" pattern="yyyy-MM-dd HH-mm"/></span>
 			</c:forEach>
 			</div>
 		</td>

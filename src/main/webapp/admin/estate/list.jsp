@@ -75,9 +75,7 @@ function doSearch(){
         <th style="width:60px;">区域</th>
         <th>名称</th>
         <th style="width:110px;">建筑类型</th>
-        <th style="width:60px">规划面积</th>
         <th>项目地址</th>
-        <th style="width:40px;">户数</th>
         <th style="width:60px;">均价</th>
         <th style="width:70px;">开盘时间</th>
         <th style="width:120px;">操作</th>
@@ -91,9 +89,7 @@ function doSearch(){
                 <td>$[quyu]</td>
                 <td>$[name]</td>
                 <td >$[lxing]</td>
-                <td>$[ghmj]</td>
                 <td>$[addr]</td>
-                <td>$[hushu]</td>
                 <td >$[junjia]</td>
                 <td >$[opentime]</td>
                 <td>

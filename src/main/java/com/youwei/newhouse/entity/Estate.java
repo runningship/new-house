@@ -63,7 +63,7 @@ public class Estate {
 	
 	public String shenghuo;
 	
-	public String xuqu;
+	public String xuequ;
 	
 	public String mainHuxing;
 	

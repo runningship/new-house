@@ -17,6 +17,7 @@ import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.Constants;
+import com.youwei.newhouse.ThreadSessionHelper;
 import com.youwei.newhouse.entity.Estate;
 import com.youwei.newhouse.entity.HouseOrder;
 import com.youwei.newhouse.entity.OrderGenJin;
@@ -29,36 +30,46 @@ public class OrderService {
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
 	@WebMethod
-	public ModelAndView list(){
-		ModelAndView mv = new ModelAndView();
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView add(){
-		ModelAndView mv = new ModelAndView();
-		return mv;
-	}
-	
-	@WebMethod
 	@Transactional
 	public ModelAndView update(HouseOrder order){
 		ModelAndView mv = new ModelAndView();
 		HouseOrder po = dao.get(HouseOrder.class, order.id);
-		po.status = order.status;
-		po.yongjin = order.yongjin;
+		if(!order.status.equals(po.status)){
+			po.status = order.status;
+			//add genjin
+			OrderGenJin genjin = new OrderGenJin();
+			genjin.addtime = new Date();
+			genjin.conts="";
+			genjin.uname = ThreadSessionHelper.getUser().name;
+			genjin.status = po.status;
+			genjin.orderId = po.id;
+			dao.saveOrUpdate(genjin);
+		}
 		po.sellerMark = order.sellerMark;
 		dao.saveOrUpdate(po);
 		return mv;
 	}
 	
 	@WebMethod
-	public ModelAndView doSave(HouseOrder order , String yzm){
-//		VerifyCodeHelper.verify(yzm);
-		order.status = Constants.HouseOrderConfirming;
+	public ModelAndView doSave(HouseOrder order , String estateIds){
+		
 		ModelAndView mv = new ModelAndView();
 		order.addtime = new Date();
-		dao.saveOrUpdate(order);
+		for(String estateId : estateIds.split(",")){
+			if(StringUtils.isEmpty(estateId)){
+				continue;
+			}
+			HouseOrder ho = new HouseOrder();
+			ho.addtime = new Date();
+			ho.buyerGender = order.buyerGender;
+			ho.buyerName = order.buyerName;
+			ho.buyerTel = order.buyerTel;
+			ho.sellerName = order.sellerName;
+			ho.sellerTel = order.sellerTel;
+			ho.status = Constants.HouseOrderConfirming;
+			ho.estateId = Integer.valueOf(estateId);
+			dao.saveOrUpdate(ho);
+		}
 		return mv;
 	}
 	
@@ -108,13 +119,13 @@ public class OrderService {
 	@WebMethod
 	public ModelAndView listEstateData(Page<Map> page ,OrderQuery query){
 		ModelAndView mv = new ModelAndView();
-		StringBuilder hql = new StringBuilder("select  order.id as id, est.name as estateName, order.buyerName as buyerName ,order.buyerTel as buyerTel,order.protect as protect,"
-				+ " order.sellerName as sellerName , order.addtime as addtime, order.status as status from HouseOrder order, "
+		StringBuilder hql = new StringBuilder("select  order.id as id, est.name as estateName, order.buyerName as buyerName ,order.buyerTel as buyerTel, "
+				+ " order.sellerName as sellerName ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status from HouseOrder order, "
 				+ "Estate est where order.estateId=est.id ");
 		List<Object> params = new ArrayList<Object>();
 		setQuery(hql, params , query);
 		page.order="desc";
-		page.order = "order.addtime";
+		page.orderBy = "order.addtime";
 		page = dao.findPage(page, hql.toString(), true,params.toArray());
 		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
 		return mv;
@@ -144,6 +155,10 @@ public class OrderService {
 		if(StringUtils.isNotEmpty(query.sellerName)){
 			hql.append(" and order.sellerName like ?");
 			params.add("%"+query.sellerName+"%");
+		}
+		if(StringUtils.isNotEmpty(query.sellerTel)){
+			hql.append(" and order.sellerTel like ?");
+			params.add("%"+query.sellerTel+"%");
 		}
 	}
 }

@@ -9,7 +9,7 @@ public class Constants {
 	public static final String Main="main";
 	public static final String HouseOrderConfirming = "确认中";
 	public static final String HouseOrderValid = "有效";
-	public static final String HouseOrderInValid = "有效";
+	public static final String HouseOrderInValid = "无效";
 	public static final String HouseOrderOutOfDate = "失效";
 	public static final String HouseOrderBiz = "洽谈中";
 	public static final String HouseOrderRenChou= "已认筹";

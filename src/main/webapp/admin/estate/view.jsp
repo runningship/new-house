@@ -17,7 +17,6 @@ $(function(){
 	getImgList('${estate.uuid}' ,'guihua' ,'' , true);
 	getImgList('${estate.uuid}' ,'shijing','' , true);
 	
-	$('#tehui').val(${estate.tehui});
 	$('#tuijian').val(${estate.tuijian});
 	
 	var myprovince = remote_ip_info['province'];

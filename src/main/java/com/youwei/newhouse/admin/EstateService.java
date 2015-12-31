@@ -110,7 +110,7 @@ public class EstateService {
 		po.orderx = estate.orderx;
 		po.yongjin = estate.yongjin;
 		po.shenghuo = estate.shenghuo;
-		po.xuqu = estate.xuqu;
+		po.xuequ = estate.xuequ;
 		po.jiaotong = estate.jiaotong;
 		dao.saveOrUpdate(po);
 		return mv;
@@ -163,7 +163,7 @@ public class EstateService {
 	@WebMethod
 	public ModelAndView listSalesData(Page<Map> page , String quyu){
 		ModelAndView mv = new ModelAndView();
-		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu ,est.tejia as tejia , est.junjia as junjia , est.yongjin as yongjin,"
+		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu , est.junjia as junjia , est.yongjin as yongjin,"
 				+ " est.opentime as opendate, est.addr as addr , img.path as img from Estate est,"
 				+ "HouseImage img where est.uuid=img.estateUUID and img.type='main'");
 		List<String> params = new ArrayList<String>();

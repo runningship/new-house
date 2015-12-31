@@ -83,3 +83,58 @@ span input {
  background:#444;
  color:#fff;
 }
+
+
+/*  */
+body{ background: none; }
+#container{ display: none; }
+a{ color: #333333; text-decoration: none; }
+a:hover{ color: #337BED;}
+*{ box-sizing:border-box; }
+
+@font-face {font-family: "iconfont";
+  src: url('../icon/iconfont.eot'); /* IE9*/
+  src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../icon/iconfont.woff') format('woff'), /* chrome、firefox */
+  url('../icon/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../icon/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,body{ height: 100%; }
+.container{ height: 100%; text-align: center; }
+.container .top{ padding: 10% 0 20px;  background: #000; color: #FFF; vertical-align: bottom; }
+.container .bottom{ padding-top: 20px; }
+
+.logos{ vertical-align: bottom; position: relative; bottom: 0; color: #FFF;  font-family: "microsoft yahei";}
+.logos i{font-size: 100px;}
+.logos strong{ display: block; font-weight: normal; font-size: 14px; color: #999; }
+
+.inputbox,.btnbox{ position: relative; display: inline-block; height: 36px; line-height: 36px; border: 1px solid #CCC; background: #FFF; font-family: "microsoft yahei"; border-radius: 2px; }
+.inputbox .input,
+.btnbox .botton{ font-size: 14px; display: block; height: inherit; padding: 0 5px; background: none; border: none; border-radius: 2px; }
+.inputbox { min-width: 230px; }
+.inputbox .input{ width: 100%;}
+.btnbox .botton{ line-height: inherit; padding: 0 20px; }
+
+
+@media screen and (max-width: 700px) {
+	body{ background: #EFEFEF; }
+	.container .top{ padding-top: 15%; }
+	.logos strong{}
+	.inputbox,.btnbox{ display: block; height: 36pt; line-height: 36pt; font-size: 14pt; margin-bottom: 10pt; border-radius: 0; border-left: none; border-right: none; }
+	.inputbox .input{ padding-left: 20pt;}
+	.inputbox .input,
+	.btnbox .botton{ font-size: 14pt;}
+	.btnbox { border: none; }
+	.btnbox .botton{ background: #09F; color: #FFF; }
+	
+}

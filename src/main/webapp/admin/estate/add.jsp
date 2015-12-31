@@ -10,7 +10,7 @@
 $(function(){
 	setTimeout(function(){
 		initUploadHouseImage('shijing_upload' , 'shijing' , '${estateUUID}');
-		initUploadHouseImage('guihua_upload' , 'guihua' , '${estateUUID}');
+		initUploadHouseImage('huxing_upload' , 'huxing' , '${estateUUID}');
 		initUploadHouseImage('xiaoguo_upload' , 'xiaoguo' , '${estateUUID}');
 		initUploadHouseImage('main_upload' , 'main' , '${estateUUID}');
 	},100);
@@ -56,6 +56,7 @@ function changeQuYu(city){
 <body>
 <style type="text/css">
 #city_1 select{height:25px;width:120px;margin-top: 5px;margin-bottom: 5px;}
+input{width:90%;}
 </style>
 <form name="form1" method="post" class="definewidth m20">
 	<input type="hidden" name="uuid"  value="${estateUUID }"/>
@@ -63,17 +64,17 @@ function changeQuYu(city){
 	
     <tr>
         <td class="tableleft">楼盘名称</td>
-        <td><input type="text" name="name" not-null="true"/></td>
+        <td style="width:26%"><input type="text" name="name" not-null="true"/></td>
         <td class="tableleft">参考均价</td>
-        <td><input type="text" name="junjia"/>元/平方</td>
+        <td style="width:26%"><input type="text" name="junjia"/>元/平方</td>
         <td class="tableleft">联系电话</td>
-        <td><input type="text" name="tel" not-null="true" style="width:90%;"/></td>
+        <td style="width:26%"><input type="text" name="tel" not-null="true" /></td>
     </tr>
     <tr>
         <td class="tableleft">物业费</td>
         <td><input type="text" name="wyfee"/></td>
         <td class="tableleft">绿化率</td>
-        <td><input type="text" name="lvhua" style="width:90%;"/>%</td>
+        <td><input type="text" name="lvhua" />%</td>
         <td class="tableleft">产权归属</td>
         <td><input type="text" name="guishu"/></td>
     </tr>
@@ -86,6 +87,12 @@ function changeQuYu(city){
         <td><input type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
     </tr>
     <tr>
+        <td class="tableleft">生活配套</td>
+        <td><textarea name="shenghuo" style="width:90%;height:100%"></textarea></td>
+        <td class="tableleft">学区配套</td>
+        <td><textarea name="xuequ" style="width:90%;height:100%"></textarea></td>
+        <td class="tableleft">交通配套</td>
+        <td><textarea name="jiaotong" style="width:90%;height:100%"></textarea></td>
     </tr>
     <tr>
     	<td class="tableleft">佣金</td>
@@ -99,7 +106,7 @@ function changeQuYu(city){
         <td class="tableleft">项目地址</td>
         <td><input type="text" name="addr" not-null="true"/></td>
         <td class="tableleft">公摊</td>
-        <td><input type="text" name="gongtan" style="width:90%;"/>%</td>
+        <td><input type="text" name="gongtan" />%</td>
         <td class="tableleft">推荐</td>
         <td><select name="tuijian">
             <option value="0">否</option>
@@ -119,7 +126,7 @@ function changeQuYu(city){
         <td colspan="3"><textarea name="tese" style="width:90%;height:100%"></textarea></td>
     </tr>
     <tr>
-        
+    
     </tr>
     <tr>
         <td class="tableleft">建筑类型</td>
@@ -146,8 +153,8 @@ function changeQuYu(city){
     </tr>
     <tr>
         <td class="tableleft">规划图</td>
-        <td colspan="5"><input id="guihua_upload"  style="display:none;margin-top:5px;">
-        	<div id="guihua_img_container">
+        <td colspan="5"><input id="huxing_upload"  style="display:none;margin-top:5px;">
+        	<div id="huxing_img_container">
         	</div>
         </td>
     </tr>
