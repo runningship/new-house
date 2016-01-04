@@ -108,7 +108,6 @@ public class EstateService {
 		po.jiaofangDate = estate.jiaofangDate;
 		po.mainHuxing = estate.mainHuxing;
 		po.orderx = estate.orderx;
-		po.yongjin = estate.yongjin;
 		po.shenghuo = estate.shenghuo;
 		po.xuequ = estate.xuequ;
 		po.jiaotong = estate.jiaotong;

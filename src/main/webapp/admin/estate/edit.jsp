@@ -14,11 +14,11 @@ $(function(){
 	setTimeout(function(){
 		initUploadHouseImage('shijing_upload' , 'shijing' , '${estate.uuid}');
 		initUploadHouseImage('huxing_upload' , 'huxing' , '${estate.uuid}');
-		initUploadHouseImage('xiaoguo_upload' , 'xiaoguo' , '${estate.uuid}');
+		initUploadHouseImage('tuijian_upload' , 'tuijian' , '${estate.uuid}');
 		initUploadHouseImage('main_upload' , 'main' ,'${estate.uuid}');
 	},100);
 	getImgList('${estate.uuid}' ,'main');
-	getImgList('${estate.uuid}' ,'xiaoguo');
+	getImgList('${estate.uuid}' ,'tuijian');
 	getImgList('${estate.uuid}' ,'huxing');
 	getImgList('${estate.uuid}' ,'shijing');
 	
@@ -156,9 +156,9 @@ input{width:90%;}
         </td>
     </tr>
      <tr>
-        <td class="tableleft">效果图</td>
-        <td colspan="5"><input id="xiaoguo_upload"  style="display:none;margin-top:5px;">
-        	<div id="xiaoguo_img_container">
+        <td class="tableleft">推荐图</td>
+        <td colspan="5"><input id="tuijian_upload"  style="display:none;margin-top:5px;">
+        	<div id="tuijian_img_container">
         	</div>
         </td>
     </tr>

@@ -13,7 +13,7 @@
 $(function(){
 	
 	getImgList('${estate.uuid}' ,'main','' , true);
-	getImgList('${estate.uuid}' ,'xiaoguo' ,'' ,true);
+	getImgList('${estate.uuid}' ,'tuijian' ,'' ,true);
 	getImgList('${estate.uuid}' ,'guihua' ,'' , true);
 	getImgList('${estate.uuid}' ,'shijing','' , true);
 	
@@ -155,9 +155,9 @@ function save(){
         </td>
     </tr>
      <tr>
-        <td class="tableleft">效果图</td>
+        <td class="tableleft">推荐图</td>
         <td colspan="5">
-        	<div id="xiaoguo_img_container">
+        	<div id="tuijian_img_container">
         	</div>
         </td>
     </tr>

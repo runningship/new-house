@@ -73,5 +73,7 @@ public class Estate {
 	
 	public int orderx;
 	
-	public String yongjin;
+	//已结佣金
+	public Integer jieyongCount;
+	public Float yongjinTotal;
 }

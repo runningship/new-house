@@ -38,4 +38,6 @@ public class HouseOrder {
 	public String buyerTel;
 	
 	public String buyerGender;
+	
+	public Float yongjin;
 }

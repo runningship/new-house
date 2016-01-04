@@ -83,6 +83,10 @@ public class FileUploadServlet extends HttpServlet {
 						//主图片只有一张
 						SimpDaoTool.getGlobalCommonDaoService().execute("delete from HouseImage where estateUUID=? and type='main'" , estateId);
 					}
+					if("tuijian".equals(type)){
+						//推荐图片只有一张
+						SimpDaoTool.getGlobalCommonDaoService().execute("delete from HouseImage where estateUUID=? and type='tuijian'" , estateId);
+					}
 					String imgDir = BaseFileDir+File.separator +estateId;
 					image.path=item.getName();
 					image.path = image.path.replace("#", "d");

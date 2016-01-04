@@ -7,12 +7,14 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
+import org.bc.sdak.GException;
 import org.bc.sdak.Page;
 import org.bc.sdak.Transactional;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.sdak.utils.JSONHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
+import org.bc.web.PlatformExceptionType;
 import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
@@ -34,6 +36,9 @@ public class OrderService {
 	public ModelAndView update(HouseOrder order){
 		ModelAndView mv = new ModelAndView();
 		HouseOrder po = dao.get(HouseOrder.class, order.id);
+		if(Constants.HouseOrderJieYong.equals(po.status)){
+			throw new GException(PlatformExceptionType.BusinessException,"已结佣，状态不可更改");
+		}
 		if(!order.status.equals(po.status)){
 			po.status = order.status;
 			//add genjin
@@ -41,10 +46,26 @@ public class OrderService {
 			genjin.addtime = new Date();
 			genjin.conts="";
 			genjin.uname = ThreadSessionHelper.getUser().name;
-			genjin.status = po.status;
+			genjin.status = order.status;
 			genjin.orderId = po.id;
 			dao.saveOrUpdate(genjin);
+			if(Constants.HouseOrderJieYong.equals(order.status)){
+				Estate estate = dao.get(Estate.class, po.estateId);
+				if(estate.jieyongCount==null){
+					estate.jieyongCount = 1;
+				}else{
+					estate.jieyongCount++;
+				}
+				if(estate.yongjinTotal==null){
+					estate.yongjinTotal = order.yongjin;
+				}else{
+					estate.yongjinTotal+=order.yongjin;
+				}
+			}
 		}
+		po.yongjin = order.yongjin;
+		po.status = order.status;
+		po.daikan = order.daikan;
 		po.sellerMark = order.sellerMark;
 		dao.saveOrUpdate(po);
 		return mv;
@@ -120,7 +141,7 @@ public class OrderService {
 	public ModelAndView listEstateData(Page<Map> page ,OrderQuery query){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder hql = new StringBuilder("select  order.id as id, est.name as estateName, order.buyerName as buyerName ,order.buyerTel as buyerTel, "
-				+ " order.sellerName as sellerName ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status from HouseOrder order, "
+				+ " order.sellerName as sellerName ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status ,order.daikan as daikan from HouseOrder order, "
 				+ "Estate est where order.estateId=est.id ");
 		List<Object> params = new ArrayList<Object>();
 		setQuery(hql, params , query);

@@ -49,9 +49,14 @@ public class MobilePageService {
 		page.orderBy = "est.orderx";
 		page = dao.findPage(page, hql.toString(), true,new Object[]{});
 		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
+		
+		StringBuilder hql2 = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu ,est.junjia as junjia , est.yongjin as yongjin,"
+				+ " img.path as img from Estate est,"
+				+ "HouseImage img where est.uuid=img.estateUUID and img.type='tuijian' and est.tuijian=1");
+		List<Map> tuijianList = dao.listAsMap(hql2.toString() , new Object[]{});
+		mv.data.put("tuijianList", tuijianList);
 		return mv;
 	}
-	
 	
 	@WebMethod
 	public ModelAndView info(Integer estateId){

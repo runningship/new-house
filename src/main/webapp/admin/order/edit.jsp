@@ -37,22 +37,33 @@ request.setAttribute("sellerList", sellerList);
 <head>
 <jsp:include page="../header.jsp" />
 <script type="text/javascript">
-		
-		$(function(){
-		});
-		
-		function save(){
-		    var a=$('form[name=form1]').serialize();
-		    YW.ajax({
-		        type: 'POST',
-		        url: '${projectName}/c/admin/order/update',
-		        data:a,
-		        mysuccess: function(data){
-		            alert('修改成功');
-		            window.location.reload();
-		        }
-		    });
+
+function save(){
+	if($('#status').val()=='已结佣'){
+		if($('#yongjin').val()==''){
+			alert('请输入佣金金额');
+			return;
 		}
+	}
+    var a=$('form[name=form1]').serialize();
+    YW.ajax({
+        type: 'POST',
+        url: '${projectName}/c/admin/order/update',
+        data:a,
+        mysuccess: function(data){
+            alert('修改成功');
+            window.location.reload();
+        }
+    });
+}
+
+function statusChanged(status){
+	if("已结佣"==status){
+		$('#yongjinTR').show();
+	}else{
+		$('#yongjinTR').hide();
+	}
+}
 </script>
 </head>
 <body>
@@ -100,12 +111,23 @@ request.setAttribute("sellerList", sellerList);
     <tr>
         <td class="tableleft">状态</td>
         <td>
-            <select  class="sortSelect" name="status">
+            <select <c:if test="${order.status eq '已结佣' }">readonly="readonly"</c:if> id="status"  class="sortSelect" name="status" onchange="statusChanged(this.value);">
                 <option value="" >所有</option>
                 <c:forEach items="${statusList}" var="status">
                   <option <c:if test="${status eq order.status }">selected="selected"</c:if> value="${status}">${status}</option>
                 </c:forEach>
             </select>
+        </td>
+    </tr>
+    <tr id="yongjinTR" <c:if test="${order.status ne '已结佣' }"> style="display:none;"</c:if>>
+        <td class="tableleft">佣金</td>
+        <td><input type="text"  <c:if test="${order.status eq '已结佣' }">readonly="readonly"</c:if> desc="佣金"  id="yongjin" name="yongjin" value="${order.yongjin }"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">是否带看</td>
+        <td>
+        	<input <c:if test="${order.daikan==1 }">checked="checked"</c:if> type="radio" name="daikan" value="1"/> 已带看
+        	<input <c:if test="${order.daikan!=1 }">checked="checked"</c:if> type="radio" name="daikan" value="0"/>未带看
         </td>
     </tr>
     <tr>
