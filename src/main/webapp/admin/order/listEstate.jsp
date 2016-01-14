@@ -133,7 +133,7 @@ function deleteAll(){
     			</c:if>
     			<td>$[id]</td>
                 <td>$[estateName]</td>
-                <td>$[buyerName]</td>
+                <td>$[buyerName] $[buyerGender]</td>
                 <td>$[buyerTel]</td>
                 <td>$[sellerName]</td>
                 <td>$[sellerTel]</td>

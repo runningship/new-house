@@ -5,7 +5,7 @@
 <html>
  <head>
   <title>中介宝新房通后台管理系统</title>
-  <link type="image/x-icon" rel="icon" href="../images/fjb.png">
+  <link type="image/x-icon" rel="icon" href="../images/zjb.png">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css" />

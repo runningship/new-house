@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<link type="image/x-icon" rel="icon" href="../images/fjb.png">
+	<link type="image/x-icon" rel="icon" href="../images/zjb.png">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-		<title>Wide Admin - Login</title>
+		<title>中介宝新房通管理平台</title>
 		<link type="text/css" href="assets/css/login.css" rel="stylesheet" />	
 		<script type="text/javascript" src="assets/js/jquery-1.8.1.min.js"></script>
 	    <script type="text/javascript" src="../js/bootstrap.js"></script>

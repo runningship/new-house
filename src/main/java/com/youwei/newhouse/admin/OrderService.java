@@ -94,30 +94,30 @@ public class OrderService {
 		return mv;
 	}
 	
-	@WebMethod
-	public ModelAndView fankui(OrderGenJin genjin){
-		ModelAndView mv = new ModelAndView();
-		genjin.addtime = new Date();
-		dao.saveOrUpdate(genjin);
-		mv.data.put("genjin", JSONHelper.toJSON(genjin , DataHelper.sdf3.toPattern()));
-		return mv;
-	}
+//	@WebMethod
+//	public ModelAndView fankui(OrderGenJin genjin){
+//		ModelAndView mv = new ModelAndView();
+//		genjin.addtime = new Date();
+//		dao.saveOrUpdate(genjin);
+//		mv.data.put("genjin", JSONHelper.toJSON(genjin , DataHelper.sdf3.toPattern()));
+//		return mv;
+//	}
 	
-	@WebMethod
-	public ModelAndView accept(Integer id){
-		ModelAndView mv = new ModelAndView();
-		HouseOrder po = dao.get(HouseOrder.class, id);
-		po.status = Constants.HouseOrderValid;
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView deal(Integer id){
-		ModelAndView mv = new ModelAndView();
-		HouseOrder po = dao.get(HouseOrder.class, id);
-		po.status = Constants.HouseOrderDeal;
-		return mv;
-	}
+//	@WebMethod
+//	public ModelAndView accept(Integer id){
+//		ModelAndView mv = new ModelAndView();
+//		HouseOrder po = dao.get(HouseOrder.class, id);
+//		po.status = Constants.HouseOrderValid;
+//		return mv;
+//	}
+//	
+//	@WebMethod
+//	public ModelAndView deal(Integer id){
+//		ModelAndView mv = new ModelAndView();
+//		HouseOrder po = dao.get(HouseOrder.class, id);
+//		po.status = Constants.HouseOrderDeal;
+//		return mv;
+//	}
 	
 	@WebMethod
 	public ModelAndView delete(Integer id){
@@ -141,7 +141,7 @@ public class OrderService {
 	public ModelAndView listEstateData(Page<Map> page ,OrderQuery query){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder hql = new StringBuilder("select  order.id as id, est.name as estateName, order.buyerName as buyerName ,order.buyerTel as buyerTel, "
-				+ " order.sellerName as sellerName ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status ,order.daikan as daikan from HouseOrder order, "
+				+ " order.sellerName as sellerName ,order.buyerGender as buyerGender ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status ,order.daikan as daikan from HouseOrder order, "
 				+ "Estate est where order.estateId=est.id ");
 		List<Object> params = new ArrayList<Object>();
 		setQuery(hql, params , query);

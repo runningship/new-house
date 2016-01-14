@@ -28,7 +28,7 @@ $(function(){
 
 function save(){
     if(checkNotnullInput()==false){
-        infoAlert('请检查 楼盘名称、联系电话、楼盘地址是否未填！');
+        infoAlert('您有必填项未填写！');
         return;
     }
     var a=$('form[name=form1]').serialize();
@@ -56,6 +56,7 @@ function changeQuYu(city){
 <body>
 <style type="text/css">
 #city_1 select{height:25px;width:120px;margin-top: 5px;margin-bottom: 5px;}
+.notNull{vertical-align: sub;display:inline-block;color:red;}
 input{width:90%;}
 </style>
 <form name="form1" method="post" class="definewidth m20">
@@ -63,12 +64,12 @@ input{width:90%;}
 <table class="table table-bordered table-hover m10">
 	
     <tr>
-        <td class="tableleft">楼盘名称</td>
+        <td class="tableleft">楼盘名称<div class="notNull">*</div></td>
         <td style="width:26%"><input type="text" name="name" not-null="true"/></td>
         <td class="tableleft">参考均价</td>
         <td style="width:26%"><input type="text" name="junjia"/>元/平方</td>
-        <td class="tableleft">联系电话</td>
-        <td style="width:26%"><input type="text" name="tel" not-null="true" /></td>
+        <td class="tableleft">联系电话 <div class="notNull">*</div></td>
+        <td style="width:26%"><input type="text" name="tel"  not-null="true" /></td>
     </tr>
     <tr>
         <td class="tableleft">物业费</td>
@@ -79,10 +80,10 @@ input{width:90%;}
         <td><input type="text" name="guishu"/></td>
     </tr>
     <tr id="tr_conts" >
-    	<td class="tableleft">开发商</td>
-        <td><input type="text" name="developer"/></td>
-        <td class="tableleft">开盘时间</td>
-        <td><input type="text" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
+    	<td class="tableleft">开发商<div class="notNull">*</div></td>
+        <td><input type="text" name="developer" not-null="true"/></td>
+        <td class="tableleft">开盘时间<div class="notNull">*</div></td>
+        <td><input type="text" class="form-control input-sm input-left"  not-null="true" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
         <td class="tableleft">交房日期</td>
         <td><input type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
     </tr>
@@ -95,15 +96,15 @@ input{width:90%;}
         <td><textarea name="jiaotong" style="width:90%;height:100%"></textarea></td>
     </tr>
     <tr>
-    	<td class="tableleft">佣金</td>
-        <td ><input type="text" name="yongjin"/></td>
-        <td class="tableleft">主力户型</td>
-        <td><input type="text" name="mainHuxing"/></td>
+    	<td class="tableleft">佣金<div class="notNull">*</div></td>
+        <td ><input type="text" name="yongjin" not-null="true"/></td>
+        <td class="tableleft">主力户型<div class="notNull">*</div></td>
+        <td><input type="text" not-null="true" name="mainHuxing"/></td>
         <td class="tableleft">排序</td>
         <td><input type="text" name="orderx"/></td>
     </tr>
     <tr>
-        <td class="tableleft">项目地址</td>
+        <td class="tableleft">项目地址<div class="notNull">*</div></td>
         <td><input type="text" name="addr" not-null="true"/></td>
         <td class="tableleft">公摊</td>
         <td><input type="text" name="gongtan" />%</td>
@@ -111,7 +112,7 @@ input{width:90%;}
         <td><select name="tuijian">
             <option value="0">否</option>
             <option value="1">是</option>
-        </select></td>
+        </select><span style="color:#aaa;">选择是必须上传推荐图片</span></td>
     </tr>
     <tr>
         <td class="tableleft">区域</td>
@@ -122,8 +123,10 @@ input{width:90%;}
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
+        <td class="tableleft">负责人手机号<div class="notNull">*</div></td>
+        <td style="width:26%"><input type="text" name="kfsTel" value="${estate.kfsTel }"  not-null="true"/></td>
         <td class="tableleft">楼盘特色</td>
-        <td colspan="3"><textarea name="tese" style="width:90%;height:100%"></textarea></td>
+        <td><textarea name="tese" style="width:90%;height:100%"></textarea></td>
     </tr>
     <tr>
     
@@ -152,7 +155,7 @@ input{width:90%;}
         </td>
     </tr>
     <tr>
-        <td class="tableleft">规划图</td>
+        <td class="tableleft">户型图</td>
         <td colspan="5"><input id="huxing_upload"  style="display:none;margin-top:5px;">
         	<div id="huxing_img_container">
         	</div>

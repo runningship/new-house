@@ -36,15 +36,15 @@ public class MobilePageService {
 	public ModelAndView listSalesData(Page<Map> page , String quyu){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu ,est.junjia as junjia , est.yongjin as yongjin,"
-				+ " est.opentime as opendate, est.addr as addr , img.path as img from Estate est,"
+				+ " est.opentime as opendate, est.addr as addr , img.path as img , est.wylx as wylx , est.mainHuxing as mainHuxing from Estate est,"
 				+ "HouseImage img where est.uuid=img.estateUUID and img.type='main'");
-		List<String> params = new ArrayList<String>();
-		params.add(ThreadSessionHelper.getCity());
-		if(StringUtils.isNotEmpty(quyu)){
-			hql.append(" and est.quyu=? ");
-			params.add(quyu);
-		}
-		page.setPageSize(10);
+//		List<String> params = new ArrayList<String>();
+//		params.add(ThreadSessionHelper.getCity());
+//		if(StringUtils.isNotEmpty(quyu)){
+//			hql.append(" and est.quyu=? ");
+//			params.add(quyu);
+//		}
+		page.setPageSize(50);
 		page.order="desc";
 		page.orderBy = "est.orderx";
 		page = dao.findPage(page, hql.toString(), true,new Object[]{});

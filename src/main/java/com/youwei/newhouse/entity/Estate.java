@@ -73,6 +73,10 @@ public class Estate {
 	
 	public int orderx;
 	
+	public String yongjin;
+	
+	//开发商负责人电话
+	public String kfsTel;
 	//已结佣金
 	public Integer jieyongCount;
 	public Float yongjinTotal;

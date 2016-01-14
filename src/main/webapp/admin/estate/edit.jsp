@@ -36,7 +36,7 @@ $(function(){
 
 function save(){
     if(checkNotnullInput()==false){
-        infoAlert('请检查 楼盘名称、联系电话、楼盘地址是否未填！');
+        infoAlert('您有必填项未填写！');
         return;
     }
     var a=$('form[name=form1]').serialize();
@@ -56,17 +56,18 @@ function save(){
 <style type="text/css">
 #city_1 select{height:25px;width:120px;margin-top: 5px;margin-bottom: 5px;}
 input{width:90%;}
+.notNull{vertical-align: sub;display:inline-block;color:red;}
 </style>
 <form name="form1" method="post" class="definewidth m20">
 	<input type="hidden" name="id"  value="${estate.id}"/>
 <table class="table table-bordered table-hover m10">
 	
     <tr>
-        <td class="tableleft">楼盘名称</td>
+        <td class="tableleft">楼盘名称<div class="notNull">*</div></td>
         <td style="width:26%"><input type="text" name="name" value="${estate.name }" not-null="true"/></td>
-        <td class="tableleft">参考均价</td>
-        <td style="width:26%"><input type="text" name="junjia" value="${estate.junjia }"/>元/平方</td>
-        <td class="tableleft">联系电话</td>
+        <td class="tableleft">参考均价<div class="notNull">*</div></td>
+        <td style="width:26%"><input type="text" not-null="true" name="junjia" value="${estate.junjia }"/>元/平方</td>
+        <td class="tableleft">联系电话<div class="notNull">*</div></td>
         <td style="width:26%"><input type="text" name="tel" value="${estate.tel }"  not-null="true"/></td>
     </tr>
     <tr>
@@ -78,10 +79,10 @@ input{width:90%;}
         <td><input type="text" name="guishu" value="${estate.guishu }"/></td>
     </tr>
     <tr>
-        <td class="tableleft">开发商</td>
-        <td><input type="text" name="developer" value="${estate.developer }"/></td>
-         <td class="tableleft">开盘时间</td>
-        <td><input type="text" value="<fmt:formatDate value="${estate.opentime}" pattern="yyyy-MM-dd"/>" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
+        <td class="tableleft">开发商<div class="notNull">*</div></td>
+        <td><input type="text" not-null="true" name="developer" value="${estate.developer }"/></td>
+         <td class="tableleft">开盘时间<div class="notNull">*</div></td>
+        <td><input type="text"  not-null="true" value="<fmt:formatDate value="${estate.opentime}" pattern="yyyy-MM-dd"/>" class="form-control input-sm input-left" name="opentime" id="opentime" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
         <td class="tableleft">交房日期</td>
         <td><input value="<fmt:formatDate value="${estate.jiaofangDate}" pattern="yyyy-MM-dd"/>"  type="text" class="form-control input-sm input-left" name="jiaofangDate" id="jiaofangDate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" ></td>
     </tr>
@@ -94,15 +95,15 @@ input{width:90%;}
         <td><textarea name="jiaotong" style="width:90%;height:100%">${estate.jiaotong }</textarea></td>
     </tr>
     <tr>
-    	<td class="tableleft">佣金</td>
-        <td ><input type="text" name="yongjin" value="${estate.yongjin}"/></td>
-        <td class="tableleft">主力户型</td>
-        <td><input type="text" name="mainHuxing" value="${estate.mainHuxing }"/></td>
+    	<td class="tableleft">佣金<div class="notNull">*</div></td>
+        <td ><input type="text" name="yongjin"  not-null="true" value="${estate.yongjin}"/></td>
+        <td class="tableleft">主力户型<div class="notNull">*</div></td>
+        <td><input type="text" name="mainHuxing" value="${estate.mainHuxing }" not-null="true"/></td>
         <td class="tableleft">排序</td>
         <td><input type="text" name="orderx" value="${estate.orderx }" /></td>
     </tr>
     <tr id="tr_conts" >
-       <td class="tableleft">项目地址</td>
+       <td class="tableleft">项目地址<div class="notNull">*</div></td>
         <td><input type="text" name="addr" value="${estate.addr }" not-null="true"/></td>
         <td class="tableleft">公摊</td>
         <td><input type="text" name="gongtan" value="${estate.gongtan }"  />%</td>
@@ -110,7 +111,7 @@ input{width:90%;}
         <td><select name="tuijian" id="tuijian">
             <option value="0">否</option>
             <option value="1">是</option>
-        </select></td>
+        </select><span style="color:#aaa;">选择是必须上传推荐图片</span></td>
     </tr>
     <tr>
     	<td class="tableleft">区域</td>
@@ -121,9 +122,10 @@ input{width:90%;}
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
+        <td class="tableleft">负责人手机号<div class="notNull">*</div></td>
+        <td style="width:26%"><input type="text" name="kfsTel" value="${estate.kfsTel }"  not-null="true"/></td>
         <td class="tableleft">楼盘特色</td>
-        <td colspan="3"><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
-        
+        <td ><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
     </tr>
     <tr>
         <td class="tableleft">建筑类型</td>

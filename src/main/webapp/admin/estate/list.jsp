@@ -95,7 +95,6 @@ function doSearch(){
                 <td>
                     <a onclick="addTab('huxing_list','户型','huxing/list.jsp?estateId=$[id]')" href="#">户型</a>
                     <c:if test="${me.role ne '销售总监' }"></c:if>
-                    <a href="view.jsp?id=$[id]">查看</a>
                     <a href="edit.jsp?id=$[id]">编辑</a>
                     <a href="#" onclick="delPost($[id])">删除</a>
                 </td>
