@@ -1,5 +1,16 @@
+<%@page import="com.youwei.newhouse.entity.User"%>
+<%@page import="org.bc.sdak.TransactionalServiceHelper"%>
+<%@page import="org.bc.sdak.CommonDaoService"%>
+<%@page import="com.youwei.newhouse.user.Role"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	Integer id = Integer.parseInt(request.getParameter("id"));
+	request.setAttribute("roles", Role.toList());
+	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
+	User po = dao.get(User.class, id);
+	request.setAttribute("user", po);
+%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -72,25 +72,9 @@ public class UserService {
 	}
 	
 	@WebMethod
-	public ModelAndView adminAdd(){
-		ModelAndView mv = new ModelAndView();
-		mv.jspData.put("roles", Role.toList());
-		return mv;
-	}
-	
-	@WebMethod
 	public ModelAndView adminList(){
 		ModelAndView mv = new ModelAndView();
 		mv.jspData.put("me", ThreadSessionHelper.getUser());
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView adminEdit(Integer id){
-		ModelAndView mv = new ModelAndView();
-		User po = dao.get(User.class, id);
-		mv.jspData.put("user", po);
-		mv.jspData.put("roles", Role.toList());
 		return mv;
 	}
 	
@@ -143,29 +127,6 @@ public class UserService {
 	}
 	
 	@WebMethod
-	public ModelAndView updateSeller(User seller , String modifyPwd){
-		ModelAndView mv = new ModelAndView();
-		User po = dao.get(User.class, seller.id);
-		po.compName = seller.compName;
-		po.deptName = seller.deptName;
-		po.name = seller.name;
-		po.tel = seller.tel;
-		po.city = seller.city;
-		po.province= seller.province;
-		po.quyu = seller.quyu;
-		po.adminId = seller.adminId;
-		User admin = dao.get(User.class, seller.adminId);
-		if(admin!=null){
-			po.adminName = admin.name;
-		}
-		if("1".equals(modifyPwd)){
-			po.pwd = SecurityHelper.Md5(seller.pwd);
-		}
-		dao.saveOrUpdate(po);
-		return mv;
-	}
-	
-	@WebMethod
 	public ModelAndView setAdminForSeller(Integer adminId, String sellerIds){
 		ModelAndView mv = new ModelAndView();
 		if(StringUtils.isEmpty(sellerIds)){
@@ -179,65 +140,6 @@ public class UserService {
 			seller.valid = 1;
 			dao.saveOrUpdate(seller);
 		}
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView sellerList(){
-		ModelAndView mv = new ModelAndView();
-		List<User> admins = dao.listByParams(User.class, "from User where type=?", "admin");
-		mv.jspData.put("admins", admins);
-		//公司数量
-		List<Map> comps = dao.listAsMap("select compName from User where type='seller' group by compName");
-		List<Map> depts = dao.listAsMap("select deptName from User where type='seller' group by compName, deptName");
-		mv.jspData.put("compCount", comps.size());
-		mv.jspData.put("deptCount", depts.size());
-		//门店数量
-		mv.jspData.put("me", ThreadSessionHelper.getUser());
-		return mv;
-	}
-
-	@WebMethod
-	public ModelAndView sellermenList(){
-		ModelAndView mv = new ModelAndView();
-		List<User> admins = dao.listByParams(User.class, "from User where type=?", "admin");
-		mv.jspData.put("admins", admins);
-		//公司数量
-		List<Map> comps = dao.listAsMap("select compName from User where type='sellermen' group by compName");
-		List<Map> depts = dao.listAsMap("select deptName from User where type='sellermen' group by compName, deptName");
-		mv.jspData.put("compCount", comps.size());
-		mv.jspData.put("deptCount", depts.size());
-		//门店数量
-		mv.jspData.put("me", ThreadSessionHelper.getUser());
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView sellerEdit(Integer id){
-		ModelAndView mv = new ModelAndView();
-		User seller = dao.get(User.class, id);
-		mv.jspData.put("seller", seller);
-		List<User> admins = dao.listByParams(User.class, "from User where type=?", "admin");
-		mv.jspData.put("admins", admins);
-		return mv;
-	}
-	
-	@WebMethod
-	public ModelAndView doRegiste(User user , String yzm){
-		if(StringUtils.isEmpty(user.type)){
-			user.type = "seller";
-		}
-		ModelAndView mv = new ModelAndView();
-		User po = dao.getUniqueByParams(User.class, new String[]{"type" , "tel"}, new Object[]{user.type , user.tel});
-		if(po!=null){
-			throw new GException(PlatformExceptionType.BusinessException,"该手机号码已经被注册");
-		}
-//		VerifyCodeHelper.verify(yzm);
-		user.pwd = SecurityHelper.Md5(user.pwd);
-		//经纪人
-		user.addtime = new Date();
-		user.valid = 0;
-		dao.saveOrUpdate(user);
 		return mv;
 	}
 	
@@ -256,20 +158,6 @@ public class UserService {
 	
 	
 	@WebMethod
-	public ModelAndView active(User user){
-		ModelAndView mv = new ModelAndView();
-		User po = dao.get(User.class, user.id);
-		if(po!=null){
-			if(StringUtils.isNotEmpty(po.activeCode) && po.activeCode.equals(user.activeCode)){
-				po.valid = 1;
-				dao.saveOrUpdate(po);
-				//跳转到登录页面
-			}
-		}
-		return mv;
-	}
-	
-	@WebMethod
 	public ModelAndView delete(Integer id){
 		ModelAndView mv = new ModelAndView();
 		User po = dao.get(User.class, id);
@@ -279,17 +167,47 @@ public class UserService {
 		return mv;
 	}
 	
-	
 	@WebMethod
-	public ModelAndView toggleShenHe(Integer id){
+	public ModelAndView listData(Page<User> page , String type , String city , String quyu , Integer adminId , String compName , String deptName){
 		ModelAndView mv = new ModelAndView();
-		User po = dao.get(User.class, id);
-		if(po.valid==1){
-			po.valid = 0 ;
-		}else{
-			po.valid =1;
+		StringBuilder hql = new StringBuilder("from User where 1=1 ");
+		List<Object> params = new ArrayList<Object>();
+		if(StringUtils.isNotEmpty(type)){
+			params.add(type);
+			hql.append(" and type=?");
 		}
-		dao.saveOrUpdate(po);
+		if(StringUtils.isNotEmpty(city)){
+			hql.append(" and city = ?");
+			params.add(city);
+		}
+		if(StringUtils.isNotEmpty(quyu)){
+			hql.append(" and quyu = ?");
+			params.add(quyu);
+		}
+		if(StringUtils.isNotEmpty(compName)){
+			hql.append(" and compName like ?");
+			params.add("%"+compName+"%");
+		}
+		if(StringUtils.isNotEmpty(deptName)){
+			hql.append(" and deptName like ?");
+			params.add("%"+deptName+"%");
+		}
+		if(adminId!=null){
+			hql.append(" and adminId = ?");
+			params.add(adminId);
+		}
+		User me = ThreadSessionHelper.getUser();
+		if("seller".equals(type)){
+			if(Role.市场专员.toString().equals(me.role)){
+				hql.append(" and adminId = ?");
+				params.add(me.id);
+			}
+		}
+		
+		page.order="desc";
+		page.orderBy="id";
+		page = dao.findPage(page, hql.toString(), params.toArray());
+		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
 		return mv;
 	}
 }

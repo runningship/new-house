@@ -42,7 +42,7 @@ $(function(){
 	<body>
 	<div class="container">
 		<div class="top">
-			<a href="#" class="logos"><i class="iconfont">&#xe687;</i><strong>这里是小标题</strong></a>
+			<a href="#" class="logos"><i class="iconfont">&#xe687;</i><strong>新房通管理平台</strong></a>
 		</div>
 		<div class="bottom">
 			<form class="form1" name="form1">

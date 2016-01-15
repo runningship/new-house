@@ -94,7 +94,6 @@ function deleteAll(){
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 <form class="form-inline definewidth m20" name="form1"  method="get" onsubmit="return false;">
-    客户姓名<input type="text" name="buyerName" style="width:100px;margin-right:10px;"/>
     客户电话<input type="text" name="buyerTel" style="width:120px;margin-right:10px;height:18px;"/>
     楼盘名称<input type="text" name="estateName" style="width:100px;margin-right:10px;height:18px;"/>
     经纪人电话<input type="text" name="sellerTel" style="width:100px;margin-right:10px;height:18px;"/>

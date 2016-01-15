@@ -39,6 +39,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var orderList = JSON.parse('${orderList}');
+	if(orderList.length==0){
+		$('#emptyMsg').show();
+	}
 	buildHtmlWithJsonArray("repeat", orderList , true,true);
 });
 
@@ -50,7 +53,35 @@ $(document).on('click', '.khlist a.box', function(event) {
   id=TP.attr('data-id'),
   C='active',
   Z='ShuList_';
-  function getHtml(id){
+  if($('.repeat_'+id).length>0){
+	  var url = '/new-house/c/m/listOrderGenjin';
+		YW.ajax({
+			url: url,
+			method:'post',
+			cache:false,
+			dataType: 'json',
+			data:{orderId:id},
+			returnAll:false,
+			mysuccess:function(ret , err){
+				if(ret){
+					buildHtmlWithJsonArray("repeat_"+id,ret.genjiList , true,true);
+					$(Z + id).html(getHtml(id));
+				}else{
+					alert('加载数据失败');
+				}
+			}
+		});
+  }else{
+	$(Z + id).html(getHtml(id));
+  }
+  
+  
+  TP.addClass(C).siblings().removeClass(C);
+  event.preventDefault();
+  /* Act on the event */
+});
+
+function getHtml(id){
     var H;
     H='<ul class="ul">';
     
@@ -59,11 +90,6 @@ $(document).on('click', '.khlist a.box', function(event) {
     H=H+'</ul>';
     return H;
   }
-  $(Z + id).html(getHtml(id));
-  TP.addClass(C).siblings().removeClass(C);
-  event.preventDefault();
-  /* Act on the event */
-});
 </script>
 <style type="text/css">
 .bodyer .sider{width:100%;}
@@ -76,6 +102,7 @@ $(document).on('click', '.khlist a.box', function(event) {
    <div class="sider">
     <div class="siderC">
       <div class="wrap">
+      	<div id="emptyMsg" style="text-align:center;display:none;">您还没有推荐过任何客户，赶快推荐拿佣金吧! </div>
         <ul class="khlist">
           <li class="repeat" style="display:none;" data-id="$[id]"><a href="#" class="box">
             <div class="fr"><i class="iconfont">&#xe672;</i></div>
@@ -85,16 +112,16 @@ $(document).on('click', '.khlist a.box', function(event) {
             <span class="hn">$[estateName]</span>
           </a>
           <div class=" ShuList " id="ShuList_$[id]">
-            <ul class="ul">
-              <li class="">
+            <ul class="ul ">
+              <li class="" >
                 <span class="fl"><i class="iconfont">&#xe68a;</i></span>
-                <h4>这里是<b>标题</b></h4>
-                <p>楼盘名称</p>
+                <h4>等待处理</h4>
+                <p>$[addtime]</p>
               </li>
-              <li class="">
+              <li class="repeat_$[id]" style="display:none;">
                 <span class="fl"><i class="iconfont">&#xe68a;</i></span>
-                <h4>这里是<b>标题</b></h4>
-                <p>楼盘名称</p>
+                <h4><b>$[uname]</b>将状态修改为<b>$[status]</b></h4>
+                <p>$[addtime]</p>
               </li>
             </ul>
           </div>
