@@ -36,13 +36,37 @@ function doSearch(){
 		Page.Init();
 		doSearch();
 	});
+	
+	function setUserValidation(a,id){
+		YW.ajax({
+	        type: 'POST',
+	        url: '${projectName}/c/admin/user/toggleUserValidation?id='+id,
+	        data:'',
+	        mysuccess: function(data){
+	        	if(data.valid){
+	        		$(a).text('审').css('color', '#0088cc');
+	        	}else{
+	        		$(a).text('未').css('color', 'red');
+	        	}
+	        }
+	   });
+	}
+
+function getValidationText(valid){
+	if(valid){
+		return "审";
+	}else{
+		return "未";
+	}
+}
 </script>
+<style type="text/css">
+.valid_0{color:red}
+</style>
 </head>
 <body>
 <form class="form-inline definewidth m20" name="form1"  method="get" onsubmit="return false;">
-    <c:if test="${me.role eq '销售总监' }">
     	<button onclick="window.location.href='adminAdd.jsp'" type="button"  class="btn btn-success ">添加</button>
-    </c:if>
 </form>
 
 <table class="table table-bordered table-hover definewidth m10">
@@ -54,7 +78,7 @@ function doSearch(){
         <th>职位</th>
         <th>固定号码</th>
         <th>邮箱</th>
-        <c:if test="${me.role eq '销售总监' }"><th>操作</th></c:if>
+        <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -65,11 +89,11 @@ function doSearch(){
                 <td>$[role]</td>
                 <td>$[landlineTel]</td>
                 <td>$[email]</td>
-                <c:if test="${me.role eq '销售总监' }"><td>
+                <td>
                     <a href="adminEdit.jsp?id=$[id]">编辑</a>
+                    <a class="valid_$[valid]" href="javascript:void(0)" onclick="setUserValidation(this,$[id]);" runscript="true">getValidationText($[valid])</a>
                     <a href="#" onclick="del($[id])">删除</a>
                 </td>
-                </c:if>
             </tr>
     </tbody>
 	</table>

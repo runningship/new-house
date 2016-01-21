@@ -61,6 +61,7 @@ input{width:90%;}
 </style>
 <form name="form1" method="post" class="definewidth m20">
 	<input type="hidden" name="uuid"  value="${estateUUID }"/>
+	<input type="hidden" name="managerUid"  value="${me.id }"/>
 <table class="table table-bordered table-hover m10">
 	
     <tr>
@@ -123,8 +124,6 @@ input{width:90%;}
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
-        <td class="tableleft">负责人手机号<div class="notNull">*</div></td>
-        <td style="width:26%"><input type="text" name="kfsTel" value="${estate.kfsTel }"  not-null="true"/></td>
         <td class="tableleft">楼盘特色</td>
         <td><textarea name="tese" style="width:90%;height:100%"></textarea></td>
     </tr>

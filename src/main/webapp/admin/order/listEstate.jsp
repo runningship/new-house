@@ -84,6 +84,16 @@ function deleteAll(){
 	      });
 	  },function(){},'warning');
 }
+
+function encodeTel(tel){
+	if(!tel){
+		return "";
+	}
+	if(tel.length<11){
+		return "";
+	}
+	return tel.substring(0,3)+"****"+tel.substring(7,11)
+}
 </script>
 <style type="text/css">
 #city_reg select{height:22px;width:90px;}
@@ -94,6 +104,7 @@ function deleteAll(){
 <body>
 <jsp:include page="../top.jsp"></jsp:include>
 <form class="form-inline definewidth m20" name="form1"  method="get" onsubmit="return false;">
+				<c:if test="${me.role ne '管理员' }"><input type="hidden" name="managerUid" value="${me.id }"/></c:if>
     客户电话<input type="text" name="buyerTel" style="width:120px;margin-right:10px;height:18px;"/>
     楼盘名称<input type="text" name="estateName" style="width:100px;margin-right:10px;height:18px;"/>
     经纪人电话<input type="text" name="sellerTel" style="width:100px;margin-right:10px;height:18px;"/>
@@ -109,11 +120,9 @@ function deleteAll(){
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
-    	<c:if test="${me.role eq '销售总监' }">
     	<th style="width:50px;">
     		<input type="checkbox" onclick="triggerAll(this)"/> <a href="#" onclick="deleteAll()">删除</a>
     	</th>
-    	</c:if>
     	<th>编号</th>
     	<th>楼盘</th>
         <th>客户</th>
@@ -127,13 +136,11 @@ function deleteAll(){
     </thead>
     <tbody>
     	<tr style="display:none" class="repeat">
-    			<c:if test="${me.role eq '销售总监' }">
     			<td ><input orderId="$[id]" class="checkbox" type="checkbox" /></td>
-    			</c:if>
     			<td>$[id]</td>
                 <td>$[estateName]</td>
                 <td>$[buyerName] $[buyerGender]</td>
-                <td>$[buyerTel]</td>
+                <td runscript="true">encodeTel('$[buyerTel]')</td>
                 <td>$[sellerName]</td>
                 <td>$[sellerTel]</td>
                 <td>$[addtime]</td>

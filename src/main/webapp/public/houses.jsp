@@ -80,6 +80,14 @@ function saveOrder(){
 function viewEstate(id){
 	$('#estateFrame').attr('src', 'houseDetail.jsp?tel=${tel}&estateId='+id);
 }
+$(document).on('click', '.view li', function(event) {
+  var T=$(this),
+  Tid=T.attr('data-id'),
+  C='active';
+  viewEstate(Tid);
+  T.addClass(C).siblings().removeClass(C);
+  event.preventDefault();
+});
 </script>
 <style type="text/css">
 .NH2L .L .img{width:100%;    height: 100%}
@@ -97,8 +105,8 @@ function viewEstate(id){
   
   <div class="mainer">
     <div class="NH2LB">
-      <ul class="NH2L">
-        <li class="repeat" style="display:none;" onclick="viewEstate($[id])">
+      <ul class="NH2L view">
+        <li class="repeat" id="view_$[id]" data-id="$[id]" style="display:none;">
           <div class="L"><img class="img" src="http://${domainName }/zjb_newhouse_images/$[uuid]/$[img].t.jpg"/></div>
           <div class="R"><div class="p F_junjia"><strong>$[junjia]</strong> <i>均价</i></div></div>
           <div class="C">

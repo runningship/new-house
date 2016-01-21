@@ -67,9 +67,7 @@ function doSearch(){
     			<td>$[id]</td>
                 <td>$[value]</td>
                 <td>
-                	<c:if test="${me.role eq '销售总监' }">
                     <a href="#" onclick="del($[id])">删除</a>
-                    </c:if>
                 </td>
             </tr>
     </tbody>

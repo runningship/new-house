@@ -24,6 +24,7 @@ import com.youwei.newhouse.ThreadSessionHelper;
 import com.youwei.newhouse.entity.Config;
 import com.youwei.newhouse.entity.Estate;
 import com.youwei.newhouse.entity.HouseImage;
+import com.youwei.newhouse.entity.User;
 import com.youwei.newhouse.util.ConfigHelper;
 import com.youwei.newhouse.util.DataHelper;
 
@@ -55,6 +56,11 @@ public class EstateService {
 		Estate po = dao.get(Estate.class, id);
 		mv = ConfigHelper.queryItems(mv);
 		mv.jspData.put("estate", po);
+		User charger = dao.get(User.class, po.managerUid);
+		if(charger!=null){
+			mv.jspData.put("managerUid", charger.id);
+			mv.jspData.put("manager", charger.tel);
+		}
 		List<String> lxings = new ArrayList<String>();
 		if(po.lxing!=null){
 			for(String str : po.lxing.split(",")){
@@ -112,7 +118,6 @@ public class EstateService {
 		po.xuequ = estate.xuequ;
 		po.jiaotong = estate.jiaotong;
 		po.yongjin = estate.yongjin;
-		po.kfsTel = estate.kfsTel;
 		dao.saveOrUpdate(po);
 		return mv;
 	}
@@ -137,10 +142,10 @@ public class EstateService {
 	}
 	
 	@WebMethod
-	public ModelAndView listData(Page<Estate> page , String name , String city ,String quyu){
+	public ModelAndView listData(Page<Estate> page , String name , String city ,String quyu , Integer managerUid){
 		ModelAndView mv = new ModelAndView();
-		StringBuilder hql = new StringBuilder("from Estate where 1=1 ");
-		List<String> params = new ArrayList<String>();
+		StringBuilder hql = new StringBuilder("from Estate est where 1=1 ");
+		List<Object> params = new ArrayList<Object>();
 		if(StringUtils.isNotEmpty(name)){
 			hql.append(" and name like ?");
 			params.add("%"+name+"%");
@@ -152,6 +157,10 @@ public class EstateService {
 		if(StringUtils.isNotEmpty(city)){
 			hql.append(" and city like ?");
 			params.add("%"+city+"%");
+		}
+		if(managerUid!=null){
+			hql.append(" and managerUid = ?");
+			params.add(managerUid);
 		}
 		hql.append(" order by orderx desc,id desc");
 //		page.order = "desc";

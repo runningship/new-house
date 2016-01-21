@@ -24,16 +24,9 @@ public class User {
 	
 	public String tel;
 	
-	public String compName;
-	
-	public String deptName;
-	
 	public Date addtime;
 	
 	public Date lasttime;
-	
-	//admin(开发商用户)
-	public String type;
 	
 	public String role;
 	
@@ -42,9 +35,6 @@ public class User {
 	//是否通过审核
 	public int valid;
 	
-	//意向
-	public Float intentPrice;
-	
 	public String province;
 	
 	public String city;
@@ -52,11 +42,6 @@ public class User {
 	public String quyu;
 	
 	public String activeCode;
-	
-	//经纪服务人员
-	public Integer adminId;
-	
-	public String adminName;
 	
 	//固定电话
 	public String landlineTel;

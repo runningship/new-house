@@ -70,10 +70,8 @@ function doSearch(){
                 <td>$[name]</td>
                 <td>$[estateName]</td>
                 <td>
-                	<c:if test="${me.role eq '销售总监' }">
                     <a href="edit.jsp?id=$[id]">编辑</a>
                     <a href="#" onclick="delPost($[id])">删除</a>
-                    </c:if>
                 </td>
             </tr>
     </tbody>

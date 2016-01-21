@@ -55,7 +55,7 @@ public class MobilePageService {
 	public ModelAndView info(Integer estateId){
 		ModelAndView mv = new ModelAndView();
 		Estate po = dao.get(Estate.class, estateId);
-		mv.data.put("estate", JSONHelper.toJSON(po));
+		mv.data.put("estate", JSONHelper.toJSON(po ,DataHelper.dateSdf.toPattern()));
 		
 		//户型图
 		List<HouseImage> hxImgList = dao.listByParams(HouseImage.class, "from HouseImage where estateUUID=? and type=? ", po.uuid , Constants.HuXing);

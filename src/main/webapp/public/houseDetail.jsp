@@ -130,25 +130,6 @@ function initImg(){
       <div class="wrap text">3.周边商业派单活动摆展宣传</div>
       <div class="wrap text">4.投资性客户宣传</div>
 
-      <h3 class="h3">已提交客户列表</h3>
-      <div class="wrap">
-        <ul class="khlist">
-          <li><a href="#" class="box">
-            <div class="fr"><i class="iconfont">&#xe672;</i></div>
-            <strong class="xm">这是姓名</strong>
-            <span class="hm">15912345678</span>
-            <span class="zt">已被签收<b>2016-1-13</b></span>
-            <span class="hn">楼盘名称</span>
-          </a></li>
-          <li><a href="#" class="box">
-            <div class="fr"><i class="iconfont">&#xe672;</i></div>
-            <strong class="xm">这是姓名</strong>
-            <span class="hm">15912345678</span>
-            <span class="zt">已被签收<b>2016-1-13</b></span>
-            <span class="hn">楼盘名称</span>
-          </a></li>
-        </ul>
-      </div>
     </div>
     <div class="siderB"><span class="fl">　佣金: ${estate.yongjin }</span><a onclick="parent.alertBoxFun(${estate.id});" class="abtn bg_orange borr3 big fr">我有客户</a></div>
   </div>

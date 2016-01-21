@@ -1,3 +1,4 @@
+<%@page import="com.youwei.newhouse.ThreadSessionHelper"%>
 <%@page import="com.youwei.newhouse.cache.ConfigCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -22,6 +23,7 @@
 <%
  	Boolean isDebug = request.getSession().getServletContext().getServerInfo().startsWith("jetty");
 	request.setAttribute("upload_path" , "http://"+ConfigCache.get("domainName", "localhost")+ "/zjb_newhouse_images");
+	request.setAttribute("me", ThreadSessionHelper.getUser());
 %>
  <script type="text/javascript">
  var upload_path='${upload_path}';
@@ -70,7 +72,12 @@
                              items: [{
                                      id: 'admin_list',
                                      text: '系统用户',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
                                      href: 'user/adminList.jsp'
+                                 },{
+                                     id: 'user_edit',
+                                     text: '个人信息',
+                                     href: 'user/userEdit.jsp'
                                  },{
                                      id: 'password_change',
                                      text: '修改密码',
@@ -92,15 +99,18 @@
                                  {
                                      id: 'lxing_cfg',
                                      text: '建筑类型',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
                                      href: 'config/lxingList.jsp'
                                  },{
                                      id: 'wylx_cfg',
                                      text: '物业类型',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
                                      href: 'config/wylxList.jsp'
                                  }
                                   ,{
                                       id: 'city_cfg',
                                       text: '城市',
+                                      <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
                                       href: 'city/edit.jsp'
                                   }
                                  ,{

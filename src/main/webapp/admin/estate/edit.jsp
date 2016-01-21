@@ -122,8 +122,8 @@ input{width:90%;}
                 <select class="dist" id="dist"  name="quyu"></select>
             </div>
         </td>
-        <td class="tableleft">负责人手机号<div class="notNull">*</div></td>
-        <td style="width:26%"><input type="text" name="kfsTel" value="${estate.kfsTel }"  not-null="true"/></td>
+        <td class="tableleft">负责人<div class="notNull">*</div></td>
+        <td style="width:26%"><input type="text" name="managerUid" value="${manager }"  readonly="readonly" not-null="true"/></td>
         <td class="tableleft">楼盘特色</td>
         <td ><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
     </tr>

@@ -16,4 +16,6 @@ public class OrderQuery{
 	
 	public String estateName;
 	
+	public Integer managerUid;
+	
 }

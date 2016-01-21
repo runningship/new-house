@@ -98,7 +98,7 @@ a.abtn.big{ padding: 6px 10px; cursor:pointer;}
 .NH2L li{ padding: 6px 6px; border:1px solid transparent; border-left: 0; border-right: 0; }
 .NH2L li:after {content: "\0020";display: block; clear: both;}
 .NH2L li:hover{ border-color: #CCC; border-left: 0; border-right: 0; box-shadow: 0 0 5px #CCC;}
-.NH2L li.active{ border-color: #CCC; border-left: 0; border-right: 0; box-shadow: 0 0 5px #CCC;}
+.NH2L li.active{ border-color: #CCC; border-left: 0; border-right: 0; box-shadow: 0 0 5px #CCC; background: #FCFCFC;}
 .NH2L .L{ float: left; width: 120px; height:100px; margin-right: 6px; background: #EEE; overflow: hidden; }
 .NH2L .L img{ display: block; width: 100%; }
 .NH2L .C{ }

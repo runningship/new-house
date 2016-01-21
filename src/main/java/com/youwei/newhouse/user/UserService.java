@@ -19,6 +19,7 @@ import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.ThreadSessionHelper;
+import com.youwei.newhouse.entity.TelVerifyCode;
 import com.youwei.newhouse.entity.User;
 import com.youwei.newhouse.util.DataHelper;
 import com.youwei.newhouse.util.SecurityHelper;
@@ -32,41 +33,25 @@ public class UserService {
 	public ModelAndView login(User user , String yzm){
 		ModelAndView mv = new ModelAndView();
 		LogUtil.info("username:"+user.tel+",password="+user.pwd);
-		User po = null;
 		yzm = yzm.replace(String.valueOf((char)8198), "");
-		if("admin".equals(user.type)){
-			po = loginAsAdmin(user);
-		}else{
-			VerifyCodeHelper.verify(yzm);
-			po = loginAsSeller(user , false);
-		}
+		//VerifyCodeHelper.verify(yzm);
+		User po = innerLogin(user);
 		ThreadSession.getHttpSession().setAttribute("user", po);
 		return mv;
 	}
 	
-	public User loginAsSeller(User user , boolean isMD5){
+	public User innerLogin(User user){
 		String pwd = user.pwd;
-		if(!isMD5){
-			pwd = SecurityHelper.Md5(user.pwd);
-		}
-		List<User> list = dao.listByParams(User.class, "from User where tel=? and pwd=? and type=?", user.tel , pwd , user.type);
-		User po = null;
-		if(list!=null && list.size()>0){
-			po = list.get(0);
+		pwd = SecurityHelper.Md5(user.pwd);
+		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd"}, new Object[]{user.account , pwd});
+		if(po==null){
+			po = dao.getUniqueByParams(User.class, new String[]{"tel" , "pwd"}, new Object[]{user.tel , pwd});
 		}
 		if(po==null){
-			throw new GException(PlatformExceptionType.BusinessException,"用户名或密码不正确。");
+			throw new GException(PlatformExceptionType.BusinessException,"账号或密码不正确。");
 		}
 		if(po.valid==0){
 			throw new GException(PlatformExceptionType.BusinessException,"账户未审核，请电话联系为您审核。");
-		}
-		return po;
-	}
-	public User loginAsAdmin(User user){
-		String pwd = SecurityHelper.Md5(user.pwd);
-		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd"}, new Object[]{user.account  , pwd});
-		if(po==null){
-			throw new GException(PlatformExceptionType.BusinessException,"用户名或密码不正确。");
 		}
 		return po;
 	}
@@ -117,6 +102,8 @@ public class UserService {
 		po.role = admin.role;
 		po.tel = admin.tel;
 		po.email = admin.email;
+		po.name = admin.name;
+		po.landlineTel = admin.landlineTel;
 		dao.saveOrUpdate(po);
 		User me = ThreadSessionHelper.getUser();
 		if(me.id.equals(po.id)){
@@ -127,18 +114,19 @@ public class UserService {
 	}
 	
 	@WebMethod
-	public ModelAndView setAdminForSeller(Integer adminId, String sellerIds){
+	public ModelAndView toggleUserValidation(Integer id){
 		ModelAndView mv = new ModelAndView();
-		if(StringUtils.isEmpty(sellerIds)){
-			return mv;
-		}
-		User admin = dao.get(User.class, adminId);
-		for(String id: sellerIds.split(",")){
-			User seller = dao.get(User.class, Integer.valueOf(id));
-			seller.adminId = adminId;
-			seller.adminName = admin.account;
-			seller.valid = 1;
-			dao.saveOrUpdate(seller);
+		User po = dao.get(User.class, id);
+		if(po!=null){
+			if(po.valid>0){
+				po.valid=0;
+			}else{
+				po.valid=1;
+			}
+			dao.saveOrUpdate(po);
+			mv.data.put("valid", po.valid);
+		}else{
+			mv.data.put("valid", 0);
 		}
 		return mv;
 	}
@@ -150,12 +138,32 @@ public class UserService {
 		if(StringUtils.isEmpty(user.tel)){
 			throw new GException(PlatformExceptionType.BusinessException,"电话号码不能为空");
 		}
-		//经纪人
 		user.addtime = new Date();
 		dao.saveOrUpdate(user);
 		return mv;
 	}
 	
+	@WebMethod
+	public ModelAndView doReg(User user , String verifyCode){
+		ModelAndView mv = new ModelAndView();
+		user.pwd = SecurityHelper.Md5(user.pwd);
+		if(StringUtils.isEmpty(user.tel)){
+			throw new GException(PlatformExceptionType.BusinessException,"电话号码不能为空");
+		}
+		User po = dao.getUniqueByKeyValue(User.class, "tel", user.tel);
+		if(po!=null){
+			throw new GException(PlatformExceptionType.BusinessException,"改手机号已经被注册");
+		}
+		TelVerifyCode tvc = VerifyCodeHelper.verifySMSCode(user.tel, verifyCode);
+		tvc.verifyTime = new Date();
+		dao.saveOrUpdate(tvc);
+		user.addtime = new Date();
+		user.account = user.tel;
+		user.name = user.tel;
+		user.role = Role.销售主管.toString();
+		dao.saveOrUpdate(user);
+		return mv;
+	}
 	
 	@WebMethod
 	public ModelAndView delete(Integer id){
@@ -172,10 +180,6 @@ public class UserService {
 		ModelAndView mv = new ModelAndView();
 		StringBuilder hql = new StringBuilder("from User where 1=1 ");
 		List<Object> params = new ArrayList<Object>();
-		if(StringUtils.isNotEmpty(type)){
-			params.add(type);
-			hql.append(" and type=?");
-		}
 		if(StringUtils.isNotEmpty(city)){
 			hql.append(" and city = ?");
 			params.add(city);
@@ -197,13 +201,6 @@ public class UserService {
 			params.add(adminId);
 		}
 		User me = ThreadSessionHelper.getUser();
-		if("seller".equals(type)){
-			if(Role.市场专员.toString().equals(me.role)){
-				hql.append(" and adminId = ?");
-				params.add(me.id);
-			}
-		}
-		
 		page.order="desc";
 		page.orderBy="id";
 		page = dao.findPage(page, hql.toString(), params.toArray());

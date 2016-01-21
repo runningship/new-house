@@ -75,8 +75,9 @@ public class Estate {
 	
 	public String yongjin;
 	
-	//开发商负责人电话
-	public String kfsTel;
+	//开发商负责人
+	public Integer managerUid;
+	
 	//已结佣金
 	public Integer jieyongCount;
 	public Float yongjinTotal;

@@ -9,10 +9,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public enum Role {
-	市场专员("sczy"),
-	销售主管("xszg"),
-	销售经理("xsjl"),
-	销售总监("xszj");
+	管理员("admin"),
+	销售主管("xszg");
 	private String pinyin;
 	
 	private Role( String code){

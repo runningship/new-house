@@ -87,9 +87,7 @@ $(function () {
     <tr>
         <td class="tableleft"></td>
         <td>
-        	<c:if test="${me.role eq '销售总监' }">
             <button class="btn btn-primary" type="button" onclick="save();return false;">保存</button>
-            </c:if>
         </td>
     </tr>
 </table>

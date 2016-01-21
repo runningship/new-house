@@ -1,15 +1,12 @@
 package com.youwei.newhouse;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.bc.sdak.GException;
-import org.bc.web.PlatformExceptionType;
 import org.bc.web.ThreadSession;
+import org.bc.web.UserOfflineHandler;
 
 import com.youwei.newhouse.entity.User;
-import com.youwei.newhouse.user.UserService;
 
 public class ThreadSessionHelper {
 
@@ -20,30 +17,32 @@ public class ThreadSessionHelper {
     	}
     	User u = (User)session.getAttribute("user");
     	if(u==null){
-    		if(ThreadSession.HttpServletRequest.get()==null){
-    			throw new GException(PlatformExceptionType.UserOfflineException , "");
-    		}
-    		Cookie[] cookies = ThreadSession.HttpServletRequest.get().getCookies();
-    		if(cookies==null){
-    			throw new GException(PlatformExceptionType.UserOfflineException , "");
-    		}
-    		User seller = new User();
-    		for(Cookie cookie : cookies){
-    			if("tel".equals(cookie.getName())){
-    				seller.tel = cookie.getValue();
-    			}
-    			if("pwd".equals(cookie.getName())){
-    				seller.pwd = cookie.getValue();
-    			}
-    		}
-    		UserService us = new UserService();
-    		try{
-    			User po = us.loginAsSeller(seller , true);
-    			ThreadSession.getHttpSession().setAttribute("user", po);
-    			return po;
-    		}catch(Exception ex){
-    			throw new GException(PlatformExceptionType.UserOfflineException , "");
-    		}
+    		UserOfflineHandler handler = new NewHouseUserOfflineHandler();
+    		handler.handle(ThreadSession.HttpServletRequest.get(), ThreadSession.getHttpservletresponse());
+//    		if(ThreadSession.HttpServletRequest.get()==null){
+//    			throw new GException(PlatformExceptionType.UserOfflineException , "");
+//    		}
+//    		Cookie[] cookies = ThreadSession.HttpServletRequest.get().getCookies();
+//    		if(cookies==null){
+//    			throw new GException(PlatformExceptionType.UserOfflineException , "");
+//    		}
+//    		User seller = new User();
+//    		for(Cookie cookie : cookies){
+//    			if("tel".equals(cookie.getName())){
+//    				seller.tel = cookie.getValue();
+//    			}
+//    			if("pwd".equals(cookie.getName())){
+//    				seller.pwd = cookie.getValue();
+//    			}
+//    		}
+//    		UserService us = new UserService();
+//    		try{
+//    			User po = us.innerLogin(seller);
+//    			ThreadSession.getHttpSession().setAttribute("user", po);
+//    			return po;
+//    		}catch(Exception ex){
+//    			throw new GException(PlatformExceptionType.UserOfflineException , "");
+//    		}
     	}
     	return u;
     }
