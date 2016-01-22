@@ -12,7 +12,7 @@
 <script src="../js/jquery.min.js" type="text/javascript"></script>
 <script src="../js/layer/layer.js" type="text/javascript"></script>
 <script src="../js/jquery-wechat.js" type="text/javascript"></script>
-<script src="../../../js/buildHtml.js" type="text/javascript"></script>
+<script src="../../../js/buildHtml.js?12" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/artDialog/jquery.artDialog.source.js?skin=default"></script>
 <script type="text/javascript" src="../../../js/artDialog/plugins/iframeTools.source.js"></script>
 <script type="text/javascript">
@@ -23,7 +23,10 @@
 // });
  
 $(document).ready(function() {
-    
+    var tel = getCookie('new_house_user_tel');
+    var status = getCookie('login_status');
+    blockAlert(status);
+    $('.tel').val(tel);
 });
 
 $(document).on('click', '.btn_act', function(event) {
@@ -46,6 +49,8 @@ $(document).on('click', '.btn_act', function(event) {
     	    data: {tel:Tel , pwd: Pwd},
     	    mysuccess: function(json){
     	    	 alert('登录成功');
+    	    	 setCookie('new_house_user_tel' , Tel,365);
+    	    	 setCookie('login_status' , 'online',365);
     	    },
     	    error:function(data){
     	    	  alert('用户名或密码错误');

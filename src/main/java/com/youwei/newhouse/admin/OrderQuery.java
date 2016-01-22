@@ -18,4 +18,8 @@ public class OrderQuery{
 	
 	public Integer managerUid;
 	
+	public String city;
+	
+	public String quyu;
+	
 }

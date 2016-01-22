@@ -4,14 +4,63 @@
  * 2016-1-20
  */
 
+@font-face {font-family: "iconfont";
+  src: url('iconfont/iconfont.eot'); /* IE9*/
+  src: url('iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont/iconfont.woff') format('woff'), /* chrome, firefox */
+  url('iconfont/iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  color: #3F3F3F;
+}
+.icon-edit:before { content: "\e600"; }
+.icon-coordinate:before { content: "\e609"; }
+.icon-shezhi:before { content: "\e603"; }
+.icon-xiangzuo:before { content: "\e605"; }
+.icon-zuobiao:before { content: "\e60a"; }
+.icon-apps:before { content: "\e606"; }
+.icon-shezhicaidangerenshezhi32px:before { content: "\e60b"; }
+.icon-shezhi1:before { content: "\e604"; }
+.icon-woon:before { content: "\e60c"; }
+.icon-sandiancaidan:before { content: "\e607"; }
+.icon-qiandao:before { content: "\e601"; }
+.icon-xiangyou:before { content: "\e608"; }
+.icon-san:before { content: "\e602"; }
+
 
 .wrap{ padding: 10px; }
-.bodyer{background-color: #fbf9fe;}
+.bodyer{ background-color: #fbf9fe;}
+.footer{ position: fixed; bottom: 0; left: 0; right: 0; }
 
 
 
 
+.default{ background: url('../images/bg.jpg') no-repeat top left; background-size: cover; }
+.default .header{ height: 30pt; line-height: 30pt; padding: 0 5pt; }
+.default .header h1.h1{ font-size: 12pt; color:#FFF; text-shadow: 0 0 10pt #F60;}
+.default .mainer{ text-align: center;  }
+.default .page_title{ font-size: 123pt; font-weight: normal; display: inline-block; line-height: 1em; margin-top: 30%; }
+.default .page_span{ padding-left: 5pt; }
+.default .page_desc{}
 
+.default .weui_grids,
+.default .weui_grids:before,
+.default .weui_grids:after{border-color: #FF8E00;}
+.default .weui_grids a,
+.default .weui_grids a:after,
+.default .weui_grids a:before{ border-color: #FF8E00; }
+
+.default .weui_grids .weui_grid_icon{ text-align: center; font-size: 18pt; }
+
+.default.write{ color:#FFF; text-shadow: 0 0 10pt #F60; }
 
 
 

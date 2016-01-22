@@ -185,5 +185,14 @@ public class OrderService {
 			hql.append(" and order.sellerTel like ?");
 			params.add("%"+query.sellerTel+"%");
 		}
+		
+		if(StringUtils.isNotEmpty(query.quyu)){
+			hql.append(" and quyu like ?");
+			params.add("%"+query.quyu+"%");
+		}
+		if(StringUtils.isNotEmpty(query.city)){
+			hql.append(" and city like ?");
+			params.add("%"+query.city+"%");
+		}
 	}
 }

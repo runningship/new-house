@@ -170,8 +170,7 @@ public class EstateService {
 		return mv;
 	}
 	
-	@WebMethod
-	public ModelAndView listSalesData(Page<Map> page , String quyu){
+	public ModelAndView listSalesData(Page<Map> page , String quyu , String city){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu , est.junjia as junjia , est.yongjin as yongjin,"
 				+ " est.opentime as opendate, est.addr as addr , img.path as img , est.mainHuxing as mainHuxing from Estate est,"
@@ -181,6 +180,9 @@ public class EstateService {
 		if(StringUtils.isNotEmpty(quyu)){
 			hql.append(" and est.quyu=? ");
 			params.add(quyu);
+		}if(StringUtils.isNotEmpty(city)){
+			hql.append(" and est.city=? ");
+			params.add(city);
 		}
 		page.setPageSize(10);
 		page.order="desc";

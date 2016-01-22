@@ -1,3 +1,4 @@
+<%@page import="com.youwei.newhouse.admin.CityPyMap"%>
 <%@page import="com.youwei.newhouse.cache.ConfigCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,6 +7,8 @@
 	request.setAttribute("domainName", domainName);
 	String tel = request.getParameter("tel");
 	request.setAttribute("tel", tel);
+	String cityPy = request.getParameter("cityPy");
+	request.setAttribute("city", CityPyMap.getCity(cityPy));
 %>
 <!DOCTYPE html>
 <html>
@@ -35,7 +38,7 @@ function loadData(){
 		method:'post',
 		cache:false,
 		 dataType: 'json',
-		data:{name:''},
+		data:{city:'${city}'},
 		returnAll:false,
 		mysuccess:function(ret , err){
 			if(ret){

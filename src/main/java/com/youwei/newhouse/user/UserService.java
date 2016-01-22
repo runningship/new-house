@@ -51,7 +51,7 @@ public class UserService {
 			throw new GException(PlatformExceptionType.BusinessException,"账号或密码不正确。");
 		}
 		if(po.valid==0){
-			throw new GException(PlatformExceptionType.BusinessException,"账户未审核，请电话联系为您审核。");
+			throw new GException(PlatformExceptionType.BusinessException,"账户未审核。");
 		}
 		return po;
 	}

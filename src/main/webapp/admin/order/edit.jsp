@@ -29,8 +29,6 @@ request.setAttribute("statusList",statusList);
 
 List<OrderGenJin> genjiList = dao.listByParams(OrderGenJin.class, "from OrderGenJin where orderId=?", id);
 request.setAttribute("genjiList", genjiList);
-List<User> sellerList = dao.listByParams(User.class, "from User where type=? ", "seller");
-request.setAttribute("sellerList", sellerList);
 %>
 <!DOCTYPE html>
 <html>
