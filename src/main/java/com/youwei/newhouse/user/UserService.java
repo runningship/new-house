@@ -37,6 +37,7 @@ public class UserService {
 		//VerifyCodeHelper.verify(yzm);
 		User po = innerLogin(user);
 		ThreadSession.getHttpSession().setAttribute("user", po);
+		mv.data.put("user", JSONHelper.toJSON(po));
 		return mv;
 	}
 	
@@ -45,7 +46,7 @@ public class UserService {
 		pwd = SecurityHelper.Md5(user.pwd);
 		User po = dao.getUniqueByParams(User.class, new String[]{"account" , "pwd"}, new Object[]{user.account , pwd});
 		if(po==null){
-			po = dao.getUniqueByParams(User.class, new String[]{"tel" , "pwd"}, new Object[]{user.tel , pwd});
+			po = dao.getUniqueByParams(User.class, new String[]{"tel" , "pwd"}, new Object[]{user.account , pwd});
 		}
 		if(po==null){
 			throw new GException(PlatformExceptionType.BusinessException,"账号或密码不正确。");
@@ -162,6 +163,24 @@ public class UserService {
 		user.name = user.tel;
 		user.role = Role.销售主管.toString();
 		dao.saveOrUpdate(user);
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView resetPwd(String tel , String pwd , String verifyCode){
+		ModelAndView mv = new ModelAndView();
+		if(StringUtils.isEmpty(tel)){
+			throw new GException(PlatformExceptionType.BusinessException,"电话号码不能为空");
+		}
+		User po = dao.getUniqueByKeyValue(User.class, "tel", tel);
+		if(po==null){
+			throw new GException(PlatformExceptionType.BusinessException,"账号不存在");
+		}
+		po.pwd = SecurityHelper.Md5(pwd);
+		TelVerifyCode tvc = VerifyCodeHelper.verifySMSCode(tel, verifyCode);
+		tvc.verifyTime = new Date();
+		dao.saveOrUpdate(tvc);
+		dao.saveOrUpdate(po);
 		return mv;
 	}
 	

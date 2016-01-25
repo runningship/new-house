@@ -72,6 +72,38 @@ public class OrderService {
 	}
 	
 	@WebMethod
+	@Transactional
+	public ModelAndView setStatus(Integer orderId , Integer uid ,String status){
+		ModelAndView mv = new ModelAndView();
+		User user = dao.get(User.class, uid);
+		HouseOrder po = dao.get(HouseOrder.class, orderId);
+		if(po!=null){
+			po.status = status;
+			dao.saveOrUpdate(po);
+			OrderGenJin genjin = new OrderGenJin();
+			genjin.addtime = new Date();
+			genjin.conts="";
+			genjin.uname = user.name;
+			genjin.status = status;
+			genjin.orderId = po.id;
+			dao.saveOrUpdate(genjin);
+			if(Constants.HouseOrderJieYong.equals(status)){
+				Estate estate = dao.get(Estate.class, po.estateId);
+				if(estate.jieyongCount==null){
+					estate.jieyongCount = 1;
+				}else{
+					estate.jieyongCount++;
+				}
+				if(estate.yongjinTotal==null){
+					estate.yongjinTotal = po.yongjin;
+				}else{
+					estate.yongjinTotal+=po.yongjin;
+				}
+			}
+		}
+		return mv;
+	}
+	@WebMethod
 	public ModelAndView doSave(HouseOrder order , String estateIds){
 		
 		ModelAndView mv = new ModelAndView();
