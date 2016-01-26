@@ -38,7 +38,8 @@ function buildHtmlWithJsonArray(id,json,removeTemplate,remainItems){
         // if(index>0){
             var val="";
             try{
-                val = eval(obj.textContent);
+                //val = eval(obj.textContent);
+                val = eval($(obj).text());
                 if(obj.tagName=='INPUT'){
                     obj.value = val;        
                 }else{

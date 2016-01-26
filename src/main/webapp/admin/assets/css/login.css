@@ -5,7 +5,7 @@
 body {
  position:relative;
  height:100%;
- background:#fff url('../img/loginbg.png') left top repeat-x;
+ /*background:#fff url('../img/loginbg.png') left top repeat-x;*/
  font-family:Tahoma, Arial, sans-serif;
 }
 
@@ -111,12 +111,14 @@ a:hover{ color: #337BED;}
 
 html,body{ height: 100%; }
 .container{ height: 100%; text-align: center; }
-.container .top{ padding: 10% 0 20px;  background: #000; color: #FFF; vertical-align: bottom; }
+.container .top{ padding: 10% 0 20px;  background: url('../img/bg.jpg'); color: #FFF; vertical-align: bottom; }
 .container .bottom{ padding-top: 20px; }
 
 .logos{ vertical-align: bottom; position: relative; bottom: 0; color: #FFF;  font-family: "microsoft yahei";}
 .logos i{font-size: 100px;}
 .logos strong{ display: block; font-weight: normal; font-size: 14px; color: #999; }
+.logos:hover i{ color: #FFF; }
+.logos strong{ color: #FFF; }
 
 .inputbox,.btnbox{ position: relative; display: inline-block; height: 36px; line-height: 36px; border: 1px solid #CCC; background: #FFF; font-family: "microsoft yahei"; border-radius: 2px; }
 .inputbox .input,

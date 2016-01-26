@@ -57,7 +57,7 @@ $(function(){
 		<div class="bottom">
 			<form class="form1" name="form1">
 				<label class="inputbox">
-					<input type="text" class="input" name="account" value="" placeholder="手机号/邮箱/账号">
+					<input type="text" class="input" name="account" value="" placeholder="手机号">
 				</label>
 				<label class="inputbox">
 					<input type="password" class="input" name="pwd" value="" placeholder="密码">

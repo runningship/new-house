@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Level;
 import org.bc.sdak.CommonDaoService;
 import org.bc.sdak.GException;
 import org.bc.sdak.Page;
 import org.bc.sdak.Transactional;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.sdak.utils.JSONHelper;
+import org.bc.sdak.utils.LogUtil;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
@@ -25,6 +27,7 @@ import com.youwei.newhouse.entity.HouseOrder;
 import com.youwei.newhouse.entity.OrderGenJin;
 import com.youwei.newhouse.entity.User;
 import com.youwei.newhouse.util.DataHelper;
+import com.youwei.newhouse.util.ShortMessageHelper;
 
 @Module(name="/admin/order")
 public class OrderService {
@@ -122,6 +125,13 @@ public class OrderService {
 			ho.status = Constants.HouseOrderConfirming;
 			ho.estateId = Integer.valueOf(estateId);
 			dao.saveOrUpdate(ho);
+			try{
+				Estate estate = dao.get(Estate.class, ho.estateId);
+				User manager = dao.get(User.class, estate.managerUid);
+				ShortMessageHelper.sendNewOrderMsg(manager.tel);
+			}catch(Exception ex){
+				LogUtil.log(Level.WARN,"发送短信提示失败" , ex);
+			}
 		}
 		return mv;
 	}

@@ -46,7 +46,6 @@
     </div>
     <ul id="J_NavContent" class="dl-tab-conten"> </ul>
    </div>
-  
   <script>
      BUI.use('common/main',function(main){
        var config =[
@@ -64,24 +63,6 @@
                                      id: 'estate_add',
                                      text: '添加楼盘',
                                      href: 'estate/add.jsp'
-                                 }
-                             ]
-                         },
-                         {
-                             text: '用户管理',
-                             items: [{
-                                     id: 'admin_list',
-                                     text: '系统用户',
-                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                     href: 'user/adminList.jsp'
-                                 },{
-                                     id: 'user_edit',
-                                     text: '个人信息',
-                                     href: 'user/userEdit.jsp'
-                                 },{
-                                     id: 'password_change',
-                                     text: '修改密码',
-                                     href: 'user/changePwd.jsp'
                                  }
                              ]
                          },{
@@ -119,12 +100,34 @@
                                      href: 'huxing/list.jsp'
                                  }
                              ]
+                         },{
+                             text: '用户管理',
+                             items: [{
+                                     id: 'admin_list',
+                                     text: '系统用户',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
+                                     href: 'user/adminList.jsp'
+                                 },{
+                                     id: 'user_edit',
+                                     text: '个人信息',
+                                     href: 'user/userEdit.jsp'
+                                 },{
+                                     id: 'password_change',
+                                     text: '修改密码',
+                                     href: 'user/changePwd.jsp'
+                                 }
+                             ]
                          }
                      ]
                  }
              ];
        new PageUtil.MainPage({
          modulesConfig : config
+       });
+       
+       top.topManager.openPage({
+    	    id : 'estate_list',
+    	    search : ''
        });
      });
 </script>

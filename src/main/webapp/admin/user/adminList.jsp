@@ -72,8 +72,7 @@ function getValidationText(valid){
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
-    	<th>编号</th>
-    	<th>登录账号</th>
+    	<th>姓名</th>
         <th>手机号码</th>
         <th>职位</th>
         <th>固定号码</th>
@@ -83,8 +82,7 @@ function getValidationText(valid){
     </thead>
     <tbody>
     	<tr style="display:none" class="repeat">
-    			<td>$[id]</td>
-    			<td>$[account]</td>
+    			<td>$[name]</td>
     			<td>$[tel]</td>
                 <td>$[role]</td>
                 <td>$[landlineTel]</td>

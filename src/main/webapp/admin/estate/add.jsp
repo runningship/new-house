@@ -9,7 +9,7 @@
 <script type="text/javascript">
 $(function(){
 	setTimeout(function(){
-		initUploadHouseImage('shijing_upload' , 'shijing' , '${estateUUID}');
+		initUploadHouseImage('xiaoguo_upload' , 'xiaoguo' , '${estateUUID}');
 		initUploadHouseImage('huxing_upload' , 'huxing' , '${estateUUID}');
 		initUploadHouseImage('tuijian_upload' , 'tuijian' , '${estateUUID}');
 		initUploadHouseImage('main_upload' , 'main' , '${estateUUID}');
@@ -168,9 +168,9 @@ input{width:90%;}
         </td>
     </tr>
     <tr>
-        <td class="tableleft">实景图</td>
-        <td colspan="5"><input id="shijing_upload"  style="display:none;margin-top:5px;">
-        	<div id="shijing_img_container">
+        <td class="tableleft">效果图</td>
+        <td colspan="5"><input id="xiaoguo_upload"  style="display:none;margin-top:5px;">
+        	<div id="xiaoguo_img_container">
         	</div>
         </td>
     </tr>

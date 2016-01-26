@@ -15,10 +15,7 @@ public class ShortMessageHelper {
 	private static final String RongLianToken = "78a9ff1208304b949309f117a63f1d9b";
 	private static final String RongLianAppId = "aaf98f894d328b13014d65d868e1242a";
 	public static boolean sendRongLianMsg(String tel , String code){
-		CCPRestSDK restAPI = new CCPRestSDK();
-		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
-		restAPI.setAccount(RongLianAccount, RongLianToken);// 初始化主帐号名称和主帐号令牌
-		restAPI.setAppId(RongLianAppId);// 初始化应用ID
+		CCPRestSDK restAPI = getClient();
 		HashMap<String, Object> result = restAPI.sendTemplateSMS(tel,RongLianTempId ,new String[]{code,"5"});
 
 		if("000000".equals(result.get("statusCode"))){
@@ -35,5 +32,25 @@ public class ShortMessageHelper {
 			LogUtil.info("发送验证码失败,tel = "+tel+",错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
 			return false;
 		}
+	}
+	
+	public static boolean sendNewOrderMsg(String tel){
+		CCPRestSDK restAPI = getClient();
+		HashMap<String, Object> result = restAPI.sendTemplateSMS(tel,"65397" ,new String[]{});
+		if("000000".equals(result.get("statusCode"))){
+			return true;
+		}else{
+			//异常返回输出错误码和错误信息
+			LogUtil.info("发送验证码失败,tel = "+tel+",错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
+			return false;
+		}
+	}
+	
+	private static  CCPRestSDK getClient(){
+		CCPRestSDK restAPI = new CCPRestSDK();
+		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
+		restAPI.setAccount(RongLianAccount, RongLianToken);// 初始化主帐号名称和主帐号令牌
+		restAPI.setAppId(RongLianAppId);// 初始化应用ID
+		return restAPI;
 	}
 }
