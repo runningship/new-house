@@ -31,7 +31,6 @@ function save(){
         data:a,
         mysuccess: function(data){
             alert('修改成功');
-            window.location = 'adminList.jsp';
         }
     });
 }
@@ -60,6 +59,10 @@ function save(){
     <tr>
         <td class="tableleft">手机号码</td>
         <td><input type="text" name="tel" not-null="true" value="${user.tel}"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">姓名</td>
+        <td><input type="text" name="name" not-null="true" value="${user.name}"/></td>
     </tr>
     <tr>
         <td class="tableleft">固定电话</td>

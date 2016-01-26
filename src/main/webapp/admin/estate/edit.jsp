@@ -75,7 +75,7 @@ input{width:90%;}
         <td class="tableleft">物业费</td>
         <td><input type="text" name="wyfee" value="${estate.wyfee }"/></td>
         <td class="tableleft">绿化率</td>
-        <td><input type="text" name="lvhua" value="${estate.lvhua }"  />%</td>
+        <td><input type="text" name="lvhua"  desc="绿化率" value="${estate.lvhua }"  />%</td>
         <td class="tableleft">产权归属</td>
         <td><input type="text" name="guishu" value="${estate.guishu }"/></td>
     </tr>
@@ -107,7 +107,7 @@ input{width:90%;}
        <td class="tableleft">项目地址<div class="notNull">*</div></td>
         <td><input type="text" name="addr" value="${estate.addr }" not-null="true"/></td>
         <td class="tableleft">公摊</td>
-        <td><input type="text" name="gongtan" value="${estate.gongtan }"  />%</td>
+        <td><input type="text"  desc="公摊" name="gongtan" value="${estate.gongtan }"  />%</td>
         <td class="tableleft">推荐</td>
         <td><select name="tuijian" id="tuijian">
             <option value="0">否</option>

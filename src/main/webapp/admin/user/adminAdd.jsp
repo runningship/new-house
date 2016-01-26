@@ -54,6 +54,10 @@ function save(){
         <td><input type="text" name="tel" not-null="true"/></td>
     </tr>
     <tr>
+        <td class="tableleft">姓名</td>
+        <td><input type="text" name="name" not-null="true"/></td>
+    </tr>
+    <tr>
         <td class="tableleft">固定电话</td>
         <td><input type="text" name="landlineTel" /></td>
     </tr>

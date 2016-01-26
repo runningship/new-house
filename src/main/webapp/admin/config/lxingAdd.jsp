@@ -26,7 +26,6 @@ function save(){
         data:a,
         mysuccess: function(data){
         	infoAlert('添加成功');
-            window.location='lxingList.jsp';
         }
     });
 }
