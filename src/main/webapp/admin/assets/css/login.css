@@ -129,9 +129,10 @@ html,body{ height: 100%; }
 
 
 @media screen and (max-width: 700px) {
-	body{ background: #EFEFEF; }
+	body{ background: #F6F6F6; }
 	.container .top{ padding-top: 15%; }
 	.logos strong{}
+	.inputbox { border-color: #E6E6E6;}
 	.inputbox,.btnbox{ display: block; height: 36pt; line-height: 36pt; font-size: 14pt; margin-bottom: 10pt; border-radius: 0; border-left: none; border-right: none; }
 	.inputbox .input{ padding-left: 20pt;}
 	.inputbox .input,
