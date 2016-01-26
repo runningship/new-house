@@ -48,6 +48,16 @@ function doSearch(){
 		doSearch();
 	});
 	
+	function getStatus(status){
+		if(status==0){
+			return '在售';
+		}else if(status==1){
+			return '售罄';
+		}else if(status==2){
+			return '下线';
+		}
+		return '';
+	}
 </script>
 <style type="text/css">
 #city_wrap select{height:22px;width:90px;margin-top: 5px;margin-bottom: 5px;}
@@ -75,6 +85,7 @@ function doSearch(){
     	<th style="width:60px">城市</th>
         <th style="width:60px;">区域</th>
         <th>名称</th>
+        <th style="width:60px;">状态</th>
         <th style="width:110px;">建筑类型</th>
         <th>项目地址</th>
         <th style="width:60px;">均价</th>
@@ -89,6 +100,7 @@ function doSearch(){
                 <td>$[city]</td>
                 <td>$[quyu]</td>
                 <td>$[name]</td>
+                <td runscript="true">getStatus($[status])</td>
                 <td >$[lxing]</td>
                 <td>$[addr]</td>
                 <td >$[junjia]</td>

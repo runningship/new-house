@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String uid="";
 for(Cookie coo : request.getCookies()){
@@ -103,6 +104,20 @@ $(document).on('click', '.btn_act', function(event) {
     /* Act on the event */
 });
 
+$(document).on('click', '.alist a', function(event) {
+	$('.alist a').removeClass('active');
+	$(this).addClass('active');
+	
+	var status = $(this).text();
+	if(status=='所有'){
+		$('.weui_cell').show();
+	}else{
+		$('.weui_cell').hide();
+		$('.weui_cell:contains('+status+')').show();	
+	}
+	event.preventDefault();
+    /* Act on the event */
+});
 function getStatusItem(index,oldStatus,status){
 	var str = "";
 	if(oldStatus==status){
@@ -145,7 +160,7 @@ function getStatusItem(index,oldStatus,status){
 	                    </div>
 	                    <div class="weui_cell_ft">
 	                        <p class="orange status">${order.status }</p>
-	                        <p class="gray">${order.addtime }</p>
+	                        <p class="gray"><fmt:formatDate value="${order.addtime}" pattern="yyyy-MM-dd HH:mm"/></p>
 	                    </div>
 	                </a>
             	</c:forEach>

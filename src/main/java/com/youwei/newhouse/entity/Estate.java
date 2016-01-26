@@ -81,4 +81,7 @@ public class Estate {
 	//已结佣金
 	public Integer jieyongCount;
 	public Float yongjinTotal;
+	
+	//0 在售 1售罄，2下线
+	public Integer status;
 }

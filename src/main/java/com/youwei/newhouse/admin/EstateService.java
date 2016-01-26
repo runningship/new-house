@@ -34,12 +34,6 @@ public class EstateService {
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	
 	@WebMethod
-	public ModelAndView list(){
-		ModelAndView mv = new ModelAndView();
-		return mv;
-	}
-	
-	@WebMethod
 	public ModelAndView add(){
 		ModelAndView mv = new ModelAndView();
 		mv = ConfigHelper.queryItems(mv);
@@ -59,7 +53,7 @@ public class EstateService {
 		User charger = dao.get(User.class, po.managerUid);
 		if(charger!=null){
 			mv.jspData.put("managerUid", charger.id);
-			mv.jspData.put("manager", charger.tel);
+			mv.jspData.put("manager", charger.name+" "+charger.tel);
 		}
 		List<String> lxings = new ArrayList<String>();
 		if(po.lxing!=null){
@@ -118,6 +112,7 @@ public class EstateService {
 		po.xuequ = estate.xuequ;
 		po.jiaotong = estate.jiaotong;
 		po.yongjin = estate.yongjin;
+		po.status = estate.status;
 		dao.saveOrUpdate(po);
 		return mv;
 	}
@@ -166,28 +161,6 @@ public class EstateService {
 //		page.order = "desc";
 //		page.orderBy="orderx";
 		page = dao.findPage(page, hql.toString(), params.toArray());
-		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
-		return mv;
-	}
-	
-	public ModelAndView listSalesData(Page<Map> page , String quyu , String city){
-		ModelAndView mv = new ModelAndView();
-		StringBuilder hql = new StringBuilder("select est.id as id, est.uuid as uuid, est.name as name , est.quyu as quyu , est.junjia as junjia , est.yongjin as yongjin,"
-				+ " est.opentime as opendate, est.addr as addr , img.path as img , est.mainHuxing as mainHuxing from Estate est,"
-				+ "HouseImage img where est.uuid=img.estateUUID and img.type='main'");
-		List<String> params = new ArrayList<String>();
-		params.add(ThreadSessionHelper.getCity());
-		if(StringUtils.isNotEmpty(quyu)){
-			hql.append(" and est.quyu=? ");
-			params.add(quyu);
-		}if(StringUtils.isNotEmpty(city)){
-			hql.append(" and est.city=? ");
-			params.add(city);
-		}
-		page.setPageSize(10);
-		page.order="desc";
-		page.orderBy = "est.orderx";
-		page = dao.findPage(page, hql.toString(), true,new Object[]{});
 		mv.data.put("page", JSONHelper.toJSON(page , DataHelper.dateSdf.toPattern()));
 		return mv;
 	}

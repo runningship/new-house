@@ -23,6 +23,7 @@ $(function(){
 	getImgList('${estate.uuid}' ,'shijing');
 	
 	$('#tuijian').val(${estate.tuijian});
+	$('#status').val(${estate.status});
 	
 	var myprovince = remote_ip_info['province'];
 	var mycity = remote_ip_info['city']
@@ -123,7 +124,7 @@ input{width:90%;}
             </div>
         </td>
         <td class="tableleft">负责人</td>
-        <td style="width:26%"><input type="text" name="managerUid" value="${manager }"  readonly="readonly" /></td>
+        <td style="width:26%"><input type="text"  value="${manager }"  readonly="readonly" /></td>
         <td class="tableleft">楼盘特色</td>
         <td ><textarea name="tese" style="width:99%;height:100%">${estate.tese }</textarea></td>
     </tr>
@@ -133,6 +134,16 @@ input{width:90%;}
             <c:forEach items="${lxings}" var="lxing">
               <input <c:if test="${myLxings.contains(lxing.value)}">checked="checked"</c:if> value="${lxing.value}" name="lxing" type="checkbox"/>${lxing.value}
             </c:forEach>
+       </td>
+    </tr>
+    <tr>
+        <td class="tableleft">楼盘状态</td>
+        <td colspan="5">
+        	<select id="status" name="status">
+        		<option value="0">在售</option>
+        		<option value="1">售罄</option>
+        		<option value="2">下线</option>
+        	</select>
        </td>
     </tr>
     <tr>

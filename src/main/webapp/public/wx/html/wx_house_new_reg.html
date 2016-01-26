@@ -81,6 +81,8 @@ $(document).on('click', '.btn_act', function(event) {
     	    	  alert('注册用户失败');
     	      }
     	  });
+    }else if(TT=='login'){
+        window.location.href="wx_house_new_login.html"
     }else{
 		
     }
@@ -134,7 +136,10 @@ function sendVerifyCode(tel){
             </div>
         </div>
     </div>
-    <div class="wrap"><a href="javascript:;" class="weui_btn weui_btn_primary btn_act" data-type="reg">注册</a></div>
+    <div class="wrap">
+        <a href="javascript:;" class="weui_btn weui_btn_primary btn_act" data-type="reg">注册</a>
+        <a href="javascript:;" class="weui_btn weui_btn_default btn_act" data-type="login">登录</a>
+    </div>
     </div>
 </body>
 </html>

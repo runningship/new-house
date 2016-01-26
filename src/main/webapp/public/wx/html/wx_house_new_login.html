@@ -47,7 +47,6 @@ $(document).on('click', '.btn_act', function(event) {
     	    url: '/new-house/c/admin/user/login',
     	    data: {account :Tel , pwd: Pwd},
     	    mysuccess: function(json){
-    	    	 alert('登录成功2');
     	    	 setCookie('new_house_user_tel' , Tel,365);
     	    	 setCookie('new_hosue_user_id' , json.user.id,365);
     	    	 setTimeout(function(){
@@ -58,6 +57,10 @@ $(document).on('click', '.btn_act', function(event) {
     	    	  alert('用户名或密码错误');
     	      }
     	  });
+    }else if(TT=='reg'){
+        window.location.href="wx_house_new_reg.html"
+    }else if(TT=='pwds'){
+        window.location.href="wx_house_new_reset_pwd.html"
     }else{
 		
     }
@@ -93,7 +96,10 @@ $(document).on('click', '.btn_act', function(event) {
 <!--             </div> -->
 <!--         </div> -->
     </div>
-    <div class="wrap"><a href="javascript:;" class="weui_btn weui_btn_primary btn_act" data-type="login">登陆</a></div>
+    <div class="wrap">
+    	<a href="javascript:;" class="weui_btn weui_btn_primary btn_act" data-type="login">登录</a>
+    	<a href="javascript:;" class="weui_btn weui_btn_default btn_act" data-type="reg">注册</a>
+    	<a href="javascript:;" class="weui_btn weui_btn_default btn_act" data-type="pwds">忘记密码</a></div>
     </div>
 </body>
 </html>

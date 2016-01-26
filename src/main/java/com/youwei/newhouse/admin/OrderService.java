@@ -193,10 +193,10 @@ public class OrderService {
 			hql.append(" and order.sellerId=?");
 			params.add(query.sellerId);
 		}
-		if(query.managerUid!=null){
-			hql.append(" and est.managerUid=?");
-			params.add(query.managerUid);
-		}
+//		if(query.managerUid!=null){
+//			hql.append(" and est.managerUid=?");
+//			params.add(query.managerUid);
+//		}
 		if(StringUtils.isNotEmpty(query.buyerName)){
 			hql.append(" and order.buyerName like ?");
 			params.add("%"+query.buyerName+"%");
