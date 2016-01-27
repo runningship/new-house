@@ -42,10 +42,30 @@ function save(){
 <input type="hidden" name="type" value="admin"/>
     <input type="hidden" name="id"  value="${user.id}"/>
 <table class="table table-bordered table-hover m10">
+<!-- 	<tr> -->
+<!--         <td class="tableleft">登录账号</td> -->
+<%--         <td><input type="text" name="account" not-null="true" value="${user.account}"/></td> --%>
+<!--     </tr> -->
+
 	<tr>
-        <td class="tableleft">登录账号</td>
-        <td><input type="text" name="account" not-null="true" value="${user.account}"/></td>
+        <td class="tableleft">姓名</td>
+        <td><input type="text" name="name" not-null="true" value="${user.name}"/></td>
     </tr>
+    
+    <tr>
+        <td class="tableleft">手机号码</td>
+        <td><input type="text" name="tel" not-null="true" value="${user.tel}"/></td>
+    </tr>
+    
+    <tr>
+        <td class="tableleft">固定电话</td>
+        <td><input type="text" name="landlineTel" value="${user.landlineTel }"/></td>
+    </tr>
+    <tr>
+        <td class="tableleft">邮箱</td>
+        <td><input type="text" name="email" not-null="true"  value="${user.email}"/></td>
+    </tr>
+    
     <tr>
         <td class="tableleft">职位</td>
         <td>
@@ -55,22 +75,6 @@ function save(){
             </c:forEach>
             </select>
         </td>
-    </tr>
-    <tr>
-        <td class="tableleft">手机号码</td>
-        <td><input type="text" name="tel" not-null="true" value="${user.tel}"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">姓名</td>
-        <td><input type="text" name="name" not-null="true" value="${user.name}"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">固定电话</td>
-        <td><input type="text" name="landlineTel" value="${user.landlineTel }"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">邮箱</td>
-        <td><input type="text" name="email" value="${user.email}"/></td>
     </tr>
     <tr>
         <td class="tableleft"></td>

@@ -142,7 +142,7 @@ function getStatusItem(index,oldStatus,status){
                 <a class="a">已认筹</a>
                 <a class="a">已签约</a>
                 <a class="a">已结佣</a>
-                <a class="a">已带看</a>
+<!--                 <a class="a">已带看</a> -->
                 <a class="a">无效</a>
             </div>
         </div>
@@ -151,16 +151,16 @@ function getStatusItem(index,oldStatus,status){
             	<c:forEach items="${list }" var="order">
             		<a class="weui_cell btn_act" data-type="ThiAct"  id="order_${order.id}" data-id="${order.id }">
 	                    <div class="weui_cell_hd">
-	                        <p>客 户 电 话 </p>
-	                        <p>经纪人号码</p>
+	                        <p>${order.buyerName}</p>
+	                        <p>${order.sellerName}</p>
 	                    </div>
 	                    <div class="weui_cell_bd weui_cell_primary">
 	                        <p class="gray"><c:out value="${fn:substring(order.buyerTel,0,3)}****${fn:substring(order.buyerTel,7,11)}"></c:out></p>
-	                        <p class="gray">${order.sellerTel }</p>
+	                        <p class="gray"><c:out value="${fn:substring(order.sellerTel,0,3)}****${fn:substring(order.sellerTel,7,11)}"></c:out></p>
 	                    </div>
 	                    <div class="weui_cell_ft">
 	                        <p class="orange status">${order.status }</p>
-	                        <p class="gray"><fmt:formatDate value="${order.addtime}" pattern="yyyy-MM-dd HH:mm"/></p>
+	                        <p class="gray"><fmt:formatDate value="${order.addtime}" pattern="MM-dd"/></p>
 	                    </div>
 	                </a>
             	</c:forEach>
@@ -168,7 +168,6 @@ function getStatusItem(index,oldStatus,status){
         </div>
     </div>
     <div id="footer" class="footer">
-        多楼盘选择
     </div>
 </body>
 </html>

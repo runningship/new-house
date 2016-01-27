@@ -39,11 +39,13 @@ public class OrderService {
 	public ModelAndView update(HouseOrder order){
 		ModelAndView mv = new ModelAndView();
 		HouseOrder po = dao.get(HouseOrder.class, order.id);
-		if(Constants.HouseOrderJieYong.equals(po.status)){
-			throw new GException(PlatformExceptionType.BusinessException,"已结佣，状态不可更改");
-		}
+//		if(Constants.HouseOrderJieYong.equals(po.status)){
+//			throw new GException(PlatformExceptionType.BusinessException,"已结佣，状态不可更改");
+//		}
 		if(!order.status.equals(po.status)){
-			po.status = order.status;
+			if(!Constants.HouseOrderJieYong.equals(po.status)){
+				po.status = order.status;
+			}
 			//add genjin
 			OrderGenJin genjin = new OrderGenJin();
 			genjin.addtime = new Date();
@@ -67,7 +69,7 @@ public class OrderService {
 			}
 		}
 		po.yongjin = order.yongjin;
-		po.status = order.status;
+		//po.status = order.status;
 		po.daikan = order.daikan;
 		po.sellerMark = order.sellerMark;
 		dao.saveOrUpdate(po);
@@ -214,6 +216,10 @@ public class OrderService {
 		if(StringUtils.isNotEmpty(query.buyerTel)){
 			hql.append(" and order.buyerTel like ?");
 			params.add("%"+query.buyerTel+"%");
+		}
+		if(StringUtils.isNotEmpty(query.status)){
+			hql.append(" and order.status = ?");
+			params.add(query.status);
 		}
 		if(StringUtils.isNotEmpty(query.estateName)){
 			hql.append(" and est.name like ?");

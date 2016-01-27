@@ -35,9 +35,27 @@ function save(){
 <form name="form1" method="post" class="definewidth m20">
 <input type="hidden" name="type" value="admin"/>
 <table class="table table-bordered table-hover m10">
-	<tr>
-        <td class="tableleft">登录账号</td>
-        <td><input type="text" name="account" not-null="true"/></td>
+<!-- 	<tr> -->
+<!--         <td class="tableleft">登录账号</td> -->
+<!--         <td><input type="text" name="account" not-null="true"/></td> -->
+<!--     </tr> -->
+    <tr>
+        <td class="tableleft">姓名</td>
+        <td><input type="text" name="name" not-null="true"/></td>
+    </tr>
+    
+    <tr>
+        <td class="tableleft">手机号码</td>
+        <td><input type="text" name="tel" not-null="true"/></td>
+    </tr>
+    
+    <tr>
+        <td class="tableleft">固定电话</td>
+        <td><input type="text" name="landlineTel" /></td>
+    </tr>
+    <tr>
+        <td class="tableleft">邮箱</td>
+        <td><input type="text" not-null="true" name="email"/></td>
     </tr>
     <tr>
         <td class="tableleft">职位</td>
@@ -48,22 +66,6 @@ function save(){
         	</c:forEach>
         	</select>
         </td>
-    </tr>
-    <tr>
-        <td class="tableleft">手机号码</td>
-        <td><input type="text" name="tel" not-null="true"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">姓名</td>
-        <td><input type="text" name="name" not-null="true"/></td>
-    </tr>
-    <tr>
-        <td class="tableleft">固定电话</td>
-        <td><input type="text" name="landlineTel" /></td>
-    </tr>
-    <tr>
-        <td class="tableleft">邮箱</td>
-        <td><input type="text" name="email"/></td>
     </tr>
     <tr>
         <td class="tableleft">密码</td>

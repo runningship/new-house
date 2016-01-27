@@ -80,7 +80,6 @@ function doSearch(){
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
-        <th style="width:30px">编号</th>
         <th style="width:30px">序号</th>
     	<th style="width:60px">城市</th>
         <th style="width:60px;">区域</th>
@@ -89,13 +88,13 @@ function doSearch(){
         <th style="width:110px;">建筑类型</th>
         <th>项目地址</th>
         <th style="width:60px;">均价</th>
-        <th style="width:70px;">开盘时间</th>
+        <th style="width:60px;">结佣次数</th>
+        <th style="width:60px;">总佣金</th>
         <th style="width:120px;">操作</th>
     </tr>
     </thead>
     <tbody>
     	<tr style="display:none" class="repeat">
-                <td>$[id]</td>
                 <td>$[orderx]</td>
                 <td>$[city]</td>
                 <td>$[quyu]</td>
@@ -104,11 +103,12 @@ function doSearch(){
                 <td >$[lxing]</td>
                 <td>$[addr]</td>
                 <td >$[junjia]</td>
-                <td >$[opentime]</td>
+                <td >$[jieyongCount]</td>
+                <td >$[yongjinTotal]元</td>
                 <td>
-                    <a onclick="addTab('huxing_list','户型','huxing/list.jsp?estateId=$[id]')" href="#">户型</a>
+<!--                     <a onclick="addTab('huxing_list','户型','huxing/list.jsp?estateId=$[id]')" href="#">户型</a> -->
                     <a href="edit.jsp?id=$[id]">编辑</a>
-                    <a href="#" onclick="delPost($[id])">删除</a>
+                    <c:if test="${me.role eq '管理员' }"><a href="#" onclick="delPost($[id])">删除</a></c:if>
                 </td>
             </tr>
     </tbody>

@@ -22,4 +22,6 @@ public class OrderQuery{
 	
 	public String quyu;
 	
+	public String status;
+	
 }

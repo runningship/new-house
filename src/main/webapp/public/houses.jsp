@@ -111,7 +111,7 @@ $(document).on('click', '.view li', function(event) {
       <ul class="NH2L view">
         <li class="repeat" id="view_$[id]" data-id="$[id]" style="display:none;">
           <div class="L"><img class="img" src="http://${domainName }/zjb_newhouse_images/$[uuid]/$[img].t.jpg"/></div>
-          <div class="R"><div class="p F_junjia"><strong>$[junjia]</strong> <i>均价</i></div></div>
+          <div class="R"><div class="p F_junjia"><strong>$[junjia]</strong> 元<i>均价</i></div></div>
           <div class="C">
             <h2 class=" F_h2">$[name]</h2>
             <div class="p F_huxing">
@@ -165,6 +165,9 @@ $(document).on('click', '.view li', function(event) {
         <li><div class="inputbox"><input id="tel" type="text" class="input" placeholder="客户电话"></div></li>
         <li><div class="inputbox"><input type="text" class="input" readonly="readonly" value="${tel }" placeholder="您的联系电话"></div></li> 
         <li style="cursor:pointer;"><a onclick="saveOrder();" class="btn block">提交</a></li>
+        <li style="word-break: break-all;">一个电脑版账号只能绑定一个手机号码。
+如需开通多个账号，请联系中介宝客服。
+电话：0551-65314555  QQ：9129588</li>
     </ul>
 
   </div>

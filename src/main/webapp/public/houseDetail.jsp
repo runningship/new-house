@@ -14,6 +14,11 @@
 	Integer estateId = Integer.valueOf(request.getParameter("estateId"));
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	Estate po = dao.get(Estate.class, estateId);
+	try{
+		Float.parseFloat(po.yongjin);
+		po.yongjin = po.yongjin+" 元";
+	}catch(Exception ex){
+	}
 	request.setAttribute("estate", po);
 	List<HouseImage> hxImgList = dao.listByParams(HouseImage.class, "from HouseImage where estateUUID=? and type=? ", po.uuid , Constants.HuXing);
 	List<HouseImage> xgImgList = dao.listByParams(HouseImage.class, "from HouseImage where estateUUID=? and type=? ", po.uuid , Constants.XiaoGuo);
@@ -110,7 +115,7 @@ function initImg(){
         <div class="p ">
           <div class="pd"><label class="">结佣公司: </label><span class="">中介宝</span> </div>
           <div class="pd"><label class="">预计结佣周期: </label><span class="">T+3</span></div>
-          <div class="pd"><label class="">独立经纪人佣金: </label><span class="">${estate.yongjin }</span> </div>
+          <div class="pd"><label class="">独立经纪人佣金: </label><span class="">${estate.yongjin }</span></div>
           <div class="pd"><label class="">开发商界定规则: </label><span class="">经纪人推荐的客户号码隐藏中间四位至开发商，若开发商核对后无此号码则初步判断有效</span> </div>
           <div class="pd"><label class="">案场联系: </label><span class="">${estate.tel }</span> </div>
         </div>
@@ -131,7 +136,7 @@ function initImg(){
       <div class="wrap text">4.投资性客户宣传</div>
 
     </div>
-    <div class="siderB"><span class="fl">　佣金: ${estate.yongjin }</span><a onclick="parent.alertBoxFun(${estate.id});" class="abtn bg_orange borr3 big fr">我有客户</a></div>
+    <div class="siderB"><span class="fl">　佣金: ${estate.yongjin } </span><a onclick="parent.alertBoxFun(${estate.id});" class="abtn bg_orange borr3 big fr">我有客户</a></div>
   </div>
   
 </div>

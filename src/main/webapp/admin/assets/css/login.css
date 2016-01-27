@@ -116,7 +116,7 @@ html,body{ height: 100%; }
 
 .logos{ vertical-align: bottom; position: relative; bottom: 0; color: #FFF;  font-family: "microsoft yahei";}
 .logos i{font-size: 100px;}
-.logos strong{ display: block; font-weight: normal; font-size: 14px; color: #999; }
+.logos strong{ display: block; font-weight: normal; font-size: 26px; color: #999; }
 .logos:hover i{ color: #FFF; }
 .logos strong{ color: #FFF; }
 

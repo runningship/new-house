@@ -41,7 +41,7 @@
         		<li class="nav-item dl-selected"><div class="nav-item-inner nav-home">系统管理</div></li>
 
       </ul>
-      <div style="position:absolute;right:0px;top:8px;" class="dl-log">欢迎您，<span class="dl-log-user">${user.account }</span><a href="./user/logout.jsp" title="退出系统" class="dl-log-quit">[退出]</a>
+      <div style="position:absolute;right:0px;top:8px;" class="dl-log">欢迎您，<span class="dl-log-user">${user.name }(${user.role})</span><a href="./user/logout.jsp" title="退出系统" class="dl-log-quit">[退出]</a>
       </div>
     </div>
     <ul id="J_NavContent" class="dl-tab-conten"> </ul>
@@ -94,11 +94,11 @@
                                       <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
                                       href: 'city/edit.jsp'
                                   }
-                                 ,{
-                                     id: 'huxing_cfg',
-                                     text: '户型',
-                                     href: 'huxing/list.jsp'
-                                 }
+//                                   ,{
+//                                      id: 'huxing_cfg',
+//                                      text: '户型',
+//                                      href: 'huxing/list.jsp'
+//                                  }
                              ]
                          },{
                              text: '用户管理',

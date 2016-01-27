@@ -1,3 +1,5 @@
+<%@page import="com.youwei.newhouse.user.Role"%>
+<%@page import="com.youwei.newhouse.ThreadSessionHelper"%>
 <%@page import="com.youwei.newhouse.entity.OrderGenJin"%>
 <%@page import="com.youwei.newhouse.Constants"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,6 +11,7 @@
 <%@page import="com.youwei.newhouse.entity.HouseOrder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
@@ -16,15 +19,30 @@ Integer id = Integer.valueOf(request.getParameter("id"));
 HouseOrder po = dao.get(HouseOrder.class, id);
 Estate estate = dao.get(Estate.class, po.estateId);
 request.setAttribute("order", po);
+User me = ThreadSessionHelper.getUser();
+if(Role.销售主管.name().equals(me.role)){
+	if(Constants.HouseOrderConfirming.equals(po.status) || Constants.HouseOrderInValid.equals(po.status)){
+		request.setAttribute("hideTel", true);
+	}else{
+		request.setAttribute("hideTel", false);
+	}	
+}else{
+	request.setAttribute("hideTel", false);
+}
 request.setAttribute("estate", estate);
 List<String> statusList = new ArrayList<String>();
-statusList.add(Constants.HouseOrderConfirming);
-statusList.add(Constants.HouseOrderValid);
-statusList.add(Constants.HouseOrderInValid);
-statusList.add(Constants.HouseOrderBiz);
-statusList.add(Constants.HouseOrderRenChou);
-statusList.add(Constants.HouseOrderDeal);
-statusList.add(Constants.HouseOrderJieYong);
+if(Constants.HouseOrderConfirming.equals(po.status)){
+	statusList.add(Constants.HouseOrderValid);
+	statusList.add(Constants.HouseOrderInValid);	
+}else if(Constants.HouseOrderValid.equals(po.status)){
+	statusList.add(Constants.HouseOrderBiz);
+}else if(Constants.HouseOrderBiz.equals(po.status)){
+	statusList.add(Constants.HouseOrderRenChou);
+}else if(Constants.HouseOrderRenChou.equals(po.status)){
+	statusList.add(Constants.HouseOrderDeal);
+}else if(Constants.HouseOrderDeal.equals(po.status)){
+	statusList.add(Constants.HouseOrderJieYong);
+}
 request.setAttribute("statusList",statusList);
 
 List<OrderGenJin> genjiList = dao.listByParams(OrderGenJin.class, "from OrderGenJin where orderId=?", id);
@@ -75,14 +93,17 @@ function statusChanged(status){
     </tr>
     <tr>
         <td class="tableleft">经纪人姓名</td>
-        <td>
-        	<span>${order.sellerName}</span>
+        <td><span>${order.sellerName}</span>
         </td>
     </tr>
      <tr>
         <td class="tableleft">经纪人电话</td>
-        <td><span>${order.sellerTel}</span>
-        </td>
+        <c:if test="${hideTel }">
+        	<td><span><c:out value="${fn:substring(order.sellerTel,0,3)}****${fn:substring(order.sellerTel,7,11)}"></c:out></span></td>
+        </c:if>
+        <c:if test="${!hideTel }">
+        	<td><span>${order.sellerTel }</span></td>
+        </c:if>
     </tr>
     <tr>
         <td class="tableleft">客户姓名</td>
@@ -91,33 +112,30 @@ function statusChanged(status){
     </tr>
     <tr>
         <td class="tableleft">客户电话</td>
-        <td>
-            <span>${order.buyerTel}</span>
-        </td>
+        <c:if test="${hideTel }">
+        	<td><span><c:out value="${fn:substring(order.buyerTel,0,3)}****${fn:substring(order.buyerTel,7,11)}"></c:out></span></td>
+        </c:if>
+        <c:if test="${!hideTel }">
+        	<td><span>${order.buyerTel }</span></td>
+        </c:if>
     </tr>
-    <tr>
-        <td class="tableleft">备注</td>
-        <td><input type="text"  name="sellerMark" value="${ order.sellerMark}"/></td>
-    </tr>
-    <!-- <tr>
-        <td class="tableleft">主图片</td>
-        <td><input id="main_upload"  style="display:none;margin-top:5px;">
-            <div id="main_img_container">
-            </div>
-        </td>
-    </tr> -->
     <tr>
         <td class="tableleft">状态</td>
         <td>
+        	<c:if test="${statusList.size()>0 }">
             <select <c:if test="${order.status eq '已结佣' }">readonly="readonly"</c:if> id="status"  class="sortSelect" name="status" onchange="statusChanged(this.value);">
-                <option value="" >所有</option>
                 <c:forEach items="${statusList}" var="status">
                   <option <c:if test="${status eq order.status }">selected="selected"</c:if> value="${status}">${status}</option>
                 </c:forEach>
             </select>
+            </c:if>
+            <c:if test="${statusList.size()<=0 }">
+            	<select readonly="readonly" name="status"><option selected="selected" value="${order.status }">${order.status }</option></select>
+            	
+            </c:if>
         </td>
     </tr>
-    <tr id="yongjinTR" <c:if test="${order.status ne '已结佣' }"> style="display:none;"</c:if>>
+    <tr id="yongjinTR" <c:if test="${order.status ne '已签约' && order.status ne '已结佣'}"> style="display:none;"</c:if>>
         <td class="tableleft">佣金</td>
         <td><input type="text"  <c:if test="${order.status eq '已结佣' }">readonly="readonly"</c:if> desc="佣金"  id="yongjin" name="yongjin" value="${order.yongjin }"/></td>
     </tr>
@@ -127,6 +145,10 @@ function statusChanged(status){
         	<input <c:if test="${order.daikan==1 }">checked="checked"</c:if> type="radio" name="daikan" value="1"/> 已带看
         	<input <c:if test="${order.daikan!=1 }">checked="checked"</c:if> type="radio" name="daikan" value="0"/>未带看
         </td>
+    </tr>
+    <tr>
+        <td class="tableleft">备注</td>
+        <td><input type="text"  name="sellerMark" value="${ order.sellerMark}"/></td>
     </tr>
     <tr>
         <td class="tableleft"></td>
