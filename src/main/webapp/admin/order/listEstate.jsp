@@ -25,7 +25,7 @@ function doSearch(){
 	var a=$('form[name=form1]').serialize();
 	YW.ajax({
 	    type: 'get',
-	    url: '${projectName}/c/admin/order/listEstateData',
+	    url: '${projectName}/c/admin/order/listEstateData?t='+new Date().getTime(),
 	    data: a,
 	    dataType:'json',
 	    mysuccess: function(json){

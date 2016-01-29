@@ -36,7 +36,7 @@ public class ShortMessageHelper {
 	
 	public static boolean sendNewOrderMsg(String tel){
 		CCPRestSDK restAPI = getClient();
-		HashMap<String, Object> result = restAPI.sendTemplateSMS(tel,"65441" ,new String[]{""});
+		HashMap<String, Object> result = restAPI.sendTemplateSMS(tel,"65740" ,new String[]{""});
 		if("000000".equals(result.get("statusCode"))){
 			return true;
 		}else{

@@ -129,6 +129,7 @@ function getStatusItem(index,oldStatus,status){
 }
 </script>
 <style type="text/css">
+.BR{ border-top: 1px solid #FF6100; }
 </style>
 </head>
 <body  class="bodyer listHouse ">
@@ -141,7 +142,7 @@ function getStatusItem(index,oldStatus,status){
                 <a class="a">洽谈中</a>
                 <a class="a">已认筹</a>
                 <a class="a">已签约</a>
-                <a class="a">已结佣</a>
+                <a class="a BR">已结佣</a>
 <!--                 <a class="a">已带看</a> -->
                 <a class="a">无效</a>
             </div>

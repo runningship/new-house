@@ -740,12 +740,12 @@ content: "\2b";
 
 
 
-.ss_alertBox{ display:none; position:fixed; top: 20%; left: 30%; background: #FFF;  box-shadow: 1px 1px 20px rgba(0,0,0,1.5); }
+.ss_alertBox{ display:none; position:fixed; top: 6%; left: 30%; background: #FFF;  box-shadow: 1px 1px 20px rgba(0,0,0,1.5); }
 .ss_alertBox .ss_alert_tit{ position: relative; }
 .ss_alertBox .ss_alert_tit .ss_alert_close{ position: absolute; z-index: 999; top:-15px; right: -15px;display: inline-block; width: 30px; height: 30px; line-height: 30px; font-family:'黑体','microsoft yahei'; font-size: 20px; text-align: center; background-color: rgba(255,0,0,0.7); color: #FFF; border-radius: 50px; box-shadow: 0 0 10px rgba(0,0,0,0.6);}
 .ss_alertBox .ss_alert_tit .ss_alert_close:hover{background-color: rgba(255,0,0,1.7);}
-.ss_alertBox .ss_alert_cont{ position: relative; width: 400px; height: 300px; }
-.ss_alertBox .ss_alert_head{ padding: 15px 30px; background: #FF6100; color: #FFF; text-align: center; margin-bottom: 30px; }
+.ss_alertBox .ss_alert_cont{ position: relative; width: 400px; height: 490px; }
+.ss_alertBox .ss_alert_head{ padding: 10px 30px; background: #FF6100; color: #FFF; text-align: center; margin-bottom: 15px; }
 .ss_alertBox .ss_alert_head h1{ font-size: 24px; text-align: left; }
 .ss_alertBox .ss_alert_head p{ font-size: 14px; text-align: left; padding-top: 8px; }
 

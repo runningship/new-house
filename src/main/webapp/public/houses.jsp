@@ -30,7 +30,7 @@ $(document).ready(function() {
 });
 
 var orderEstateId;
-var gender;
+var gender='先生';
 function loadData(){
 	var url = '/new-house/c/m/listSalesData';
 	YW.ajax({
@@ -165,9 +165,15 @@ $(document).on('click', '.view li', function(event) {
         <li><div class="inputbox"><input id="tel" type="text" class="input" placeholder="客户电话"></div></li>
         <li><div class="inputbox"><input type="text" class="input" readonly="readonly" value="${tel }" placeholder="您的联系电话"></div></li> 
         <li style="cursor:pointer;"><a onclick="saveOrder();" class="btn block">提交</a></li>
-        <li style="word-break: break-all;">一个电脑版账号只能绑定一个手机号码。
-如需开通多个账号，请联系中介宝客服。
-电话：0551-65314555  QQ：9129588</li>
+        <li style="word-break: break-all;">您提交的客户联系方式加密显示给房产商（如138****9999）。
+若房产商选择接受查看该客户，您的客户状态变成“有效”，
+表示一二手房联动条约达成；
+若房产商拒接了该提交，则您的客户状态变成“无效”，
+表示房产商并未查看客户的联系号码，条约未达成。<br/>
+		<div style="text-align:center;"><img style="" src="../images/zjb_all_100.png" /></div>
+		<div style="text-align:center;">获取客户实时动态，请登录中介宝手机版。</div>
+		
+</li>
     </ul>
 
   </div>

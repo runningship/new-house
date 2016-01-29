@@ -110,8 +110,18 @@ public class OrderService {
 	}
 	@WebMethod
 	public ModelAndView doSave(HouseOrder order , String estateIds){
-		
 		ModelAndView mv = new ModelAndView();
+		
+		for(String estateId : estateIds.split(",")){
+			if(StringUtils.isEmpty(estateId)){
+				continue;
+			}
+			long count = dao.countHql("select count(*) from HouseOrder where buyerTel=? and estateId=? ", order.buyerTel ,Integer.valueOf(estateId));
+			if(count>0){
+				Estate estate = dao.get(Estate.class, Integer.valueOf(estateId));
+				throw new GException(PlatformExceptionType.BusinessException, "您已经为该客户推荐过"+estate.name+"，请不要重复推荐");
+			}
+		}
 		order.addtime = new Date();
 		for(String estateId : estateIds.split(",")){
 			if(StringUtils.isEmpty(estateId)){
