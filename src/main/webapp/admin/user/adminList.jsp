@@ -77,7 +77,9 @@ function getValidationText(valid){
         <th>职位</th>
         <th>固定号码</th>
         <th>邮箱</th>
+        <c:if test="${me.role eq '管理员' }">
         <th>操作</th>
+        </c:if>
     </tr>
     </thead>
     <tbody>
@@ -87,11 +89,13 @@ function getValidationText(valid){
                 <td>$[role]</td>
                 <td>$[landlineTel]</td>
                 <td>$[email]</td>
+                <c:if test="${me.role eq '管理员' }">
                 <td>
                     <a href="adminEdit.jsp?id=$[id]">编辑</a>
                     <a class="valid_$[valid]" href="javascript:void(0)" onclick="setUserValidation(this,$[id]);" runscript="true">getValidationText($[valid])</a>
                     <a href="#" onclick="del($[id])">删除</a>
                 </td>
+                </c:if>
             </tr>
     </tbody>
 	</table>
