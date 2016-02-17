@@ -18,6 +18,9 @@
   <script type="text/javascript">
   var projectName='${projectName}';
   </script>
+  <style type="text/css">
+  	.zjb_tel{    text-align: center;    color: white;    height: 42px;    line-height: 54px;}
+  </style>
  </head>
  <body>
 <%
@@ -39,7 +42,7 @@
       <div class="dl-inform"><div class="dl-inform-title"><s class="dl-inform-icon dl-up"></s></div></div>
       <ul id="J_Nav"  class="nav-list ks-clear">
         		<li class="nav-item dl-selected"><div class="nav-item-inner nav-home">系统管理</div></li>
-
+				<li class="zjb_tel"><span class="me">中介宝专属服务热线：0551-65639055   QQ:912958833</span></li>
       </ul>
       <div style="position:absolute;right:0px;top:8px;" class="dl-log">欢迎您，<span class="dl-log-user">${user.name }(${user.role})</span><a href="./user/logout.jsp" title="退出系统" class="dl-log-quit">[退出]</a>
       </div>

@@ -23,6 +23,7 @@
 	    <script type="text/javascript" src="../js/bootstrap.js"></script>
 	    <script type="text/javascript" src="../js/artDialog/jquery.artDialog.source.js?skin=default"></script>
 		<script type="text/javascript" src="../js/artDialog/plugins/iframeTools.source.js"></script>
+		<script type="text/javascript" src="../js/json2.js"></script>
 		<script type="text/javascript" src="../js/buildHtml.js"></script>
 
 <script type="text/javascript">
@@ -38,7 +39,7 @@ function login(){
 	    error:function(data){
 	    	  alert('用户名或密码错误');
 	      }
-	  });
+	});
 }
 $(function(){
 	$(document).on('keyup',function(event){
@@ -49,6 +50,9 @@ $(function(){
 	$('.tel').focus();
 });
 </script>
+<style type="text/css">
+	.foot{padding-top: 50px;color:#666; font-size:15px;}
+</style>
 	</head>
 	<body>
 	<div class="container">
@@ -68,7 +72,10 @@ $(function(){
 				</label> 
 			</form>
 		</div>
+		 <div class="foot">
+			<span class="me">中介宝专属服务热线：0551-65639055   QQ:912958833</span>
+		</div>
 	</div>
-
+	   
 	</body>
 </html>
