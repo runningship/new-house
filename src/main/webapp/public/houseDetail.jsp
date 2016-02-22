@@ -8,6 +8,7 @@
 <%@page import="com.youwei.newhouse.cache.ConfigCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
  	String domainName = ConfigCache.get("domainName", "www.zhongjiebao.com");
 	request.setAttribute("domainName", domainName);
@@ -92,7 +93,7 @@ function initImg(){
         </div>
         
         <div class="p ">
-          <div class="pd"><label class="">开盘: </label><span class="">${estate.opentime }</span> </div>
+          <div class="pd"><label class="">开盘: </label><span class=""><fmt:formatDate value="${estate.opentime}" pattern="yyyy-MM-dd"/></span> </div>
           <div class="pd"><label class="">绿化: </label><span class="">${estate.lvhua }</span><i class="">%</i></div>
         </div>
         <div class="p ">
@@ -115,8 +116,8 @@ function initImg(){
         <div class="p ">
           <div class="pd"><label class="">结佣公司: </label><span class="">中介宝</span> </div>
           <div class="pd"><label class="">预计结佣周期: </label><span class="">T+3</span></div>
-          <div class="pd"><label class="">独立经纪人佣金: </label><span class="">${estate.yongjin }</span></div>
-          <div class="pd"><label class="">开发商界定规则: </label><span class="">经纪人推荐的客户号码隐藏中间四位至开发商，若开发商核对后无此号码则初步判断有效</span> </div>
+          <div class="pd"><label class="">经纪人佣金: </label><span class="yongjin" style="color:#F60">${estate.yongjin }</span></div>
+          <div class="pd"><label class="">开发商界定规则: </label><span class="">经纪人推荐的客户号码隐藏中间四位，开发商方面如选择查看完整号码，则代表要约达成，客户状态变成“有效”。</span> </div>
           <div class="pd"><label class="">案场联系: </label><span class="">${estate.tel }</span> </div>
         </div>
       </div>

@@ -17,7 +17,6 @@ import org.bc.sdak.utils.LogUtil;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
-import org.bc.web.ThreadSession;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.Constants;
@@ -122,6 +121,7 @@ public class OrderService {
 				throw new GException(PlatformExceptionType.BusinessException, "您已经为该客户推荐过"+estate.name+"，请不要重复推荐");
 			}
 		}
+		order.buyerTel = order.buyerTel.replace("-", "");
 		order.addtime = new Date();
 		for(String estateId : estateIds.split(",")){
 			if(StringUtils.isEmpty(estateId)){

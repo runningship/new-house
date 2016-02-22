@@ -41,10 +41,29 @@ function login(){
 	      }
 	});
 }
+
 $(function(){
+	function setErr(txt){
+		var EB=$('.errTip');
+		EB.text(txt);
+		var ET=setTimeout(function(){
+			EB.text('');
+			clearTimeout(ET);
+		},3000);
+	}
 	$(document).on('keyup',function(event){
 		if(event.keyCode==13){
-			login();
+			var A=$('.tel'),
+			AV=A.val(),
+			B=$('.pwd'),
+			BV=B.val();
+			if(!AV){
+				A.focus();
+			}else if(!BV){
+				B.focus();
+			}else{
+				login();
+			}
 		}
 	});
 	$('.tel').focus();
@@ -52,6 +71,7 @@ $(function(){
 </script>
 <style type="text/css">
 	.foot{padding-top: 50px;color:#666; font-size:15px;}
+	.errTip{ font-size: 14px; color: #F00; height: 20px; line-height: 20px; text-align: center; display: block; }
 </style>
 	</head>
 	<body>
@@ -65,12 +85,13 @@ $(function(){
 					<input type="text" class="input tel" name="account" value="" placeholder="手机号">
 				</label>
 				<label class="inputbox">
-					<input type="password" class="input" name="pwd" value="" placeholder="密码">
+					<input type="password" class="input pwd" name="pwd" value="" placeholder="密码">
 				</label>
 				<label class="btnbox">
-					<botton class="botton" onclick="login();">登录</botton>
+					<a href="" class="button" onclick="login();">登录</a>
 				</label> 
 			</form>
+			<p class="errTip"></p>
 		</div>
 		 <div class="foot">
 			<span class="me">中介宝专属服务热线：0551-65639055   QQ:912958833</span>

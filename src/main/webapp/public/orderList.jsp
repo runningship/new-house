@@ -14,7 +14,7 @@
 	request.setAttribute("domainName", domainName);
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	StringBuilder hql = new StringBuilder("select  order.id as id, est.name as estateName, order.buyerName as buyerName ,order.buyerTel as buyerTel, "
-			+ " order.sellerName as sellerName ,order.buyerGender as buyerGender ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as status ,order.daikan as daikan from HouseOrder order, "
+			+ " order.sellerName as sellerName ,order.buyerGender as buyerGender ,order.sellerTel as sellerTel, order.addtime as addtime, order.status as orderStatus ,order.daikan as daikan from HouseOrder order, "
 			+ "Estate est where order.estateId=est.id and sellerTel=?");
 	String tel = request.getParameter("tel");
 	List<Map> orderList = dao.listAsMap(hql.toString() , tel);
@@ -108,7 +108,7 @@ function getHtml(id){
             <div class="fr"><i class="iconfont">&#xe672;</i></div>
             <strong class="xm">$[buyerName]</strong>
             <span class="hm">$[buyerTel]</span>
-            <span class="zt">$[status]<b>$[addtime]</b></span>
+            <span class="zt">$[orderStatus]<b>$[addtime]</b></span>
             <span class="hn">$[estateName]</span>
           </a>
           <div class=" ShuList " id="ShuList_$[id]">
