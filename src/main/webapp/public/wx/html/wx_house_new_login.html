@@ -15,12 +15,48 @@
 <script src="../../../js/buildHtml.js?12" type="text/javascript"></script>
 <script type="text/javascript" src="../../../js/artDialog/jquery.artDialog.source.js?skin=default"></script>
 <script type="text/javascript" src="../../../js/artDialog/plugins/iframeTools.source.js"></script>
+
 <script type="text/javascript">
-// $.wechat.enable().done(function(){
-//     alert('已经启用成功');
-// }).fail(function(){
-//     alert('启用失败');
-// });
+window.onload = function(){
+    if(isWeiXin()){
+        //var p = document.getElementsByTagName('p');
+        //p[0].innerHTML = window.navigator.userAgent;
+        alert(window.navigator.userAgent)
+    }
+}
+function isWeiXin(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+        return true;
+    }else{
+        return false;
+    }
+}
+</script>
+
+<script type="text/javascript">
+function gotoEWM(){
+window.location.href="wx_house_new_ewm.html";
+}
+function isPCWX(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/window/i)=='window'){
+        return true;
+    }else{
+        return false;
+    }
+}
+window.onload = function(){
+    if(isPCWX()){
+        gotoEWM();
+    }
+}
+
+$.wechat.enable().done(function(){
+    $.wechat.hideMenu(); //隐藏菜单
+}).fail(function(){
+    gotoEWM();
+});
  
 $(document).ready(function() {
     var tel = getCookie('new_house_user_tel');
