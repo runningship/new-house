@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>layout模块 - layui</title>
+
+<link rel="stylesheet" href="../ui/css/layui.css">
+
+<style>
+body{padding:100px;}
+</style>
+</head>
+<body>
+
+
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-tab-this">标题1</li>
+    <li>标题2</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">1</div>
+    <div class="layui-tab-item">2</div>
+  </div>
+</div>
+
+<div class="layui-tab" style="width: 500px">
+  <ul class="layui-tab-title">
+    <li class="layui-tab-this">标题1</li>
+    <li>标题2</li>
+    <li>标题3</li>
+    <li>标题4</li>
+    <li>标题5</li>
+    <li>标题6</li>
+    <li>标题7</li>
+    <li>标题8</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">1</div>
+    <div class="layui-tab-item">2</div>
+    <div class="layui-tab-item">3</div>
+    <div class="layui-tab-item">4</div>
+    <div class="layui-tab-item">5</div>
+    <div class="layui-tab-item">6</div>
+    <div class="layui-tab-item">7</div>
+    <div class="layui-tab-item">8</div>
+  </div>
+</div>
+
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-tab-this">标题1</li>
+    <li>标题2</li>
+    <li>标题3</li>
+    <li>标题4</li>
+    <li>标题5</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">1</div>
+    <div class="layui-tab-item">2</div>
+    <div class="layui-tab-item">3</div>
+    <div class="layui-tab-item">4</div>
+    <div class="layui-tab-item">5</div>
+  </div>
+</div>
+
+<script src="../ui/layui.js"></script>
+<script>
+layui.use(['layout', 'layer'], function(){
+    var layout = layui.layout, layer = layui.layer;
+    layer.config({
+      extend: 'layer.ext.js'
+    })
+    
+    layout.tab();
+
+    //固定块
+    layout.fixBlock({
+      toolClick: function(){
+        layer.prompt({
+          formType: 2
+          ,title: '建议'
+        }, function(value, index, elem){
+          layer.msg(value);
+        });
+      }
+    });
+});
+</script>
+</body>
+</html>

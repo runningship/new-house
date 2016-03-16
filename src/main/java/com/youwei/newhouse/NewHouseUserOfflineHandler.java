@@ -16,7 +16,9 @@ public class NewHouseUserOfflineHandler implements UserOfflineHandler{
 		try {
 			HttpServletResponse resp = (HttpServletResponse)response;
 			resp.setHeader("userOffline", "true");
-			if(req.getRequestURI().contains("admin")){
+			if(req.getRequestURI().contains("bank")){
+				response.getWriter().write("<script type='text/javascript'>window.top.location='"+req.getServletContext().getContextPath()+"/admin/bank/login.html'</script>");
+			}else if(req.getRequestURI().contains("admin")){
 //				resp.sendRedirect(req.getServletContext().getContextPath()+"/admin/login.jsp");
 				response.getWriter().write("<script type='text/javascript'>window.top.location='"+req.getServletContext().getContextPath()+"/admin/login.jsp'</script>");
 			}else if(req.getRequestURI().contains("/m/")){

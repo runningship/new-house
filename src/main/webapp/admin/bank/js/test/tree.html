@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>树模块 - layui</title>
+
+<link rel="stylesheet" href="../ui/css/layui.css">
+
+<style>
+body{padding: 50px 100px;}
+</style>
+</head>
+<body>
+
+<div class="demo">
+<ul class="layui-tree">
+  <li>
+    
+  </li>
+</ul>
+</div>
+
+
+<script src="../ui/layui.js"></script>
+<script>
+layui.use('tree', function(){
+  var tree = layui.tree;
+  
+  var node = {};
+
+  layui.tree('.demo', {
+    node: node
+  });
+  
+});
+</script>
+</body>
+</html>

@@ -104,6 +104,19 @@
 //                                  }
                              ]
                          },{
+                             text: '贷款业务',
+                             items: [
+                                 {
+                                     id: 'bank_biz_list',
+                                     text: '申请列表',
+                                     href: 'bank/bank.html'
+                                 },{
+                                     id: 'bank_biz_add',
+                                     text: '业务设置',
+                                     href: 'bank/bank_work.html'
+                                 }
+                             ]
+                         },{
                              text: '用户管理',
                              items: [{
                                      id: 'admin_list',

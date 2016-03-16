@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>文件上传模块 - layui</title>
+
+<link rel="stylesheet" href="../ui/css/layui.css">
+
+<style>
+body{padding: 50px 100px;}
+</style>
+</head>
+<body>
+
+<div class="layui-form">
+  <ul>
+    <li class="layui-form-li">
+      <div class="layui-upload-button">
+        <input type="file" name="file" text="上传图片" class="layui-upload-file">
+      </div>
+    </li>
+  </ul>
+</div>
+
+<script src="../ui/layui.js"></script>
+<script>
+layui.use('upload', function(){
+
+  layui.upload({
+    url: 'http://zz:98/api/upload/'
+    ,file: '.layui-upload-file'
+    ,success: function(src){
+      console.log(src)
+    }
+  });
+  
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>模块加载 - layui</title>
+
+<link rel="stylesheet" href="../ui/css/layui.css">
+</head>
+<body>
+
+  <div id="page"></div>
+
+<script src="../ui/layui.js"></script>
+<script>
+void function(){
+
+layui.config({
+    debug: true
+});
+
+
+var modules = ['layer', 'laypage'];
+layui.use(modules, function(){
+    console.log(layui.layer, layui.laypage);
+});
+
+
+}();
+</script>
+</body>
+</html>

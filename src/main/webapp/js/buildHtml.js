@@ -93,7 +93,11 @@ return (reg.test(location.search))? encodeURIComponent(decodeURIComponent(RegExp
 
 window.blockAlert = window.alert;
 window.alert = function(data){
-    art.dialog.tips(data);
+	try{
+		art.dialog.tips(data);
+	}catch(e){
+		layer.msg(data);
+	}
 }
 window.infoAlert = function(data){
     art.dialog({

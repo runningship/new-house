@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>表单模块 - layui</title>
+
+<link rel="stylesheet" href="../ui/css/layui.css">
+
+<style>
+body{padding: 50px 100px;}
+</style>
+</head>
+<body>
+
+<form action="" class="layui-form">
+  <ul>
+    <li class="layui-form-li">
+      <div class="layui-form-label">
+        <label>用户</label>
+        <input required type="text" name="username" check="username">
+      </div>
+    </li>
+    <li class="layui-form-li">
+      <div class="layui-form-label">
+        <label>密码</label>
+        <input type="password">
+      </div>
+      <div class="layui-inline layui-form-tips">密码强度可以按照需求选择性开启</div>
+    </li>
+    <li class="layui-form-li">
+      <div class="layui-form-label">
+        <label>邮箱</label>
+        <input required type="text" check="email">
+      </div>
+    </li>
+    </li>
+    <li class="layui-form-li">
+      <fieldset>
+        <legend>爱好</legend>
+        <div class="layui-form-label layui-form-checkbox">
+          <label>音乐</label>
+          <input type="checkbox" name="love[yinyue]">
+        </div>
+        <div class="layui-form-label layui-form-checkbox">
+          <label>写作</label>
+          <input type="checkbox" checked name="love[xiezuo]">
+        </div>
+        <div class="layui-form-label layui-form-checkbox">
+          <label>敲代码</label>
+          <input type="checkbox" name="love[daima]">
+        </div>
+        <div class="layui-form-label layui-form-checkbox">
+          <label>旅行</label>
+          <input type="checkbox" name="love[lvxing]">
+        </div>
+        <div class="layui-form-label layui-form-checkbox">
+          <label>做自己想做的事咯</label>
+          <input type="checkbox" name="love[daima]">
+        </div>
+      </fieldset>
+    </li>
+    <li class="layui-form-li">
+      <div class="layui-form-label">
+        <label>省份</label>
+        <select>
+          <option value="b">浙江省</option>
+          <option value="a">江西省</option>
+          <option value="b">上海市</option>
+          <option value="a">福建省</option>
+          <option value="b">湖北省</option>
+          <option value="a">江苏省</option>
+          <option value="b">安徽省</option>
+          <option value="a">北京市</option>
+          <option value="a">香港</option>
+          <option value="a">澳门</option>
+          <option value="a">台湾省</option>
+        </select>
+      </div>
+      <div class="layui-form-label">
+        <label>城市/县</label>
+        <select>
+          <option value="b">杭州</option>
+          <option value="a">南昌</option>
+        </select>
+        <select>
+          <option value="b">中关村华西村</option>
+          <option value="a">华西村</option>
+        </select>
+      </div>
+    </li>
+    <li class="layui-form-li">
+      <div class="layui-form-label layui-form-area">
+        <label>内容</label>
+        <textarea></textarea>
+      </div>
+    </li>
+    <li class="layui-form-li">
+      <button class="layui-form-button">提交</button>
+    </li>
+  </ul>
+</form>
+
+<script src="../ui/layui.js"></script>
+<script>
+layui.use(['form'], function(){
+  var form = layui.form;
+  
+  //验证
+  form.check({
+    custom: { //自定义验证
+      username: function(value){
+        if(value.replace(/\s/g, '') === ''){
+          return '用户名不能为空';
+        }
+      }
+    }
+  }, function(data){
+    console.log(data);
+  });
+  
+  //密码强度
+  form.pass();
+  
+  //多选框
+  form.checkbox();
+  
+  //下拉选择框
+  form.select();
+  
+});
+</script>
+</body>
+</html>
