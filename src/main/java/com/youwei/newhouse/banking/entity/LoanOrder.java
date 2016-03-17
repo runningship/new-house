@@ -14,6 +14,8 @@ public class LoanOrder {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer id;
 	
+	public Integer bankId;
+	
 	public String area;
 	
 	public Float mji;

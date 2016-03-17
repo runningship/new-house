@@ -7,12 +7,15 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
+import org.bc.sdak.GException;
 import org.bc.sdak.Page;
 import org.bc.sdak.TransactionalServiceHelper;
 import org.bc.sdak.utils.JSONHelper;
 import org.bc.web.ModelAndView;
 import org.bc.web.Module;
+import org.bc.web.PlatformExceptionType;
 import org.bc.web.WebMethod;
 
 import com.youwei.newhouse.ThreadSessionHelper;
@@ -77,6 +80,19 @@ public class BankService {
 	@WebMethod
 	public ModelAndView addOrder(LoanOrder order){
 		ModelAndView mv = new ModelAndView();
+		if(StringUtils.isEmpty(order.area)){
+			throw new GException(PlatformExceptionType.BusinessException, "请先填写小区信息");
+		}
+		if(order.mji==null){
+			throw new GException(PlatformExceptionType.BusinessException, "请先填写房源面积信息");
+		}
+		if(order.zjia==null){
+			throw new GException(PlatformExceptionType.BusinessException, "请先填写房源总价");
+		}
+		if(order.loan==null){
+			throw new GException(PlatformExceptionType.BusinessException, "请先填写贷款金额");
+		}
+		
 		order.addtime = new Date();
 		order.status = 1;
 		dao.saveOrUpdate(order);
@@ -98,8 +114,15 @@ public class BankService {
 	public ModelAndView listOrder(Page<LoanOrder> page , Integer status){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder sql = new StringBuilder();
-		sql.append("from LoanOrder where 1=1 ");
+		Bank bank = dao.getUniqueByKeyValue(Bank.class, "managerUid", ThreadSessionHelper.getUser().id);
+		sql.append("from LoanOrder where bankId =?  ");
 		List<Object> params = new ArrayList<Object>();
+		if(bank!=null){
+			params.add(bank.id);
+		}else{
+			params.add(-1);
+		}
+		
 		if(status!=null){
 			sql.append(" and status = ?");
 			params.add(status);

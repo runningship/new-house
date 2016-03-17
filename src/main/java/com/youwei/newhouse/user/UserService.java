@@ -83,6 +83,13 @@ public class UserService {
 	}
 	
 	@WebMethod
+	public ModelAndView logoutBank(){
+		ModelAndView mv = new ModelAndView();
+		ThreadSession.getHttpSession().removeAttribute("user");
+		return mv;
+	}
+	
+	@WebMethod
 	public ModelAndView modifyPwd(String oldPwd,String newPwd){
 		ModelAndView mv = new ModelAndView();
 		User me = ThreadSessionHelper.getUser();

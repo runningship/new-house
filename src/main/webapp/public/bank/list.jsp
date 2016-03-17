@@ -319,6 +319,7 @@ $(document).ready(function() {
 });
 
 function addOrder(){
+	$('.bankId').val($('#bankId').text());
 	var url = '/new-house/c/admin/bank/addOrder';
 	var a=$('form[name=form1]').serialize();
 	YW.ajax({
@@ -345,6 +346,7 @@ function addOrder(){
 	<input type="hidden" name="sellerName" value="${sellerName }"/>
 	<input type="hidden" name="sellerTel" value="${sellerTel }"/>
 	<input type="hidden" name="comp" value="${comp }"/>
+	<input type="hidden" name="bankId" class="bankId" value=""/>
   <ul class="form-ul">
     <li class=""><label class="form-section form-active"><strong class="input-label">小区名</strong><input name="area" type="text" class="input placeholder" placeholder="小区名称"><span class="tip"></span></label></li>
     <li class=""><label class="form-section form-active"><strong class="input-label">面积 (数字)</strong><input name="mji" type="text" class="input placeholder" placeholder="面积 (数字)"><span class="tip">m²</span></label></li>

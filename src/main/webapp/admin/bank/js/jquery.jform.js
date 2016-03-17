@@ -18,6 +18,9 @@ $(document).ready(function() {
     }, function() {
         $(this).parent().removeClass('hover');
     }).each(function(index, el) {
+        if($(this).val()){
+            $(this).parent().addClass('active');
+        }
         if($(this).is('select')){
             $(this).parent().addClass('curr');
         }

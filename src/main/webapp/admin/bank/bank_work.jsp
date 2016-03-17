@@ -11,10 +11,19 @@
 	User u = ThreadSessionHelper.getUser();
 	request.setAttribute("user", u);
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
-	Bank po = dao.getUniqueByKeyValue(Bank.class, "managerUid", u.id);
-	request.setAttribute("bank", po);
-	List<BankLabel> labels = dao.listByParams(BankLabel.class, "from BankLabel where bankId=?", po.id);
-	request.setAttribute("labels", labels);
+	if(u!=null){
+		Bank po = dao.getUniqueByKeyValue(Bank.class, "managerUid", u.id);
+		if(po==null){
+			po = new Bank();
+			po.name = "";
+			po.biz="";
+			po.managerUid = u.id;
+			dao.saveOrUpdate(po);
+		}
+		request.setAttribute("bank", po);
+		List<BankLabel> labels = dao.listByParams(BankLabel.class, "from BankLabel where bankId=?", po.id);
+		request.setAttribute("labels", labels);	
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +32,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Examples</title>
+<title>业务设置</title>
 <script type="text/javascript" src="js/jquery.js"></script>
 <link href="../../js/BS/css/bootstrap.min.css" rel="stylesheet" />
 <script src="../../js/BS/js/bootstrap.min.js" type="text/javascript"></script>
@@ -97,7 +106,7 @@ function submit_act(){
     J.name=Fva.val();
     J.biz=Fvb.val();
     var jstr=JSON.stringify(J);
-    layer.msg('fwefe'+jstr);
+    
     
     YW.ajax({
 	    type: 'post',
@@ -105,6 +114,7 @@ function submit_act(){
 	    data: {id: '${bank.id}' , name: Fva.val() , biz: Fvb.val()},
 	    dataType:'json',
 	    mysuccess: function(json){
+	    	layer.msg('保存成功');
 	    }
 	});
 }
@@ -168,7 +178,6 @@ var listr='<div class="libox"><h2><input type="text" class="title" value="'+Tt.t
 +'<div class="licont"><textarea rows="5" class="conts" placeholder="标签内容">'+Tc.text()+'</textarea>'
 +'<a href="#" class="btn_act btn btn-primary" data-type="editLiServ">保存</a> '
 +'<a href="#" class="btn_act btn btn-default" data-type="editLiNo">取消</a> '
-+'<a href="#" class="btn_act btn btn-danger" data-type="editLiDel">删除</a>'
 +'</div></div>';
 TP.html(listr).find('.title').focus();
 }

@@ -12,6 +12,7 @@
 <%@page import="com.youwei.newhouse.cache.ConfigCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	CommonDaoService dao = TransactionalServiceHelper.getTransactionalService(CommonDaoService.class);
 	String sellerTel = request.getParameter("selletTel");
@@ -49,14 +50,23 @@ $(document).ready(function() {
    <div class="sider">
     <div class="siderC">
       <div class="wrap">
-      	<div id="emptyMsg" style="text-align:center;display:none;">您还没有推荐过任何客户</div>
+      	<c:if test="${empty orderList }">
+      		<div id="emptyMsg" style="text-align:center;">您还没有推荐过任何客户</div>
+      	</c:if>
+      	
         <ul class="khlist">
         	<c:forEach items="${orderList }" var="order">
         		<li class="repeat" data-id="$[id]">
 	          		<a href="#" class="box">
 			            <div class="fr"><i class="iconfont">&#xe672;</i></div>
 			            <strong class="xm">${order.area }</strong>
-			            <span class="zt">${order.status }<b>${order.addtime }</b></span>
+			            <span class="zt">
+			            	<c:if test="${order.status==1 }">待确认</c:if>
+			            	<c:if test="${order.status==2 }">已接收</c:if>
+			            	<c:if test="${order.status==3 }">已拒绝</c:if>
+			            	<b><fmt:formatDate value="${order.addtime }" pattern="yyyy-MM-dd HH:mm"/></b>
+			            </span>
+			            <span class="hn">面积: ${order.mji }平方  总价: ${order.zjia } 万 贷款: ${order.loan } 万</span>
 	          		</a>
 	          </li>
         	</c:forEach>

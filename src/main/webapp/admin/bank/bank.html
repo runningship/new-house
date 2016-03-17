@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Examples</title>
+<title>申请列表</title>
 <script type="text/javascript" src="js/jquery.js"></script>
 <link href="../../js/BS/css/bootstrap.min.css" rel="stylesheet" />
 <script src="../../js/BS/js/bootstrap.min.js" type="text/javascript"></script>
@@ -18,14 +18,22 @@
 $(document).on('click', '.btn_act', function(event) {
   var T=$(this),
   TYPE=T.attr('data-type');
-  if(TYPE=='qr'){
+  if(TYPE=='caozuo'){
     var TP=T.parents('li.li'),
-    Tid=TP.attr('data-id');
-    layer.msg('确认'+Tid);
+    Tid=TP.attr('data-id'),
+    Tn=T.attr('data-n');
+    setStatus(Tid,Tn);
+    // layer.msg('确认'+Tid+'|'+Tn);
   }else if(TYPE=='hl'){
     var TP=T.parents('li.li'),
     Tid=TP.attr('data-id');
     layer.msg('忽略'+Tid);
+  }else if(TYPE=='tabAct'){
+    Tn=T.attr('data-n');
+    if(Tn){
+      selectStatus(Tn);
+      T.addClass('hover').siblings().removeClass('hover');
+    }
   }else{}
   event.preventDefault();
   /* Act on the event */
@@ -45,8 +53,13 @@ function doSearch(){
 	    data: {status: loanStatus},
 	    dataType:'json',
 	    mysuccess: function(json){
-	        buildHtmlWithJsonArray("repeat",json.page.data);
-	        //Page.setPageInfo(json.page);
+	    	if(json.page.data.length==0){
+	    		$('#emptyMsg').show();
+	    	}else{
+          $('#emptyMsg').hide();
+        }
+        buildHtmlWithJsonArray("repeat",json.page.data);
+        //Page.setPageInfo(json.page);
 	    }
 	  });
 }
@@ -62,18 +75,44 @@ function selectStatus(status){
 }
 
 function setStatus(id , status){
-	YW.ajax({
-	    type: 'post',
-	    url: '/new-house/c/admin/bank/setStatus',
-	    data: {id:id , status:status},
-	    dataType:'json',
-	    mysuccess: function(json){
-	    	doSearch();
-	    }
-	  });
+var str='';
+switch(status){
+case "1":
+  str='';
+//  layer.msg('ok');
+break;
+case "2":
+  str='接受';
+//  layer.msg('ok');
+break;
+case "3":
+  str='忽略';
+//  layer.msg('ok');
+break;
+default:
+  str='default';
+}
+layer.confirm('确定'+str+'？', {
+    icon: 3,
+    btn: ['确定','取消'] //按钮
+}, function(i){
+  YW.ajax({
+    type: 'post',
+    url: '/new-house/c/admin/bank/setStatus',
+    data: {id:id , status:status},
+    dataType:'json',
+    mysuccess: function(json){
+      doSearch();
+      layer.msg('已'+str);
+    }
+  });
+   layer.close(i);
+}, function(){
+});
 }
 </script>
 <style type="text/css">
+html{ overflow: visible; }
 a.header_logo{color: #679ECA;}
 a.header_logo i{ font-size: 70px;}
 a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line-height: 36px; vertical-align: text-bottom; }
@@ -90,7 +129,7 @@ a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line
 .form-ul .w3,
 .form-ul .w6{ width: 50%; }
 .list_box li{ position: relative; }
-.posa{ display: inline-block; position: absolute; right: 0; top: 0; z-index: 999; }
+.posa{ display: inline-block; position: absolute; right: 0; top: 0; }
 .caozuo{visibility: hidden; }
 }
 @media screen and (max-width: 600px) {
@@ -101,13 +140,15 @@ a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line
 .form-ul .w6{ width: 100%; }
 }
 @media screen and (max-width: 767px) {
-.LiTit{ display: none; }
-.tit{ display: inline-block; }
+.LiTit,.agent{ display: none; }
+.tit{ display: inline-block; color: #999; font-size: 14px; }
 .caozuogroup{ display: none; }
 }
 @media screen and (min-width: 768px) {
 .tit{ display: none; }
+.agent{ display: inline-block; font-size: 14px; color: #666; }
 }
+.emptyMsg{ color: #999; }
 </style>
 </head>
 
@@ -127,6 +168,7 @@ a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line
     <ul class="menu">
       <li class="menu-item"><a href="bank.html" class="checked">申请列表</a></li>
       <li class="menu-item"><a href="bank_work.jsp">业务设置</a></li>
+      <li class="menu-item"><a href="login.html" class="">退出</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
@@ -134,36 +176,45 @@ a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line
   <div class="container bodys">
     <div class="row">
       <div class="bodys_tab row">
-        <a href="#" class="col-xs-4 col-sm-4 hover" onclick="selectStatus(1)">待确认</a>
-        <a href="#" class="col-xs-4 col-sm-4"  onclick="selectStatus(2)">已确认</a>
-        <a href="#" class="col-xs-4 col-sm-4"  onclick="selectStatus(3)">已忽略</a>
+        <a href="#" class="tab_dqr tab_n1 col-xs-4 col-sm-4 hover btn_act" data-type="tabAct" data-n="1">待确认</a>
+        <a href="#" class="tab_yqr tab_n2 col-xs-4 col-sm-4 btn_act" data-type="tabAct" data-n="2">已接受</a>
+        <a href="#" class="tab_yhl tab_n3 col-xs-4 col-sm-4 btn_act" data-type="tabAct" data-n="3">已忽略</a>
       </div>
       <div class="bodys_text">
         <div class="list_box">
           <div class="row LiTit">
-              <div class="col-xs-12 col-sm-3">楼盘名称</div>
-              <div class="col-xs-12 col-sm-2">面积</div>
-              <div class="col-xs-12 col-sm-2">价格</div>
-              <div class="col-xs-12 col-sm-2">拟贷款</div>
-              <div id="action" class="col-xs-12 col-sm-3">操作</div>
-            </div>
+            <div class="col-xs-12 col-sm-3">楼盘名称</div>
+            <div class="col-xs-12 col-sm-2">面积</div>
+            <div class="col-xs-12 col-sm-2">价格</div>
+            <div class="col-xs-12 col-sm-2">拟贷款</div>
+            <div class="col-xs-12 col-sm-3"><span id="action">操作</span>&nbsp;</div>
+          </div>
+          <div id="emptyMsg" class="emptyMsg" style="display:none;">暂无业务预约</div>
           <ul class="ul">
-            <li class="li  repeat" data-id="1">
-	              <div class="row">
-	                <div class="col-xs-12 col-sm-3"><span class="tit">小区名：</span>$[area]</div>
-	                <div class="col-xs-12 col-sm-2"><span class="tit">　面积：</span>$[mji]m²</div>
-	                <div class="col-xs-12 col-sm-2"><span class="tit">　价格：</span>$[zjia]万</div>
-	                <div class="col-xs-12 col-sm-2"><span class="tit">拟贷款：</span>$[loan]万</div>
-	                <div class="col-xs-12 col-sm-3 caozuogroup">
-	                  <div   class="btn-group caozuo" role="group" >
-	                    <a show="loanStatus==1" class="btn btn-primary " data-type="qr" onclick="setStatus($[id],2)">确认</a>
-	                    <a show="loanStatus==1" class="btn btn-default " data-type="hl" onclick="setStatus($[id],3)">忽略</a>
-	                    <a>&nbsp;</a>
-	                  </div>
-	                </div>
-	                <div class="col-xs-12 col-sm-3"><span class="tit">业务员：</span>$[comp] $[sellerName] <span class="agent">(经纪人)</span></div>
-	                <div class="col-xs-12 col-sm-3"><span class="tit"></span>$[sellerTel]</div>
-	              </div>
+            <li class="li  repeat"  style="display:none;" data-id="$[id]">
+              <div class="row">
+                <div class="col-xs-12 col-sm-3"><span class="tit">小区名：</span>$[area]</div>
+                <div class="col-xs-12 col-sm-2"><span class="tit">　面积：</span>$[mji]m²</div>
+                <div class="col-xs-12 col-sm-2"><span class="tit">　价格：</span>$[zjia]万</div>
+                <div class="col-xs-12 col-sm-2"><span class="tit">拟贷款：</span>$[loan]万</div>
+                <div class="col-xs-12 col-sm-3 caozuogroup">
+                  <div show="loanStatus==1" class="btn-group caozuo" role="group" >
+                    <a class="btn btn-primary btn_act" data-type="caozuo" data-n="2">接受</a>
+                    <a class="btn btn-default btn_act" data-type="caozuo" data-n="3">忽略</a>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-9"><span class="tit">经纪人：</span>$[comp] $[sellerName] <span class="agent">(经纪人)</span><span class="tit"></span>$[sellerTel]</div>
+              </div>
+              <div show="loanStatus==1" class="dropdown posa">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  操作
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#" class=" btn_act" data-type="caozuo" data-n="2">接受</a></li>
+                  <li><a href="#" class=" btn_act" data-type="caozuo" data-n="3">取消</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>

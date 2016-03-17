@@ -1,3 +1,4 @@
+<%@page import="org.bc.sdak.utils.LogUtil"%>
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,6 +10,10 @@
 // 		out.write("请在微信中打开");
 // 		return;
 // 	}
+String host = request.getServerName();
+if("bank.zhongjiebao.com".equals(host)){
+	response.sendRedirect("/new-house/admin/bank/login.html");
+}
 %>
 <!DOCTYPE html>
 <html>

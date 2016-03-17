@@ -27,4 +27,5 @@
 <c:forEach items="${labels }" var="label">
 <h3 class="h3"><span class="fr"></span>${label.title }</h3>
 <div class="wrap text">${label.conts }</div>
-</c:forEach>s
+</c:forEach>
+<div style="display:none;" id="bankId">${bank.id }</div>
