@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="com.youwei.newhouse.banking.entity.Bank"%>
 <%@page import="org.bc.sdak.TransactionalServiceHelper"%>
@@ -15,9 +16,12 @@
 	String comp = request.getParameter("comp");
 	request.setAttribute("comp", comp);
 	
-	List<Bank> bankList = dao.listByParams(Bank.class, "from Bank");
+	List<Map> bankList = dao.listAsMap("select b.id as id , b.name as fenhang , b.biz as biz ,u.name as bankName from Bank b , User u where u.id=b.managerUid and b.name <>'' ");
 	request.setAttribute("bankList", bankList);
-	request.setAttribute("firstBankId", bankList.get(0).id);
+	if(bankList.size()>0){
+		request.setAttribute("firstBankId", bankList.get(0).get("id"));	
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -261,9 +265,9 @@ a.abtn.big{ padding: 6px 10px; }
 	          <div class="L"><img src="images/cmb_logo.png" alt=""></div>
 	          <div class="R"><a class="abtn bg_orange borr3 big fr submitKH dh" onclick="alertBoxFun();return false;">提交客户</a></div>
 	          <div class="C">
-	            <h2 class=" F_h2">招商银行</h2>
+	            <h2 class=" F_h2">${bank.bankName }</h2>
 	            <h3 class=" F_h3">
-	              ${bank.name}
+	              ${bank.fenhang}
 	            </h3>
 	            <h4 class=" F_h4">${bank.biz }</h4>
 	          </div>
@@ -348,11 +352,11 @@ function addOrder(){
 	<input type="hidden" name="comp" value="${comp }"/>
 	<input type="hidden" name="bankId" class="bankId" value=""/>
   <ul class="form-ul">
-    <li class=""><label class="form-section form-active"><strong class="input-label">小区名</strong><input name="area" type="text" class="input placeholder" placeholder="小区名称"><span class="tip"></span></label></li>
-    <li class=""><label class="form-section form-active"><strong class="input-label">面积 (数字)</strong><input name="mji" type="text" class="input placeholder" placeholder="面积 (数字)"><span class="tip">m²</span></label></li>
-    <li class=""><label class="form-section form-active"><strong class="input-label">价格 (万元)</strong><input name="zjia" type="text" class="input placeholder" placeholder="价格 (万元)"><span class="tip">万元</span></label></li>
-    <li class=""><label class="form-section form-active"><strong class="input-label">拟贷款 (万元)</strong><input name="loan" type="text" class="input placeholder" placeholder="拟贷款 (万元)"><span class="tip">万元</span></label></li>
-    <a href="#" class="btn btn_block btn_act" onclick="addOrder()">提交</a>
+    <li class=""><label class="form-section form-active"><strong class="input-label">小区名</strong><input desc="小区名" name="area" type="text" class="input placeholder" placeholder="小区名称"><span class="tip"></span></label></li>
+    <li class=""><label class="form-section form-active"><strong class="input-label">面积 (数字)</strong><input desc="面积" name="mji" type="text" class="input placeholder" placeholder="面积 (数字)"><span class="tip">m²</span></label></li>
+    <li class=""><label class="form-section form-active"><strong class="input-label">价格 (万元)</strong><input desc="总价" name="zjia" type="text" class="input placeholder" placeholder="价格 (万元)"><span class="tip">万元</span></label></li>
+    <li class=""><label class="form-section form-active"><strong class="input-label">拟贷款 (万元)</strong><input desc="贷款金额" name="loan" type="text" class="input placeholder" placeholder="拟贷款 (万元)"><span class="tip">万元</span></label></li>
+    <a href="javascript:void(0);" class="btn btn_block btn_act" onclick="addOrder()">提交</a>
 <!--         <input type="submit" class="submit hidden btn btn_act" value="submit" > -->
   </ul>
 <div class="tipbox">

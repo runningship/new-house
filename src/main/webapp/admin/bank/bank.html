@@ -110,6 +110,21 @@ layer.confirm('确定'+str+'？', {
 }, function(){
 });
 }
+
+function encodeTel(tel , status){
+	if(!tel){
+		return "";
+	}
+	if(tel.length<11){
+		return "";
+	}
+	if(status==1 || status==3){
+		return tel.substring(0,3)+"****"+tel.substring(7,11)	
+	}else{
+		return tel;
+	}
+	
+}
 </script>
 <style type="text/css">
 html{ overflow: visible; }
@@ -203,7 +218,7 @@ a.header_logo span{ padding-left: 10px; display: inline-block; height:36px; line
                     <a class="btn btn-default btn_act" data-type="caozuo" data-n="3">忽略</a>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-9"><span class="tit">经纪人：</span>$[comp] $[sellerName] <span class="agent">(经纪人)</span><span class="tit"></span>$[sellerTel]</div>
+                <div class="col-xs-12 col-sm-9"><span class="tit">经纪人：</span>$[comp] $[sellerName] <span class="agent">(经纪人)</span><span class="tit"></span><span runscript="true">encodeTel('$[sellerTel]' , $[status])</span></div>
               </div>
               <div show="loanStatus==1" class="dropdown posa">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
