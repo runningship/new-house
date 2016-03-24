@@ -136,16 +136,24 @@ input{width:90%;}
             </c:forEach>
        </td>
     </tr>
-    <tr>
-        <td class="tableleft">楼盘状态</td>
-        <td colspan="5">
-        	<select id="status" name="status">
-        		<option value="0">在售</option>
-        		<option value="1">售罄</option>
-        		<option value="2">下线</option>
-        	</select>
-       </td>
-    </tr>
+    
+    
+		<tr>
+			<c:if test="${me.role eq '管理员' }">
+		        <td class="tableleft">楼盘状态</td>
+		        <td colspan="">
+		        	<select id="status" name="status">
+		        		<option value="0">在售</option>
+		        		<option value="1">售罄</option>
+		        		<option value="2">下线</option>
+		        	</select>
+		       </td>
+	       </c:if>
+	       <td class="tableleft">带看规则</td>
+        	<td><textarea name="daikanRule"  style="width:90%;height:100%">${estate.daikanRule }</textarea></td>
+	    </tr>
+	
+    
     <tr>
         <td class="tableleft">物业类型</td>
         <td colspan="5">

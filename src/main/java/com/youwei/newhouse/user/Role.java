@@ -10,7 +10,8 @@ import net.sf.json.JSONObject;
 
 public enum Role {
 	管理员("admin"),
-	销售主管("xszg");
+	销售主管("xszg"),
+	银行主管("bank");
 	private String pinyin;
 	
 	private Role( String code){

@@ -112,7 +112,10 @@ public class EstateService {
 		po.xuequ = estate.xuequ;
 		po.jiaotong = estate.jiaotong;
 		po.yongjin = estate.yongjin;
-		po.status = estate.status;
+		if(estate.status!=null){
+			po.status = estate.status;
+		}
+		po.daikanRule = estate.daikanRule;
 		dao.saveOrUpdate(po);
 		return mv;
 	}
@@ -132,6 +135,7 @@ public class EstateService {
 	@WebMethod
 	public ModelAndView doSave(Estate estate){
 		ModelAndView mv = new ModelAndView();
+		estate.status=0;
 		dao.saveOrUpdate(estate);
 		return mv;
 	}

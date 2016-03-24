@@ -108,12 +108,14 @@
                              items: [
                                  {
                                      id: 'bank_biz_list',
-                                     text: '申请列表',
-                                     href: 'bank/bank.html'
+                                     text: '银行列表',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
+                                     href: 'bank/bankList.jsp'
                                  },{
                                      id: 'bank_biz_add',
-                                     text: '业务设置',
-                                     href: 'bank/bank_work.html'
+                                     text: '申请列表',
+                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
+                                     href: 'bank/orderList.jsp'
                                  }
                              ]
                          },{

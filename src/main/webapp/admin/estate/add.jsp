@@ -126,6 +126,8 @@ input{width:90%;}
         </td>
         <td class="tableleft">楼盘特色</td>
         <td><textarea name="tese" style="width:90%;height:100%"></textarea></td>
+        <td class="tableleft">带看规则</td>
+        <td><textarea name="daikanRule" style="width:90%;height:100%"></textarea></td>
     </tr>
     <tr>
     

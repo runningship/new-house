@@ -3,6 +3,7 @@ package com.youwei.newhouse.banking;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -70,9 +71,22 @@ public class BankService {
 	}
 	
 	@WebMethod
-	public ModelAndView list(Page<Bank> page){
+	public ModelAndView list(Page<Map> page , String bankName , String tel){
 		ModelAndView mv = new ModelAndView();
-		page = dao.findPage(page, "from Bank");
+		StringBuilder hql = new StringBuilder();
+		List<Object> params = new ArrayList<Object>();
+		hql.append("select bank.name as subBankName , bank.biz as biz ,u.name as bankName,u.tel as tel from Bank bank , User u where bank.managerUid=u.id");
+		if(StringUtils.isNotEmpty(bankName)){
+			hql.append(" and u.name like ? ");
+			params.add("%"+bankName+"%");
+		}
+		
+		if(StringUtils.isNotEmpty(tel)){
+			hql.append(" and u.tel like ? ");
+			params.add("%"+tel+"%");
+		}
+		
+		page = dao.findPage(page, hql.toString() , true , params.toArray());
 		mv.data.put("page", JSONHelper.toJSON(page));
 		return mv;
 	}
@@ -111,6 +125,34 @@ public class BankService {
 	}
 	
 	@WebMethod
+	public ModelAndView listAllOrder(Page<Map> page , Integer status , String bankName , String sellerTel , String area){
+		ModelAndView mv = new ModelAndView();
+		StringBuilder sql = new StringBuilder();
+		sql.append("select bank.name as bankName, loanOrder.id as id , loanOrder.area as area, loanOrder.zjia as zjia, loanOrder.mji as mji ,loanOrder.loan as loan , loanOrder.comp as comp , loanOrder.sellerTel as sellerTel,"
+				+ " loanOrder.sellerName as sellerName, loanOrder.status as status from LoanOrder loanOrder ,Bank bank where bank.id=loanOrder.bankId  ");
+		List<Object> params = new ArrayList<Object>();
+		if(status!=null){
+			sql.append(" and status = ?");
+			params.add(status);
+		}
+		if(StringUtils.isNotEmpty(bankName)){
+			sql.append(" and bank.name like ?");
+			params.add("%"+bankName+"%");
+		}
+		if(StringUtils.isNotEmpty(sellerTel)){
+			sql.append(" and sellerTel like ?");
+			params.add("%"+sellerTel+"%");
+		}
+		if(StringUtils.isNotEmpty(area)){
+			sql.append(" and area like ?");
+			params.add("%"+area+"%");
+		}
+		page = dao.findPage(page, sql.toString() ,true , params.toArray());
+		mv.data.put("page", JSONHelper.toJSON(page));
+		return mv;
+	}
+	
+	@WebMethod
 	public ModelAndView listOrder(Page<LoanOrder> page , Integer status){
 		ModelAndView mv = new ModelAndView();
 		StringBuilder sql = new StringBuilder();
@@ -122,13 +164,22 @@ public class BankService {
 		}else{
 			params.add(-1);
 		}
-		
 		if(status!=null){
 			sql.append(" and status = ?");
 			params.add(status);
 		}
 		page = dao.findPage(page, sql.toString() , params.toArray());
 		mv.data.put("page", JSONHelper.toJSON(page));
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView deleteOrder(Integer id){
+		ModelAndView mv = new ModelAndView();
+		LoanOrder po = dao.get(LoanOrder.class, id);
+		if(po!=null){
+			dao.delete(po);
+		}
 		return mv;
 	}
 }

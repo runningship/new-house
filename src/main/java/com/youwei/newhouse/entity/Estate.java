@@ -84,4 +84,7 @@ public class Estate {
 	
 	//0 在售 1售罄，2下线
 	public Integer status;
+	
+	//带看规则
+	public String daikanRule;
 }

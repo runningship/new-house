@@ -119,6 +119,7 @@ function initImg(){
           <div class="pd"><label class="">经纪人佣金: </label><span class="yongjin" style="color:#F60">${estate.yongjin }</span></div>
           <div class="pd"><label class="">开发商界定规则: </label><span class="">经纪人推荐的客户号码隐藏中间四位，开发商方面如选择查看完整号码，则代表要约达成，客户状态变成“有效”。</span> </div>
           <div class="pd"><label class="">案场联系: </label><span class="">${estate.tel }</span> </div>
+          <div class="pd"><label class="">带看规则: </label><span class="">${estate.daikanRule }</span> </div>
         </div>
       </div>
       <div class="wrap text"></div>
