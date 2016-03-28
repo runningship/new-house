@@ -78,47 +78,6 @@
                                  }
                              ]
                          },{
-                             text: '配置管理',
-                             items: [
-                                 {
-                                     id: 'lxing_cfg',
-                                     text: '建筑类型',
-                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                     href: 'config/lxingList.jsp'
-                                 },{
-                                     id: 'wylx_cfg',
-                                     text: '物业类型',
-                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                     href: 'config/wylxList.jsp'
-                                 }
-                                  ,{
-                                      id: 'city_cfg',
-                                      text: '城市',
-                                      <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                      href: 'city/edit.jsp'
-                                  }
-//                                   ,{
-//                                      id: 'huxing_cfg',
-//                                      text: '户型',
-//                                      href: 'huxing/list.jsp'
-//                                  }
-                             ]
-                         },{
-                             text: '贷款业务',
-                             items: [
-                                 {
-                                     id: 'bank_biz_list',
-                                     text: '银行列表',
-                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                     href: 'bank/bankList.jsp'
-                                 },{
-                                     id: 'bank_biz_add',
-                                     text: '申请列表',
-                                     <c:if test="${me.role ne '管理员' }"> visible : false,</c:if>
-                                     href: 'bank/orderList.jsp'
-                                 }
-                             ]
-                         },{
                              text: '用户管理',
                              items: [{
                                      id: 'admin_list',
@@ -139,6 +98,43 @@
                      ]
                  }
              ];
+       
+       var bank={
+               text: '贷款业务',
+               items: [
+                   {
+                       id: 'bank_biz_list',
+                       text: '银行列表',
+                       href: 'bank/bankList.jsp'
+                   },{
+                       id: 'bank_biz_add',
+                       text: '申请列表',
+                       href: 'bank/orderList.jsp'
+                   }
+               ]
+           };
+       var settings = {
+               text: '配置管理',
+               items: [
+                   {
+                       id: 'lxing_cfg',
+                       text: '建筑类型',
+                       href: 'config/lxingList.jsp'
+                   },{
+                       id: 'wylx_cfg',
+                       text: '物业类型',
+                       href: 'config/wylxList.jsp'
+                   }
+                    ,{
+                        id: 'city_cfg',
+                        text: '城市',
+                        href: 'city/edit.jsp'
+                    }
+               ]
+           };
+       <c:if test="${me.role eq '管理员' }">config[0].menu.push(bank);</c:if>
+       <c:if test="${me.role eq '管理员' }">config[0].menu.push(settings);</c:if>
+       
        new PageUtil.MainPage({
          modulesConfig : config
        });
