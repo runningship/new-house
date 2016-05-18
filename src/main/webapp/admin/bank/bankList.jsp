@@ -33,6 +33,7 @@ function doSearch(){
 	}
 	
 	$(function(){
+		Page.Init();
 		doSearch();
 	});
 </script>
