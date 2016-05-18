@@ -17,4 +17,6 @@ public class Bank {
 	public Integer managerUid;
 	
 	public String biz;
+
+	public String logo;
 }

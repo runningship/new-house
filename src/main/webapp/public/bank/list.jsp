@@ -16,7 +16,7 @@
 	String comp = request.getParameter("comp");
 	request.setAttribute("comp", comp);
 	
-	List<Map> bankList = dao.listAsMap("select b.id as id , b.name as fenhang , b.biz as biz ,u.name as bankName from Bank b , User u where u.id=b.managerUid and b.name <>'' ");
+	List<Map> bankList = dao.listAsMap("select b.id as id , b.name as fenhang , b.biz as biz , b.logo as logo ,u.name as bankName from Bank b , User u where u.id=b.managerUid and b.name <>'' ");
 	request.setAttribute("bankList", bankList);
 	if(bankList.size()>0){
 		request.setAttribute("firstBankId", bankList.get(0).get("id"));	
@@ -262,7 +262,7 @@ a.abtn.big{ padding: 6px 10px; }
       <ul class="NH2L">
       	<c:forEach items="${bankList }" var="bank" >
 	        <li onclick="getBankDetail(${bank.id});">
-	          <div class="L"><img src="images/cmb_logo.png" alt=""></div>
+	          <div class="L"><img src="images/${bank.logo}" ></div>
 	          <div class="R"><a class="abtn bg_orange borr3 big fr submitKH dh" onclick="alertBoxFun();return false;">提交客户</a></div>
 	          <div class="C">
 	            <h2 class=" F_h2">${bank.bankName }</h2>

@@ -20,7 +20,7 @@
       </div>
  -->
        
-<h2 class="h2">招商银行<a class="abtn bg_orange borr3 big fr submitKH" onclick="alertBoxFun();return false;">提交客户</a></h2>
+<h2 class="h2">${bank.name}<a class="abtn bg_orange borr3 big fr submitKH" onclick="alertBoxFun();return false;">提交客户</a></h2>
 <div class="wrap text">
    <div class="p ">${bank.biz }</div>
 </div>

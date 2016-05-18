@@ -24,6 +24,7 @@ import com.youwei.newhouse.banking.entity.Bank;
 import com.youwei.newhouse.banking.entity.BankLabel;
 import com.youwei.newhouse.banking.entity.LoanOrder;
 import com.youwei.newhouse.entity.User;
+import com.youwei.newhouse.util.ShortMessageHelper;
 
 @Module(name="/admin/bank")
 public class BankService {
@@ -110,6 +111,9 @@ public class BankService {
 		order.addtime = new Date();
 		order.status = 1;
 		dao.saveOrUpdate(order);
+		Bank bank = dao.get(Bank.class, order.bankId);
+		User manager = dao.get(User.class, bank.managerUid);
+		ShortMessageHelper.sendNewBankOrderMsg(manager.tel);
 		mv.data.put("result", "1");
 		return mv;
 	}

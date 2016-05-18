@@ -46,6 +46,18 @@ public class ShortMessageHelper {
 		}
 	}
 	
+	public static boolean sendNewBankOrderMsg(String tel){
+		CCPRestSDK restAPI = getClient();
+		HashMap<String, Object> result = restAPI.sendTemplateSMS(tel,"75635" ,new String[]{""});
+		if("000000".equals(result.get("statusCode"))){
+			return true;
+		}else{
+			//异常返回输出错误码和错误信息
+			LogUtil.info("发送验证码失败,tel = "+tel+",错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
+			return false;
+		}
+	}
+	
 	private static  CCPRestSDK getClient(){
 		CCPRestSDK restAPI = new CCPRestSDK();
 		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
